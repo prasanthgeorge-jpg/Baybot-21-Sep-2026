@@ -2174,13 +2174,23 @@ a.model-card-media {
     }
 
     body {
+        background-color: var(--page-blue-soft);
+    }
+
+    /* The gradient lives on a fixed layer rather than background-attachment:
+       fixed, which iOS Safari ignores and which stutters on scroll on phones. */
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
         background: linear-gradient(165deg,
             var(--page-blue) 0%,
             var(--page-blue-soft) 28%,
             #ffffff 52%,
             #d4e5ff 76%,
-            #a9c9fb 100%) fixed;
-        background-color: var(--page-blue-soft);
+            #a9c9fb 100%);
     }
 
     /* Full-width sections: transparent, or a light blue/white wash */
@@ -2248,9 +2258,89 @@ a.model-card-media {
     }
 }
 
-/* Mobile menu overlay: keep near-opaque for legibility */
+/* ==========================================================================
+   Mobile & Touch Refinements
+   Base responsive layout already exists above; this block fixes phone-specific
+   issues: an off-screen mobile menu, undersized tap targets, an overlapping
+   scroll cue and overflowing buttons. Delete this block to revert.
+   ========================================================================== */
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
 @media screen and (max-width: 968px) {
+    /* Hamburger: full 44px touch target (X animation is unaffected) */
+    .mobile-menu-toggle {
+        min-width: 44px;
+        min-height: 44px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Menu: solid so page content doesn't ghost through, and it scrolls
+       within the screen when a dropdown expands (was cut off below the fold) */
     .nav-menu {
-        background-color: rgba(244, 249, 255, 0.97);
+        background-color: #f4f9ff;
+        max-height: calc(100vh - 70px);
+        max-height: calc(100dvh - 70px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Scroll cue overlaps the hero buttons on phones and is pointless on touch */
+    .scroll-indicator {
+        display: none;
+    }
+
+    /* Hero fills the visible screen even while browser toolbars are showing */
+    @supports (min-height: 100svh) {
+        .hero-section {
+            min-height: 100svh;
+        }
+    }
+
+    /* Long button labels wrap instead of pushing past the screen edge */
+    .btn {
+        white-space: normal;
+        max-width: 100%;
+        text-align: center;
+    }
+
+    /* Tap targets of at least 44px */
+    .footer-links li,
+    .footer-contact li {
+        margin-bottom: 0;
+    }
+
+    .footer-links a,
+    .footer-contact a,
+    .breadcrumb a,
+    .card-link,
+    .hero-media-caption {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+    }
+
+    .footer-links a,
+    .footer-contact a {
+        display: flex;
+    }
+
+    .breadcrumb {
+        align-items: center;
+    }
+
+    .breadcrumb a {
+        padding-inline: 0.25rem;
+    }
+
+    /* Model name links: bigger hit area with no change to card spacing */
+    .model-card-body h3 a {
+        display: inline-block;
+        padding-block: 0.5rem;
+        margin-block: -0.5rem;
     }
 }
