@@ -2157,3 +2157,100 @@ a.model-card-media {
         page-break-inside: avoid;
     }
 }
+
+/* ==========================================================================
+   Blue & White Translucent Theme
+   Page-level blue-to-white gradient; white sections and cards become
+   translucent glass so the gradient shows through. Screen only - print
+   stays white. To revert, delete this block.
+   ========================================================================== */
+@media screen {
+    :root {
+        --page-blue: #b3d1ff;
+        --page-blue-soft: #dceaff;
+        --glass: rgba(255, 255, 255, 0.55);
+        --glass-strong: rgba(255, 255, 255, 0.72);
+        --glass-blue: rgba(220, 234, 255, 0.55);
+    }
+
+    body {
+        background: linear-gradient(165deg,
+            var(--page-blue) 0%,
+            var(--page-blue-soft) 28%,
+            #ffffff 52%,
+            #d4e5ff 76%,
+            #a9c9fb 100%) fixed;
+        background-color: var(--page-blue-soft);
+    }
+
+    /* Full-width sections: transparent, or a light blue/white wash */
+    .about-section,
+    .faq-section {
+        background: transparent;
+    }
+
+    .industries-section {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, var(--glass-blue) 100%);
+    }
+
+    .page-header,
+    .hero-section,
+    .cta-section,
+    .product-hero {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(179, 209, 255, 0.35) 100%);
+    }
+
+    /* Navigation */
+    .navbar {
+        background-color: rgba(255, 255, 255, 0.6);
+    }
+
+    .navbar.scrolled {
+        background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* Cards and panels: frosted white */
+    .dropdown,
+    .industry-card,
+    .model-card,
+    .product-feature,
+    .spec-block,
+    .radio-card-body {
+        background-color: var(--glass);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+    }
+
+    /* Grey tiles and chips: light translucent blue */
+    .feature-highlight,
+    .accordion-item,
+    .contact-card,
+    .contact-info-list li,
+    .legal-placeholder,
+    .industry-chips li {
+        background-color: var(--glass-blue);
+    }
+
+    .model-card-media {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(179, 209, 255, 0.5) 100%);
+    }
+
+    .btn-white:hover,
+    .dropdown a:hover {
+        background-color: rgba(220, 234, 255, 0.85);
+    }
+
+    /* Form fields stay mostly opaque so typed text remains easy to read */
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        background-color: var(--glass-strong);
+    }
+}
+
+/* Mobile menu overlay: keep near-opaque for legibility */
+@media screen and (max-width: 968px) {
+    .nav-menu {
+        background-color: rgba(244, 249, 255, 0.97);
+    }
+}
