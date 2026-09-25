@@ -460,7 +460,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Preload critical images
 window.addEventListener('load', function() {
     const criticalImages = [
-        'assets/images/logo.png',
+        'assets/images/logo.png?v=2',
         'assets/images/pro/Bots-in-Field1.webp'
     ];
 
