@@ -26,6 +26,18 @@ function buildMailto(subject, data) {
         '&body=' + encodeURIComponent(body);
 }
 
+// Wraps a plain <input type="tel"> with the intl-tel-input country
+// dropdown/flag picker, defaulting to the US. Returns null on pages where
+// the library script wasn't loaded, so callers can fall back gracefully.
+function setupPhoneInput(inputEl) {
+    if (!inputEl || typeof window.intlTelInput !== 'function') return null;
+    return window.intlTelInput(inputEl, {
+        initialCountry: 'us',
+        separateDialCode: true,
+        strictMode: true
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Mobile Menu Toggle
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
@@ -170,6 +182,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // a request is never silently lost.
     const scheduleDemoForm = document.getElementById('scheduleDemoForm');
     if (scheduleDemoForm) {
+        const demoPhoneInput = document.getElementById('d-phone');
+        const demoPhoneIti = setupPhoneInput(demoPhoneInput);
+
         scheduleDemoForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -193,7 +208,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
+            if (demoPhoneIti && !demoPhoneIti.isValidNumber()) {
+                demoPhoneInput.setAttribute('aria-invalid', 'true');
+                setStatus('Please enter a valid phone number for the selected country.', 'error');
+                demoPhoneInput.focus();
+                return;
+            }
+            demoPhoneInput.setAttribute('aria-invalid', 'false');
+
             const data = Object.fromEntries(new FormData(this).entries());
+            if (demoPhoneIti) data.phone = demoPhoneIti.getNumber();
             const submitButton = this.querySelector('button[type="submit"]');
             const originalText = submitButton.innerHTML;
             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
@@ -239,6 +263,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const chatLeadName = document.getElementById('chat-lead-name');
         const chatLeadEmail = document.getElementById('chat-lead-email');
         const chatLeadPhone = document.getElementById('chat-lead-phone');
+        const chatLeadPhoneIti = setupPhoneInput(chatLeadPhone);
+        const chatLeadStatus = document.getElementById('chatLeadStatus');
         const chatCloseBtn = document.getElementById('chatCloseBtn');
         const chatMessages = document.getElementById('chatMessages');
         const chatForm = document.getElementById('chatForm');
@@ -281,6 +307,8 @@ document.addEventListener('DOMContentLoaded', function() {
         chatLeadForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
+            if (chatLeadStatus) chatLeadStatus.textContent = '';
+
             const invalid = Array.from(this.querySelectorAll('input'))
                 .filter(field => {
                     const bad = !field.checkValidity();
@@ -289,14 +317,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
 
             if (invalid.length) {
+                if (chatLeadStatus) chatLeadStatus.textContent = 'Please complete the highlighted fields.';
                 invalid[0].focus();
                 return;
             }
 
+            if (chatLeadPhoneIti && !chatLeadPhoneIti.isValidNumber()) {
+                chatLeadPhone.setAttribute('aria-invalid', 'true');
+                if (chatLeadStatus) chatLeadStatus.textContent = 'Please enter a valid phone number for the selected country.';
+                chatLeadPhone.focus();
+                return;
+            }
+            chatLeadPhone.setAttribute('aria-invalid', 'false');
+
             lead = {
                 name: chatLeadName.value.trim(),
                 email: chatLeadEmail.value.trim(),
-                phone: chatLeadPhone.value.trim()
+                phone: chatLeadPhoneIti ? chatLeadPhoneIti.getNumber() : chatLeadPhone.value.trim()
             };
 
             // Fire-and-forget: save the lead to the spreadsheet in the
@@ -324,6 +361,7 @@ document.addEventListener('DOMContentLoaded', function() {
             history.length = 0;
             lead = null;
             chatLeadForm.reset();
+            if (chatLeadStatus) chatLeadStatus.textContent = '';
         });
 
         chatForm.addEventListener('submit', function(e) {

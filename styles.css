@@ -930,6 +930,19 @@ section {
     min-height: 120px;
 }
 
+/* Phone number field (intl-tel-input country dropdown) */
+.form-group .iti {
+    width: 100%;
+}
+
+.form-group .iti input {
+    width: 100%;
+}
+
+.form-group .iti__selected-flag {
+    padding: 0 var(--spacing-sm);
+}
+
 /* Chat Widget */
 .chat-card {
     display: flex;
