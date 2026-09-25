@@ -82,7 +82,7 @@ const server = http.createServer(function(req, res) {
 
 server.listen(PORT, function() {
     console.log('Server running on port ' + PORT);
-    ['GEMINI_API_KEY', 'SHEETS_WEBHOOK_URL', 'SHEETS_WEBHOOK_SECRET'].forEach(function(key) {
+    ['GEMINI_API_KEY', 'SHEETS_WEBHOOK_URL', 'SHEETS_WEBHOOK_SECRET', 'DEMO_SHEETS_WEBHOOK_URL', 'DEMO_SHEETS_WEBHOOK_SECRET'].forEach(function(key) {
         if (!process.env[key]) {
             console.log('Note: ' + key + ' is not set - see .env.local.example.');
         }

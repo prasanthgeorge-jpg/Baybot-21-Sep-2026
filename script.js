@@ -164,6 +164,68 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Schedule Demo page form -> /api/demo-request, which forwards it to a
+    // Google Sheet plus an email notification. Falls back to mailto if that
+    // fails, same safety net the generic .js-contact-form handler uses, so
+    // a request is never silently lost.
+    const scheduleDemoForm = document.getElementById('scheduleDemoForm');
+    if (scheduleDemoForm) {
+        scheduleDemoForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const status = this.querySelector('.form-status');
+            const setStatus = (message, kind) => {
+                if (!status) return;
+                status.textContent = message;
+                status.className = 'form-status' + (kind ? ' is-' + kind : '');
+            };
+
+            const invalid = Array.from(this.querySelectorAll('input, textarea, select'))
+                .filter(field => {
+                    const bad = !field.checkValidity();
+                    field.setAttribute('aria-invalid', bad ? 'true' : 'false');
+                    return bad;
+                });
+
+            if (invalid.length) {
+                setStatus('Please complete the highlighted fields.', 'error');
+                invalid[0].focus();
+                return;
+            }
+
+            const data = Object.fromEntries(new FormData(this).entries());
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitButton.disabled = true;
+            setStatus('');
+
+            fetch('/api/demo-request', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+                .then(function(response) {
+                    return response.json().then(function(body) {
+                        if (!response.ok) throw new Error(body && body.error || 'HTTP ' + response.status);
+                        return body;
+                    });
+                })
+                .then(function() {
+                    scheduleDemoForm.reset();
+                    setStatus("Thank you - your demo request has been sent. We'll be in touch within one business day.", 'success');
+                })
+                .catch(function() {
+                    window.location.href = buildMailto('Demo request', data);
+                    setStatus('Your email app should open with your request ready to send.', 'success');
+                })
+                .finally(function() {
+                    submitButton.innerHTML = originalText;
+                    submitButton.disabled = false;
+                });
+        });
+    }
+
     // Contact page "Chat with Us" widget. Talks to the /api/chat serverless
     // function, which proxies to Gemini so the API key never reaches the
     // browser. Only present on contact.html, so every lookup here is guarded.

@@ -271,18 +271,23 @@ also leave them out of the upload entirely.
 
 ### Forms
 
-The contact, demo, parts and homepage forms all share one handler in
-`script.js`. With no configuration, a submission opens the visitor's email
-app with the message pre-filled to `info@baybotdynamics.com`. That keeps
-enquiries from being lost, but some visitors won't have a mail app set up.
+The homepage and Parts Store forms share one generic handler in `script.js`
+(`.js-contact-form`). With no configuration, a submission opens the visitor's
+email app with the message pre-filled to `info@baybotdynamics.com`. That
+keeps enquiries from being lost, but some visitors won't have a mail app set
+up.
 
-To have forms submit in the page instead, create a form endpoint (Formspree,
-Web3Forms or similar; all work on any host, including GoDaddy) and set it at
-the top of `script.js`:
+To have those two forms submit in the page instead, create a form endpoint
+(Formspree, Web3Forms or similar; all work on any host, including GoDaddy)
+and set it at the top of `script.js`:
 
 ```js
 const FORM_ENDPOINT = 'https://formspree.io/f/your-id';
 ```
+
+The Contact page and Schedule Demo page forms are **not** part of this
+generic handler - see "Chat with Us" and "Schedule Demo notifications"
+below for how each of those works instead.
 
 ### Chat with Us (AI assistant)
 
@@ -347,6 +352,35 @@ jurisdictions (GDPR, CCPA, etc.). If you're storing them, make sure the
 site's privacy policy (currently just the `terms.html` outline - see "Before
 going live" below) discloses that visitors' IP/location may be logged when
 they use the chat.
+
+### Schedule Demo notifications (form -> Google Sheet + email)
+
+The Schedule Demo page's form submits to `api/demo-request.js`, which uses
+the same Google Apps Script webhook bridge as lead capture, but to a
+separate sheet - and that script also emails your team via `MailApp`, so no
+separate email service or API key is needed.
+
+**Setup** (same idea as lead capture, in a Google Sheet you're using just for
+demo requests):
+
+1. Create (or pick) a Google Sheet, then **Extensions -> Apps Script**.
+2. Paste in the contents of `tools/google-apps-script-demo-webhook.js`.
+3. Set `SHARED_SECRET` to a random string (matching
+   `DEMO_SHEETS_WEBHOOK_SECRET`), and `NOTIFY_EMAIL` to whichever inbox
+   should get the notification (defaults to `info@baybotdynamics.com`).
+4. **Deploy -> New deployment -> Web app**, **Execute as: Me**,
+   **Who has access: Anyone**, **Deploy** - authorize when prompted.
+5. Copy the `/exec` URL into `DEMO_SHEETS_WEBHOOK_URL`.
+
+Each submission appends a row (timestamp, demo type, name, email, phone,
+company, industry, message, IP, city, region, country, user agent, referrer)
+and sends one email to `NOTIFY_EMAIL` with the same details, with `Reply-To`
+set to the requester's email so you can just hit reply.
+
+**If this isn't configured, or the sheet/email step fails,** the form falls
+back to opening the visitor's email app instead (the same fallback the
+generic `.js-contact-form` handler uses) - a demo request is never silently
+dropped.
 
 ### Before going live
 
