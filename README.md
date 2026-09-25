@@ -61,9 +61,15 @@ Use a local server rather than opening the file directly. Under `file://`
 some browsers restrict requests, and the extensionless URLs below don't apply.
 
 ```bash
-python3 -m http.server 8000
-# Then visit http://localhost:8000
+npm run dev
+# Then visit http://localhost:8765
 ```
+
+This runs `server.js` (see [Chat with Us](#chat-with-us-ai-assistant) below),
+which serves the site **and** the `/api/chat` and `/api/lead` routes that the
+Contact page's chat widget needs. A plain static server (e.g.
+`python3 -m http.server`) also serves the pages, but the chat widget won't
+work under it - there's no process to answer `/api/*` requests.
 
 ## Deployment
 
@@ -121,6 +127,66 @@ location / {
     try_files $uri $uri.html $uri/ /404.html;
 }
 ```
+
+**None of the hosts above can run the "Chat with Us" feature** (see
+[Chat with Us](#chat-with-us-ai-assistant) below) - they only serve static
+files, and `api/chat.js` / `api/lead.js` need an actual running Node.js
+process. That works out of the box on Vercel. To self-host it instead (e.g.
+on a Hetzner VPS), see the next section.
+
+### Node.js VPS (e.g. Hetzner)
+
+This runs the whole site - static pages plus the chat/lead-capture backend -
+as one long-lived Node.js process (`server.js`), with Nginx in front of it
+for TLS and reverse-proxying. `api/chat.js` and `api/lead.js` are unchanged
+from the Vercel setup; `server.js` just calls them the same way Vercel does.
+
+1. **Get Node.js onto the server** (Ubuntu/Debian example - adjust for your
+   distro):
+   ```bash
+   curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+   sudo apt-get install -y nodejs nginx
+   ```
+2. **Get the code onto the server** - either `git clone` this repo, or
+   `rsync`/`scp` the folder over. Note where it lands, e.g.
+   `/var/www/baybot-dynamics`.
+3. **Create the environment file** at `/var/www/baybot-dynamics/.env` (copy
+   `.env.local.example` and fill in real values - see the
+   [Chat with Us](#chat-with-us-ai-assistant) section above for what each
+   variable means), then lock it down: `chmod 600 .env`.
+4. **Install the systemd service**: copy `deploy/baybot.service` to
+   `/etc/systemd/system/baybot.service`, edit its `User=` and
+   `WorkingDirectory=` to match where you put the code, then:
+   ```bash
+   sudo systemctl daemon-reload
+   sudo systemctl enable --now baybot
+   sudo systemctl status baybot        # should say "active (running)"
+   journalctl -u baybot -f             # tail the logs
+   ```
+5. **Configure Nginx**: copy `deploy/nginx.conf.example` to
+   `/etc/nginx/sites-available/baybot-dynamics`, edit `server_name` to your
+   real domain, then:
+   ```bash
+   sudo ln -s /etc/nginx/sites-available/baybot-dynamics /etc/nginx/sites-enabled/
+   sudo nginx -t && sudo systemctl reload nginx
+   sudo apt-get install -y certbot python3-certbot-nginx
+   sudo certbot --nginx -d your-domain.com -d www.your-domain.com
+   ```
+   Certbot rewrites the Nginx config to add HTTPS and sets up auto-renewal.
+6. **Verify**: `curl https://your-domain.com/api/chat -X POST -H "Content-Type: application/json" -d '{"message":"hi"}'`
+   should return a real reply, not a "not configured" error.
+
+**One tradeoff versus Vercel:** the IP/geo columns in the lead-capture sheet
+(city, region, country, latitude, longitude) come from Vercel's edge network
+for free. A self-hosted Nginx/Node setup has no equivalent, so those columns
+will come through blank - only the IP address itself still works (from the
+`X-Forwarded-For` header Nginx sets). Getting geo data here would need a
+separate IP-lookup service or database (e.g. MaxMind GeoLite2) wired into
+`api/lead.js`, which isn't set up yet.
+
+**Redeploying after a code change:** pull the new code, then
+`sudo systemctl restart baybot`. Nginx doesn't need touching unless the
+domain or proxy port changed.
 
 ### Robot models and product pages
 

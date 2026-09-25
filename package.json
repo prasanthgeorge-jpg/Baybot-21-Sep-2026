@@ -1,0 +1,13 @@
+{
+  "name": "baybot-dynamics-website",
+  "private": true,
+  "version": "1.0.0",
+  "description": "BayBot Dynamics website - static site plus api/chat.js and api/lead.js serverless-style functions, runnable on Vercel or as a standalone Node server (see server.js).",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node tools/dev-server.js"
+  }
+}

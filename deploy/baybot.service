@@ -1,0 +1,22 @@
+[Unit]
+Description=BayBot Dynamics website
+After=network.target
+
+[Service]
+Type=simple
+# Change to the actual user/path you deploy under.
+User=baybot
+WorkingDirectory=/var/www/baybot-dynamics
+ExecStart=/usr/bin/node server.js
+Environment=NODE_ENV=production
+Environment=PORT=3000
+Restart=always
+RestartSec=5
+
+# server.js loads /var/www/baybot-dynamics/.env itself on startup (see
+# loadEnvFile in server.js), so GEMINI_API_KEY etc. don't need to be
+# repeated here - just make sure that .env file exists and is not
+# world-readable (chmod 600).
+
+[Install]
+WantedBy=multi-user.target
