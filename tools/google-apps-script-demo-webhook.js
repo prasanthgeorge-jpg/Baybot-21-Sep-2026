@@ -12,7 +12,7 @@
 var SHARED_SECRET = 'REPLACE_WITH_YOUR_OWN_RANDOM_SECRET';
 
 // Where the notification email for each demo request should land.
-var NOTIFY_EMAIL = 'info@baybotdynamics.com';
+var NOTIFY_EMAIL = 'georgep@baybotdynamics.com';
 
 function doPost(e) {
     try {
