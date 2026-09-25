@@ -126,39 +126,61 @@
                     </div>
 
                     <div class="contact-form-wrapper">
-                        <div class="contact-card">
-                            <h3>Send Us a Message</h3>
-                            <p>We aim to respond within one business day.</p>
+                        <div class="contact-card chat-card" id="chatCard">
+                            <div class="chat-intro" id="chatIntro">
+                                <h3>Chat with Us</h3>
+                                <p>Get instant answers from our AI assistant, any time of day.</p>
+                                <button type="button" class="btn btn-primary w-full" id="startChatBtn">
+                                    Chat with Us
+                                    <i class="fas fa-comment-dots"></i>
+                                </button>
+                                <p class="chat-fallback">
+                                    Prefer to talk to a person? Call
+                                    <a href="tel:+18777229268">1-877-7BAYBOT</a>
+                                    or email
+                                    <a href="mailto:info@baybotdynamics.com">info@baybotdynamics.com</a>.
+                                </p>
+                            </div>
 
-                            <form class="contact-form js-contact-form"
-                                  data-subject="Website enquiry"
-                                  novalidate>
+                            <form class="chat-lead-form" id="chatLeadForm" novalidate hidden>
+                                <h3>Before we chat</h3>
+                                <p>Share a few details so we can follow up if the conversation gets cut short.</p>
                                 <div class="form-group">
-                                    <label for="c-name">Your Name</label>
-                                    <input type="text" id="c-name" name="name" autocomplete="name" required>
+                                    <label for="chat-lead-name">Your Name</label>
+                                    <input type="text" id="chat-lead-name" name="name" autocomplete="name" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="c-email">Your Email</label>
-                                    <input type="email" id="c-email" name="email" autocomplete="email" required>
+                                    <label for="chat-lead-email">Your Email</label>
+                                    <input type="email" id="chat-lead-email" name="email" autocomplete="email" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="c-phone">Phone Number <span class="optional">(optional)</span></label>
-                                    <input type="tel" id="c-phone" name="phone" autocomplete="tel">
-                                </div>
-                                <div class="form-group">
-                                    <label for="c-company">Company <span class="optional">(optional)</span></label>
-                                    <input type="text" id="c-company" name="company" autocomplete="organization">
-                                </div>
-                                <div class="form-group">
-                                    <label for="c-message">Your Message</label>
-                                    <textarea id="c-message" name="message" rows="4" required></textarea>
+                                    <label for="chat-lead-phone">Phone Number</label>
+                                    <input type="tel" id="chat-lead-phone" name="phone" autocomplete="tel" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary w-full">
-                                    Submit Now
-                                    <i class="fas fa-paper-plane"></i>
+                                    Start Chat
+                                    <i class="fas fa-comment-dots"></i>
                                 </button>
-                                <p class="form-status" role="status" aria-live="polite"></p>
+                                <button type="button" class="chat-lead-back" id="chatLeadBack">Back</button>
                             </form>
+
+                            <div class="chat-window" id="chatWindow" hidden>
+                                <div class="chat-header">
+                                    <span class="chat-header-title"><i class="fas fa-robot"></i> BayBot Assistant</span>
+                                    <button type="button" class="chat-close" id="chatCloseBtn" aria-label="Close chat">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <div class="chat-messages" id="chatMessages" role="log" aria-live="polite"></div>
+                                <form class="chat-input-row" id="chatForm">
+                                    <label for="chatInput" class="visually-hidden">Type your message</label>
+                                    <input type="text" id="chatInput" autocomplete="off" placeholder="Type your message…" required>
+                                    <button type="submit" class="chat-send" aria-label="Send message">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </form>
+                                <p class="chat-status" id="chatStatus" role="status" aria-live="polite"></p>
+                            </div>
                         </div>
                     </div>
                 </div>

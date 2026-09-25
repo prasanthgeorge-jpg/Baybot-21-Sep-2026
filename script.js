@@ -164,6 +164,154 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Contact page "Chat with Us" widget. Talks to the /api/chat serverless
+    // function, which proxies to Gemini so the API key never reaches the
+    // browser. Only present on contact.html, so every lookup here is guarded.
+    const chatCard = document.getElementById('chatCard');
+    if (chatCard) {
+        const startChatBtn = document.getElementById('startChatBtn');
+        const chatWindow = document.getElementById('chatWindow');
+        const chatIntro = document.getElementById('chatIntro');
+        const chatLeadForm = document.getElementById('chatLeadForm');
+        const chatLeadBack = document.getElementById('chatLeadBack');
+        const chatLeadName = document.getElementById('chat-lead-name');
+        const chatLeadEmail = document.getElementById('chat-lead-email');
+        const chatLeadPhone = document.getElementById('chat-lead-phone');
+        const chatCloseBtn = document.getElementById('chatCloseBtn');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatForm = document.getElementById('chatForm');
+        const chatInput = document.getElementById('chatInput');
+        const chatStatus = document.getElementById('chatStatus');
+
+        const history = [];
+        let sending = false;
+        let lead = null;
+
+        const addBubble = (text, kind) => {
+            const bubble = document.createElement('div');
+            bubble.className = 'chat-bubble ' + kind;
+            bubble.textContent = text;
+            chatMessages.appendChild(bubble);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return bubble;
+        };
+
+        const showTyping = () => {
+            const typing = document.createElement('div');
+            typing.className = 'chat-typing';
+            typing.innerHTML = '<span></span><span></span><span></span>';
+            chatMessages.appendChild(typing);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return typing;
+        };
+
+        startChatBtn.addEventListener('click', function() {
+            chatIntro.hidden = true;
+            chatLeadForm.hidden = false;
+            chatLeadName.focus();
+        });
+
+        chatLeadBack.addEventListener('click', function() {
+            chatLeadForm.hidden = true;
+            chatIntro.hidden = false;
+        });
+
+        chatLeadForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const invalid = Array.from(this.querySelectorAll('input'))
+                .filter(field => {
+                    const bad = !field.checkValidity();
+                    field.setAttribute('aria-invalid', bad ? 'true' : 'false');
+                    return bad;
+                });
+
+            if (invalid.length) {
+                invalid[0].focus();
+                return;
+            }
+
+            lead = {
+                name: chatLeadName.value.trim(),
+                email: chatLeadEmail.value.trim(),
+                phone: chatLeadPhone.value.trim()
+            };
+
+            // Fire-and-forget: save the lead to the spreadsheet in the
+            // background. The chat should open immediately regardless of
+            // whether this succeeds - it's a supplementary record, not a
+            // gate on talking to the assistant.
+            fetch('/api/lead', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(lead)
+            }).catch(function() { /* logged server-side; nothing to show the visitor */ });
+
+            chatLeadForm.hidden = true;
+            chatWindow.hidden = false;
+
+            const firstName = lead.name.split(' ')[0];
+            addBubble('Hi ' + firstName + "! I'm the BayBot Dynamics assistant. Ask me anything about our robots, pricing, or support.", 'assistant');
+            chatInput.focus();
+        });
+
+        chatCloseBtn.addEventListener('click', function() {
+            chatWindow.hidden = true;
+            chatIntro.hidden = false;
+            chatMessages.innerHTML = '';
+            history.length = 0;
+            lead = null;
+            chatLeadForm.reset();
+        });
+
+        chatForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (sending) return;
+
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            addBubble(message, 'user');
+            chatInput.value = '';
+            chatStatus.textContent = '';
+
+            sending = true;
+            chatInput.disabled = true;
+            const typing = showTyping();
+
+            fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: message,
+                    history: history,
+                    lead: history.length === 0 ? lead : undefined
+                })
+            })
+                .then(function(response) {
+                    return response.json().then(function(data) {
+                        if (!response.ok) throw new Error(data && data.error || 'HTTP ' + response.status);
+                        return data;
+                    });
+                })
+                .then(function(data) {
+                    typing.remove();
+                    addBubble(data.reply, 'assistant');
+                    history.push({ role: 'user', text: message });
+                    history.push({ role: 'model', text: data.reply });
+                })
+                .catch(function() {
+                    typing.remove();
+                    chatStatus.textContent = 'The assistant is temporarily unavailable. Please email info@baybotdynamics.com or call 1-877-722-9268.';
+                })
+                .finally(function() {
+                    sending = false;
+                    chatInput.disabled = false;
+                    chatInput.focus();
+                });
+        });
+    }
+
     // Click-to-load YouTube embeds on product pages. Only a thumbnail loads
     // until play is pressed; the privacy-enhanced (no-cookie) player then
     // replaces it. Without JavaScript the poster stays a plain YouTube link.

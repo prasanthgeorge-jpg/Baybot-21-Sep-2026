@@ -218,6 +218,70 @@ the top of `script.js`:
 const FORM_ENDPOINT = 'https://formspree.io/f/your-id';
 ```
 
+### Chat with Us (AI assistant)
+
+The Contact page's form is replaced by a "Chat with Us" widget: a visitor
+enters their name, email and phone, then chats with an AI assistant powered
+by Google Gemini. It's a static-site-friendly setup - two Vercel serverless
+functions (`api/chat.js`, `api/lead.js`) hold the API key and secrets server
+side, so nothing sensitive reaches the browser.
+
+**What the assistant says** is controlled entirely by `api/systemPrompt.js` -
+edit that file's text to change its tone or teach it new facts about the
+business. No other code needs to change.
+
+**Environment variables** (set locally in `.env.local`, copied from
+`.env.local.example`, and in Vercel's Project Settings -> Environment
+Variables for production):
+
+| Variable | Purpose |
+|---|---|
+| `GEMINI_API_KEY` | From [aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey). Required for chat replies. |
+| `GEMINI_MODEL` | Optional. Defaults to `gemini-flash-lite-latest`. |
+| `SHEETS_WEBHOOK_URL` | The Google Apps Script Web App URL (see below). Required for lead capture. |
+| `SHEETS_WEBHOOK_SECRET` | A random string shared with the Apps Script, so only this site can write to the sheet. |
+
+**Local testing:** run `node tools/dev-server.js` (loads `.env.local`
+automatically) instead of any generic static file server, since a plain
+static server can't run the `api/` functions.
+
+#### Lead capture (name/email/phone -> Google Sheet)
+
+There's no direct, credential-free way for a serverless function to write to
+a Google Sheet, so this uses a small Google Apps Script bound to the sheet as
+a bridge. One-time setup, done entirely inside Google Sheets:
+
+1. Open the target spreadsheet, then **Extensions -> Apps Script**.
+2. Delete the placeholder code and paste in the contents of
+   `tools/google-apps-script-lead-webhook.js`.
+3. Pick a random secret string and put the same value in both places:
+   the script's `SHARED_SECRET` constant, and `SHEETS_WEBHOOK_SECRET` in
+   `.env.local` / Vercel.
+4. Click **Deploy -> New deployment**, type **Web app**, set
+   **Execute as: Me** and **Who has access: Anyone**, then **Deploy**
+   (Google will prompt you to authorize it - that's expected, it's your own
+   script).
+5. Copy the resulting URL (ends in `/exec`) into `SHEETS_WEBHOOK_URL`.
+
+Each submission of the chat's lead form appends a row with these columns, in
+order: timestamp, name, email, phone, source, IP address, city, region,
+country, latitude, longitude, timezone, user agent, referrer. The geo/IP
+columns are populated from Vercel's edge network for free (no external API
+key) - they only appear once the site is actually deployed on Vercel, since
+local dev has no edge network to supply them. There's no reliable
+credential-free way to resolve an IP to a company/organization name; that
+would need a separate paid IP-intelligence service if it's wanted later.
+
+If the webhook isn't configured, or the sheet write fails, the chat still
+opens normally - lead capture is supplementary, not a gate on talking to the
+assistant.
+
+**Privacy note:** IP address and location are personal data in many
+jurisdictions (GDPR, CCPA, etc.). If you're storing them, make sure the
+site's privacy policy (currently just the `terms.html` outline - see "Before
+going live" below) discloses that visitors' IP/location may be logged when
+they use the chat.
+
 ### Before going live
 
 - **`terms.html` is an outline, not a legal agreement.** Have counsel draft
