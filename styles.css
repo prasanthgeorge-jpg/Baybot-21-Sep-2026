@@ -265,7 +265,7 @@ section {
     top: 0;
     left: 0;
     right: 0;
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(10, 14, 26, 0.95);
     backdrop-filter: blur(10px);
     box-shadow: var(--shadow-sm);
     z-index: 1000;
@@ -273,7 +273,7 @@ section {
 }
 
 .navbar.scrolled {
-    background-color: rgba(255, 255, 255, 0.98);
+    background-color: rgba(10, 14, 26, 0.98);
     box-shadow: var(--shadow-md);
 }
 
@@ -282,6 +282,14 @@ section {
     justify-content: space-between;
     align-items: center;
     padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 14px;
+    background: radial-gradient(ellipse at center, rgba(0, 102, 204, 0.4) 0%, rgba(0, 102, 204, 0.12) 55%, transparent 80%);
 }
 
 .logo-img {
@@ -303,7 +311,7 @@ section {
     display: block;
     width: 28px;
     height: 3px;
-    background-color: var(--dark-bg);
+    background-color: var(--white);
     border-radius: var(--radius-sm);
     transition: all var(--transition-base);
 }
@@ -335,7 +343,7 @@ section {
 }
 
 .nav-links a {
-    color: var(--dark-bg);
+    color: var(--white);
     font-weight: var(--font-weight-medium);
     padding: var(--spacing-xs) 0;
     position: relative;
@@ -364,7 +372,7 @@ section {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: var(--white);
+    background-color: var(--dark-blue);
     box-shadow: var(--shadow-lg);
     border-radius: var(--radius-md);
     padding: var(--spacing-sm);
@@ -394,7 +402,7 @@ section {
 }
 
 .dropdown a:hover {
-    background-color: var(--lighter-gray);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .dropdown a::after {
@@ -1206,6 +1214,14 @@ section {
     margin-bottom: var(--spacing-2xl);
     position: relative;
     z-index: 1;
+}
+
+.footer-logo {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 14px;
+    background: radial-gradient(ellipse at center, rgba(0, 102, 204, 0.4) 0%, rgba(0, 102, 204, 0.12) 55%, transparent 80%);
 }
 
 .footer-logo img {
@@ -2283,7 +2299,7 @@ a.model-card-media {
         top: 70px;
         left: 0;
         right: 0;
-        background-color: var(--white);
+        background-color: var(--dark-bg);
         flex-direction: column;
         padding: var(--spacing-lg);
         box-shadow: var(--shadow-lg);
@@ -2454,13 +2470,18 @@ a.model-card-media {
     }
 
     /* Cards and panels: frosted white */
-    .dropdown,
     .industry-card,
     .model-card,
     .product-feature,
     .spec-block,
     .radio-card-body {
         background-color: var(--glass);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+    }
+
+    .dropdown {
+        background-color: var(--dark-blue);
         -webkit-backdrop-filter: blur(12px);
         backdrop-filter: blur(12px);
     }
@@ -2479,9 +2500,12 @@ a.model-card-media {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(179, 209, 255, 0.5) 100%);
     }
 
-    .btn-white:hover,
-    .dropdown a:hover {
+    .btn-white:hover {
         background-color: rgba(220, 234, 255, 0.85);
+    }
+
+    .dropdown a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
     }
 
     /* Form fields stay mostly opaque so typed text remains easy to read */
