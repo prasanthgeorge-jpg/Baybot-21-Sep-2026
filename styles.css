@@ -265,7 +265,7 @@ section {
     top: 0;
     left: 0;
     right: 0;
-    background-color: rgba(10, 14, 26, 0.95);
+    background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     box-shadow: var(--shadow-sm);
     z-index: 1000;
@@ -273,7 +273,7 @@ section {
 }
 
 .navbar.scrolled {
-    background-color: rgba(10, 14, 26, 0.98);
+    background-color: rgba(255, 255, 255, 0.98);
     box-shadow: var(--shadow-md);
 }
 
@@ -282,14 +282,6 @@ section {
     justify-content: space-between;
     align-items: center;
     padding: var(--spacing-sm) var(--spacing-md);
-}
-
-.logo {
-    display: inline-flex;
-    align-items: center;
-    padding: 10px 20px;
-    border-radius: 14px;
-    background: radial-gradient(ellipse at center, rgba(0, 102, 204, 0.4) 0%, rgba(0, 102, 204, 0.12) 55%, transparent 80%);
 }
 
 .logo-img {
@@ -311,7 +303,7 @@ section {
     display: block;
     width: 28px;
     height: 3px;
-    background-color: var(--white);
+    background-color: var(--dark-bg);
     border-radius: var(--radius-sm);
     transition: all var(--transition-base);
 }
@@ -343,7 +335,7 @@ section {
 }
 
 .nav-links a {
-    color: var(--white);
+    color: var(--dark-bg);
     font-weight: var(--font-weight-medium);
     padding: var(--spacing-xs) 0;
     position: relative;
@@ -372,7 +364,7 @@ section {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: var(--dark-blue);
+    background-color: var(--white);
     box-shadow: var(--shadow-lg);
     border-radius: var(--radius-md);
     padding: var(--spacing-sm);
@@ -402,7 +394,7 @@ section {
 }
 
 .dropdown a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--lighter-gray);
 }
 
 .dropdown a::after {
@@ -1214,14 +1206,6 @@ section {
     margin-bottom: var(--spacing-2xl);
     position: relative;
     z-index: 1;
-}
-
-.footer-logo {
-    display: inline-flex;
-    align-items: center;
-    padding: 10px 20px;
-    border-radius: 14px;
-    background: radial-gradient(ellipse at center, rgba(0, 102, 204, 0.4) 0%, rgba(0, 102, 204, 0.12) 55%, transparent 80%);
 }
 
 .footer-logo img {
@@ -2299,7 +2283,7 @@ a.model-card-media {
         top: 70px;
         left: 0;
         right: 0;
-        background-color: var(--dark-bg);
+        background-color: var(--white);
         flex-direction: column;
         padding: var(--spacing-lg);
         box-shadow: var(--shadow-lg);
@@ -2470,18 +2454,13 @@ a.model-card-media {
     }
 
     /* Cards and panels: frosted white */
+    .dropdown,
     .industry-card,
     .model-card,
     .product-feature,
     .spec-block,
     .radio-card-body {
         background-color: var(--glass);
-        -webkit-backdrop-filter: blur(12px);
-        backdrop-filter: blur(12px);
-    }
-
-    .dropdown {
-        background-color: var(--dark-blue);
         -webkit-backdrop-filter: blur(12px);
         backdrop-filter: blur(12px);
     }
@@ -2500,12 +2479,9 @@ a.model-card-media {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(179, 209, 255, 0.5) 100%);
     }
 
-    .btn-white:hover {
-        background-color: rgba(220, 234, 255, 0.85);
-    }
-
+    .btn-white:hover,
     .dropdown a:hover {
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: rgba(220, 234, 255, 0.85);
     }
 
     /* Form fields stay mostly opaque so typed text remains easy to read */
@@ -2600,5 +2576,97 @@ html {
         display: inline-block;
         padding-block: 0.5rem;
         margin-block: -0.5rem;
+    }
+}
+
+/* ==========================================================================
+   Homepage UX audit fixes
+   Navbar legibility, keyboard dropdowns, hero CTAs above the fold on laptops
+   and phones, and the mobile menu's empty dropdown bars. Delete this block
+   to revert.
+   ========================================================================== */
+
+/* Silver logo lettering needs a little edge definition on the light navbar */
+.logo-img {
+    filter: drop-shadow(0 1px 1px rgba(10, 14, 26, 0.45));
+}
+
+/* Dropdowns open for keyboard users too, not only on mouse hover */
+.has-dropdown:has(:focus-visible) .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Hero: the headline was 72px in a ~560px column, wrapping to four lines and
+   pushing the CTAs below the fold on 720px-tall laptop screens */
+.hero-section {
+    padding-top: 120px;
+    padding-bottom: var(--spacing-xl);
+}
+
+.hero-title {
+    font-size: clamp(2.25rem, 4.2vw, 3.5rem);
+    margin-bottom: var(--spacing-md);
+}
+
+.hero-subtitle {
+    font-size: clamp(1.0625rem, 1.4vw, 1.1875rem);
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Entrance animation was long enough to leave the hero blank for ~1s */
+.fade-in-up {
+    animation-duration: 0.5s;
+}
+
+.delay-1 {
+    animation-delay: 0.1s;
+}
+
+.delay-2 {
+    animation-delay: 0.2s;
+}
+
+@media (min-width: 969px) {
+    .hero-grid {
+        grid-template-columns: 1.15fr 0.85fr;
+    }
+
+    .hero-product-image {
+        max-height: min(460px, 55vh);
+    }
+}
+
+@media (max-width: 968px) {
+    /* Headline and CTAs first on phones; the robot image follows */
+    .hero-media {
+        order: 0;
+    }
+
+    .hero-product-image {
+        max-height: 220px;
+    }
+
+    /* Menu opens directly under the navbar instead of overlapping the logo */
+    .nav-menu {
+        top: 100%;
+        max-height: calc(100vh - 82px);
+        max-height: calc(100dvh - 82px);
+    }
+
+    /* A collapsed dropdown's padding survived max-height: 0, leaving an
+       empty bar under Industries and Products */
+    .dropdown {
+        padding-top: 0;
+        padding-bottom: 0;
+        background: transparent;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+
+    .has-dropdown.active .dropdown {
+        padding-top: var(--spacing-xs);
+        padding-bottom: var(--spacing-xs);
     }
 }
