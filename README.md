@@ -418,6 +418,20 @@ through each carrier once credentials are in place and check the response
 shape still matches what `api/shipping-rates.js` expects - carrier APIs do
 shift field names between versions.
 
+### Visitor analytics (Google Analytics 4, free)
+
+1. Go to https://analytics.google.com, sign in, and create an account, then a
+   **Web** data stream for your site's URL.
+2. Copy the **Measurement ID** (`G-XXXXXXXXXX`) from the stream details.
+3. Paste it into `GA_MEASUREMENT_ID` near the bottom of `script.js`, commit
+   and deploy. Tracking is off while that value is empty.
+4. View visitors under **Reports -> Realtime** (instant) and **Reports ->
+   Acquisition** (daily). Data takes up to 24-48 hours to fill in fully.
+
+GA4 sets cookies, so if you serve EU/UK visitors, add a cookie notice. A
+cookie-free alternative is Cloudflare Web Analytics (also free) if your
+domain's DNS is on Cloudflare.
+
 ### Before going live
 
 - **`terms.html` is an outline, not a legal agreement.** Have counsel draft

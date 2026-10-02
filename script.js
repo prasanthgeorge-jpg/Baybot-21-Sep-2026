@@ -770,3 +770,20 @@ document.addEventListener('keydown', function(e) {
     }
 })();
 
+
+
+// ==== Google Analytics 4 (free visitor stats) ====
+// Paste your Measurement ID (looks like G-XXXXXXXXXX) below. While it is
+// empty, no tracking script loads. See README.md "Visitor analytics".
+(function () {
+    var GA_MEASUREMENT_ID = '';
+    if (!GA_MEASUREMENT_ID) return;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', GA_MEASUREMENT_ID, { anonymize_ip: true });
+})();
