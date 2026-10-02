@@ -776,7 +776,7 @@ document.addEventListener('keydown', function(e) {
 // Paste your Measurement ID (looks like G-XXXXXXXXXX) below. While it is
 // empty, no tracking script loads. See README.md "Visitor analytics".
 (function () {
-    var GA_MEASUREMENT_ID = '';
+    var GA_MEASUREMENT_ID = 'G-EXPVLECEJ2';
     if (!GA_MEASUREMENT_ID) return;
     var s = document.createElement('script');
     s.async = true;
