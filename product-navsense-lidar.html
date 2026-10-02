@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BayBot NavSense 360° LiDAR Module — direct-fit replacement navigation sensor for BayBot service robot platforms. In stock, ships same day.">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="BayBot NavSense 360° LiDAR Module">
+    <meta property="og:description" content="Direct-fit replacement navigation LiDAR for BayBot cleaning, delivery and quadruped platforms.">
+    <meta property="og:site_name" content="BayBot Dynamics">
+    <meta property="og:type" content="product">
+
+    <title>BayBot NavSense 360&deg; LiDAR Module | Parts Store | BayBot Dynamics</title>
+    <link rel="canonical" href="product-navsense-lidar.html">
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+        @media (max-width: 968px) {
+            .checkout-grid { grid-template-columns: 1fr; }
+        }
+        .buy-card {
+            background: var(--white);
+            border: 1px solid var(--lighter-gray);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(10, 14, 26, 0.06);
+            margin-bottom: 2rem;
+        }
+        .buy-card h3 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .buy-card h3 .step-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: #fff;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .qty-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0 0;
+        }
+        .qty-stepper {
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid var(--lighter-gray);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .qty-stepper button {
+            background: #f4f6f8;
+            border: none;
+            width: 38px;
+            height: 38px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            color: var(--dark-blue);
+        }
+        .qty-stepper button:hover { background: var(--lighter-gray); }
+        .qty-stepper input {
+            width: 48px;
+            text-align: center;
+            border: none;
+            border-left: 1px solid var(--lighter-gray);
+            border-right: 1px solid var(--lighter-gray);
+            height: 38px;
+            font-size: 1rem;
+        }
+        .zip-row {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+        .zip-row input {
+            flex: 1;
+            padding: 0.7rem 0.9rem;
+            border: 1px solid var(--lighter-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .shipping-note {
+            font-size: 0.82rem;
+            color: var(--medium-gray);
+            margin-top: 0.6rem;
+        }
+        .shipping-options { margin-top: 1.25rem; display: none; }
+        .shipping-carrier-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--medium-gray);
+            font-weight: var(--font-weight-semibold);
+            margin: 1rem 0 0.5rem;
+        }
+        .shipping-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            border: 1px solid var(--lighter-gray);
+            border-radius: 10px;
+            padding: 0.85rem 1rem;
+            margin-bottom: 0.6rem;
+            cursor: pointer;
+        }
+        .shipping-option:hover { border-color: var(--primary-light); }
+        .shipping-option.selected {
+            border-color: var(--primary-color);
+            background: #f2f7ff;
+        }
+        .shipping-option-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .shipping-option-left .meta { line-height: 1.3; }
+        .shipping-option-left .meta strong { display: block; font-size: 0.95rem; }
+        .shipping-option-left .meta span { font-size: 0.8rem; color: var(--medium-gray); }
+        .shipping-option-price { font-weight: var(--font-weight-semibold); white-space: nowrap; }
+
+        .order-summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.4rem 0;
+            font-size: 0.95rem;
+        }
+        .order-summary-row.total {
+            border-top: 1px solid var(--lighter-gray);
+            margin-top: 0.5rem;
+            padding-top: 0.75rem;
+            font-size: 1.15rem;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .stripe-test-banner {
+            background: #fff8e1;
+            border: 1px solid #f0c849;
+            color: #6b5300;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 18px;
+            font-size: 0.88rem;
+        }
+        #card-element {
+            background: #fff;
+            border: 1px solid #d7dbe0;
+            border-radius: 8px;
+            padding: 14px;
+        }
+        #card-element.StripeElement--focus { border-color: var(--primary-color); }
+        #card-element.StripeElement--invalid { border-color: #e5424d; }
+        #card-errors {
+            color: #e5424d;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            min-height: 1.2em;
+        }
+        #payment-result {
+            margin-top: 18px;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            display: none;
+        }
+        #payment-result.success { display: block; background: #e8f7ee; border: 1px solid #38a169; color: #1b5e34; }
+        #payment-result.error { display: block; background: #fdeeee; border: 1px solid #e5424d; color: #8a1c23; }
+        #payment-result code { word-break: break-all; }
+        #pay-button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        .specs-list {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem 1.5rem;
+        }
+        .specs-list li { font-size: 0.9rem; color: var(--dark-blue); }
+        .specs-list li span { display: block; color: var(--medium-gray); font-size: 0.78rem; }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo-light.png?v=1" alt="BayBot Dynamics" class="logo-img">
+            </a>
+
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navMenu" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li class="has-dropdown">
+                        <a href="industries.html">Industries <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown">
+                            <li><a href="industries.html#healthcare">Healthcare</a></li>
+                            <li><a href="industries.html#warehouse">Warehouse &amp; Logistics</a></li>
+                            <li><a href="industries.html#security">Security</a></li>
+                            <li><a href="industries.html#manufacturing">Manufacturing</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-dropdown">
+                        <a href="products.html">Products <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown">
+                            <li><a href="products.html#cleaning">Cleaning Robots</a></li>
+                            <li><a href="products.html#delivery">Delivery &amp; Reception</a></li>
+                            <li><a href="products.html#industrial">Industrial Transport</a></li>
+                            <li><a href="products.html#quadruped">Quadruped Robots</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="parts-store.html" class="active" aria-current="page">Parts Store</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+                <a href="schedule-demo.html" class="btn btn-primary">Request Demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main">
+        <section class="page-header">
+            <div class="container">
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="index.html">Home</a>
+                    <span aria-hidden="true">/</span>
+                    <a href="parts-store.html">Parts Store</a>
+                    <span aria-hidden="true">/</span>
+                    <span aria-current="page">NavSense LiDAR Module</span>
+                </nav>
+                <h1>BayBot NavSense 360&deg; LiDAR Module</h1>
+                <p>Direct-fit replacement navigation sensor &mdash; in stock, ships same day</p>
+            </div>
+        </section>
+
+        <section class="about-section">
+            <div class="container">
+
+                <!-- Product overview -->
+                <div class="buy-card" style="display:flex; gap:2rem; align-items:center; flex-wrap:wrap;">
+                    <div class="featured-product-media" style="flex:0 0 120px; height:120px; font-size:2.5rem;">
+                        <i class="fas fa-satellite-dish"></i>
+                    </div>
+                    <div style="flex:1; min-width:260px;">
+                        <span class="in-stock-badge"><i class="fas fa-circle"></i> In stock &mdash; ships same day</span>
+                        <p style="color: var(--medium-gray); margin: 0.25rem 0 0;">
+                            360&deg; field of view, 12m range, tool-free swap. Compatible with
+                            BayBot cleaning, delivery and quadruped platforms.
+                        </p>
+                        <ul class="specs-list">
+                            <li>12m <span>Detection range</span></li>
+                            <li>360&deg; <span>Field of view</span></li>
+                            <li>10Hz <span>Scan rate</span></li>
+                            <li>IP54 <span>Ingress protection</span></li>
+                        </ul>
+                    </div>
+                    <div style="flex:0 0 auto; text-align:right;">
+                        <div class="featured-product-price" id="unit-price-display">$349.00</div>
+                        <div style="color: var(--medium-gray); font-size:0.85rem;">per unit</div>
+                    </div>
+                </div>
+
+                <div class="checkout-grid">
+                    <!-- Left column: quantity, shipping, payment -->
+                    <div>
+                        <div class="buy-card">
+                            <h3><span class="step-num">1</span> Quantity</h3>
+                            <div class="qty-row">
+                                <div class="qty-stepper">
+                                    <button type="button" id="qty-minus" aria-label="Decrease quantity">&minus;</button>
+                                    <input type="text" id="qty-input" value="1" inputmode="numeric" aria-label="Quantity">
+                                    <button type="button" id="qty-plus" aria-label="Increase quantity">+</button>
+                                </div>
+                                <span style="color: var(--medium-gray); font-size:0.9rem;">units</span>
+                            </div>
+                        </div>
+
+                        <div class="buy-card">
+                            <h3><span class="step-num">2</span> Shipping</h3>
+                            <label for="zip-input" style="font-weight:var(--font-weight-medium); font-size:0.92rem;">Destination ZIP code</label>
+                            <div class="zip-row">
+                                <input type="text" id="zip-input" inputmode="numeric" maxlength="5" placeholder="e.g. 90210">
+                                <button type="button" class="btn btn-primary" id="calc-shipping-btn">Calculate</button>
+                            </div>
+                            <div id="zip-error" style="color:#e5424d; font-size:0.85rem; margin-top:0.4rem;"></div>
+                            <p class="shipping-note" id="shipping-note">
+                                Calculating your rate&hellip;
+                            </p>
+
+                            <div class="shipping-options" id="shipping-options">
+                                <div class="shipping-carrier-label">USPS</div>
+                                <label class="shipping-option" data-rate="usps">
+                                    <span class="shipping-option-left">
+                                        <input type="radio" name="shipping-method" value="usps">
+                                        <span class="meta">
+                                            <strong>USPS Ground Advantage</strong>
+                                            <span id="usps-days"></span>
+                                        </span>
+                                    </span>
+                                    <span class="shipping-option-price" id="usps-price"></span>
+                                </label>
+
+                                <div class="shipping-carrier-label">UPS (private carrier)</div>
+                                <label class="shipping-option" data-rate="ups-ground">
+                                    <span class="shipping-option-left">
+                                        <input type="radio" name="shipping-method" value="ups-ground">
+                                        <span class="meta">
+                                            <strong>UPS Ground</strong>
+                                            <span id="ups-ground-days"></span>
+                                        </span>
+                                    </span>
+                                    <span class="shipping-option-price" id="ups-ground-price"></span>
+                                </label>
+                                <label class="shipping-option" data-rate="ups-2day">
+                                    <span class="shipping-option-left">
+                                        <input type="radio" name="shipping-method" value="ups-2day">
+                                        <span class="meta">
+                                            <strong>UPS 2nd Day Air</strong>
+                                            <span>2 business days</span>
+                                        </span>
+                                    </span>
+                                    <span class="shipping-option-price" id="ups-2day-price"></span>
+                                </label>
+                                <label class="shipping-option" data-rate="ups-overnight">
+                                    <span class="shipping-option-left">
+                                        <input type="radio" name="shipping-method" value="ups-overnight">
+                                        <span class="meta">
+                                            <strong>UPS Next Day Air</strong>
+                                            <span>1 business day</span>
+                                        </span>
+                                    </span>
+                                    <span class="shipping-option-price" id="ups-overnight-price"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="buy-card">
+                            <h3><span class="step-num">3</span> Payment</h3>
+                            <div class="stripe-test-banner">
+                                <strong>Test mode only.</strong> No real card is charged. Use
+                                <code>4242 4242 4242 4242</code>, any future expiry, any 3-digit CVC.
+                            </div>
+                            <form id="payment-form" novalidate>
+                                <div class="form-group">
+                                    <label for="card-element">Card Details</label>
+                                    <div id="card-element"></div>
+                                    <div id="card-errors" role="alert"></div>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-full" id="pay-button" disabled>
+                                    <span id="pay-button-text">Select a shipping method to continue</span>
+                                    <i class="fas fa-lock"></i>
+                                </button>
+                            </form>
+                            <div id="payment-result"></div>
+                        </div>
+                    </div>
+
+                    <!-- Right column: order summary -->
+                    <div class="buy-card" style="position:sticky; top:90px;">
+                        <h3>Order Summary</h3>
+                        <div class="order-summary-row">
+                            <span>NavSense LiDAR Module &times; <span id="summary-qty">1</span></span>
+                            <span id="summary-subtotal">$349.00</span>
+                        </div>
+                        <div class="order-summary-row">
+                            <span>Shipping</span>
+                            <span id="summary-shipping">&mdash;</span>
+                        </div>
+                        <div class="order-summary-row total">
+                            <span>Total</span>
+                            <span id="summary-total">$349.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-background">
+            <img src="assets/images/footer-sideshape.png" alt="" class="footer-shape" aria-hidden="true">
+        </div>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="footer-logo">
+                        <img src="assets/images/logo-light.png?v=1" alt="BayBot Dynamics">
+                    </a>
+                    <p class="footer-description">
+                        Leading the future of intelligent robotics with AI-powered solutions for modern businesses.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Industries</h4>
+                    <ul class="footer-links">
+                        <li><a href="industries.html#healthcare">Healthcare</a></li>
+                        <li><a href="industries.html#warehouse">Warehouse &amp; Logistics</a></li>
+                        <li><a href="industries.html#security">Security</a></li>
+                        <li><a href="industries.html#manufacturing">Manufacturing</a></li>
+                        <li><a href="industries.html#hospitality">Hospitality</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Useful Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="parts-store.html">Parts Store</a></li>
+                        <li><a href="schedule-demo.html">Schedule Demo</a></li>
+                        <li><a href="sustainability.html">Sustainability</a></li>
+                        <li><a href="terms.html">Terms &amp; Conditions</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Contact Us</h4>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:+18777229268">1-877-7BAYBOT (1-877-722-9268)</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:+18134003338">813-400-3338</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:info@baybotdynamics.com">info@baybotdynamics.com</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Tampa Bay, Florida</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 BayBot Dynamics LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+    <script>
+        (function () {
+            var UNIT_PRICE = 349.00;
+            var ORIGIN_ZIP_DIGIT = 3; // Ruskin, FL 33570
+
+            function money(n) {
+                return '$' + n.toFixed(2);
+            }
+
+            // ---- Quantity stepper ----
+            var qtyInput = document.getElementById('qty-input');
+            document.getElementById('qty-minus').addEventListener('click', function () {
+                var v = Math.max(1, (parseInt(qtyInput.value, 10) || 1) - 1);
+                qtyInput.value = v;
+                recalcTotals();
+            });
+            document.getElementById('qty-plus').addEventListener('click', function () {
+                var v = Math.min(99, (parseInt(qtyInput.value, 10) || 1) + 1);
+                qtyInput.value = v;
+                recalcTotals();
+            });
+            qtyInput.addEventListener('input', function () {
+                var v = parseInt(qtyInput.value, 10);
+                if (!v || v < 1) v = 1;
+                if (v > 99) v = 99;
+                qtyInput.value = v;
+                recalcTotals();
+            });
+
+            // ---- Shipping zone calculation ----
+            var rates = null; // populated once ZIP is calculated
+
+            function daysLabelForZone(zoneDiff) {
+                if (zoneDiff <= 1) return '2-3 business days';
+                if (zoneDiff <= 4) return '3-4 business days';
+                return '4-5 business days';
+            }
+
+            // Fallback only: used if /api/shipping-rates can't be reached at
+            // all (e.g. static hosting with no serverless functions, or a
+            // network error). The endpoint itself already falls back to this
+            // same math server-side when live USPS/UPS credentials aren't
+            // configured, so this path is rarely hit in normal operation.
+            function computeSimulatedRates(zip) {
+                var destDigit = parseInt(zip.charAt(0), 10);
+                var zoneDiff = Math.abs(ORIGIN_ZIP_DIGIT - destDigit);
+
+                var usps = 8.50 + 1.25 * zoneDiff;
+                var upsGround = 11.00 + 1.75 * zoneDiff;
+                var ups2day = 28.00 + 3.00 * zoneDiff;
+                var upsOvernight = 52.00 + 4.50 * zoneDiff;
+
+                return {
+                    usps: { price: usps, days: daysLabelForZone(zoneDiff) },
+                    'ups-ground': { price: upsGround, days: daysLabelForZone(zoneDiff) },
+                    'ups-2day': { price: ups2day, days: '2 business days' },
+                    'ups-overnight': { price: upsOvernight, days: '1 business day' },
+                    source: { usps: 'simulated', ups: 'simulated' }
+                };
+            }
+
+            function noteTextFor(source) {
+                if (!source) return 'Rates estimated from your ZIP code’s shipping zone.';
+                var liveUsps = source.usps === 'live';
+                var liveUps = source.ups === 'live';
+                if (liveUsps && liveUps) return 'Live rates from USPS and UPS.';
+                if (liveUsps || liveUps) {
+                    return 'Live rate from ' + (liveUsps ? 'USPS' : 'UPS') + '; the other carrier is ' +
+                        'estimated (no API credentials configured for it yet).';
+                }
+                return 'Rates are estimated from your ZIP code’s shipping zone relative to our ' +
+                    'Tampa Bay, FL warehouse. Live USPS/UPS rates turn on automatically once API ' +
+                    'credentials are configured on the server.';
+            }
+
+            document.getElementById('calc-shipping-btn').addEventListener('click', function () {
+                var zipInput = document.getElementById('zip-input');
+                var zip = zipInput.value.trim();
+                var errorEl = document.getElementById('zip-error');
+                var noteEl = document.getElementById('shipping-note');
+                var calcBtn = document.getElementById('calc-shipping-btn');
+
+                if (!/^\d{5}$/.test(zip)) {
+                    errorEl.textContent = 'Enter a valid 5-digit US ZIP code.';
+                    document.getElementById('shipping-options').style.display = 'none';
+                    rates = null;
+                    updatePayButtonState();
+                    recalcTotals();
+                    return;
+                }
+                errorEl.textContent = '';
+                calcBtn.disabled = true;
+                noteEl.textContent = 'Calculating your rate…';
+
+                var qty = parseInt(document.getElementById('qty-input').value, 10) || 1;
+
+                fetch('/api/shipping-rates', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ zip: zip, qty: qty })
+                }).then(function (resp) {
+                    if (!resp.ok) throw new Error('shipping-rates endpoint returned ' + resp.status);
+                    return resp.json();
+                }).catch(function (err) {
+                    console.warn('Falling back to client-side simulated rates:', err.message);
+                    return computeSimulatedRates(zip);
+                }).then(function (result) {
+                    rates = result;
+                    calcBtn.disabled = false;
+                    noteEl.textContent = noteTextFor(result.source);
+
+                    document.getElementById('usps-price').textContent = money(rates.usps.price);
+                    document.getElementById('usps-days').textContent = rates.usps.days;
+                    document.getElementById('ups-ground-price').textContent = money(rates['ups-ground'].price);
+                    document.getElementById('ups-ground-days').textContent = rates['ups-ground'].days;
+                    document.getElementById('ups-2day-price').textContent = money(rates['ups-2day'].price);
+                    document.getElementById('ups-overnight-price').textContent = money(rates['ups-overnight'].price);
+
+                    document.getElementById('shipping-options').style.display = 'block';
+
+                    document.querySelectorAll('input[name="shipping-method"]').forEach(function (r) { r.checked = false; });
+                    document.querySelectorAll('.shipping-option').forEach(function (el) { el.classList.remove('selected'); });
+
+                    updatePayButtonState();
+                    recalcTotals();
+                });
+            });
+
+            document.querySelectorAll('.shipping-option').forEach(function (optionEl) {
+                optionEl.addEventListener('click', function () {
+                    var radio = optionEl.querySelector('input[type=radio]');
+                    radio.checked = true;
+                    document.querySelectorAll('.shipping-option').forEach(function (el) { el.classList.remove('selected'); });
+                    optionEl.classList.add('selected');
+                    updatePayButtonState();
+                    recalcTotals();
+                });
+            });
+
+            function selectedShippingKey() {
+                var checked = document.querySelector('input[name="shipping-method"]:checked');
+                return checked ? checked.value : null;
+            }
+
+            function updatePayButtonState() {
+                var key = selectedShippingKey();
+                var payButton = document.getElementById('pay-button');
+                var payButtonText = document.getElementById('pay-button-text');
+                if (key && rates) {
+                    payButton.disabled = false;
+                } else {
+                    payButton.disabled = true;
+                    payButtonText.textContent = 'Select a shipping method to continue';
+                }
+            }
+
+            function recalcTotals() {
+                var qty = parseInt(qtyInput.value, 10) || 1;
+                var subtotal = UNIT_PRICE * qty;
+                document.getElementById('summary-qty').textContent = qty;
+                document.getElementById('summary-subtotal').textContent = money(subtotal);
+
+                var key = selectedShippingKey();
+                var shippingCost = 0;
+                if (key && rates && rates[key]) {
+                    shippingCost = rates[key].price;
+                    document.getElementById('summary-shipping').textContent = money(shippingCost);
+                } else {
+                    document.getElementById('summary-shipping').textContent = '—';
+                }
+
+                var total = subtotal + shippingCost;
+                document.getElementById('summary-total').textContent = money(total);
+
+                var payButtonText = document.getElementById('pay-button-text');
+                if (key && rates) {
+                    payButtonText.textContent = 'Pay ' + money(total) + ' (Test Mode)';
+                }
+                return total;
+            }
+
+            // ---- Stripe ----
+            var stripe = Stripe('pk_test_51ULjP4PMgd1Trf9HqPEDHrRYh2DN84PCM4fqU4wrCiE8dwlEcWZ4zbE2av5Y2iVZHxrILTteIfRScOtT0cMRRvS400pzUI4AvJ');
+            var elements = stripe.elements();
+            var cardElement = elements.create('card', {
+                style: {
+                    base: {
+                        fontFamily: '"Inter", sans-serif',
+                        fontSize: '16px',
+                        color: '#1a1a1a',
+                        '::placeholder': { color: '#8a8f98' }
+                    },
+                    invalid: { color: '#e5424d' }
+                }
+            });
+            cardElement.mount('#card-element');
+            cardElement.on('change', function (event) {
+                document.getElementById('card-errors').textContent = event.error ? event.error.message : '';
+            });
+
+            document.getElementById('payment-form').addEventListener('submit', function (ev) {
+                ev.preventDefault();
+                var key = selectedShippingKey();
+                if (!key || !rates) return;
+
+                var total = recalcTotals();
+                var payButton = document.getElementById('pay-button');
+                var payButtonText = document.getElementById('pay-button-text');
+                var resultBox = document.getElementById('payment-result');
+
+                payButton.disabled = true;
+                payButtonText.textContent = 'Processing...';
+                resultBox.className = '';
+                resultBox.innerHTML = '';
+
+                stripe.createPaymentMethod({ type: 'card', card: cardElement }).then(function (result) {
+                    payButton.disabled = false;
+
+                    if (result.error) {
+                        payButtonText.textContent = 'Pay ' + money(total) + ' (Test Mode)';
+                        resultBox.className = 'error';
+                        resultBox.textContent = result.error.message;
+                        return;
+                    }
+
+                    var pm = result.paymentMethod;
+                    var qty = parseInt(qtyInput.value, 10) || 1;
+                    var methodLabels = {
+                        'usps': 'USPS Ground Advantage',
+                        'ups-ground': 'UPS Ground',
+                        'ups-2day': 'UPS 2nd Day Air',
+                        'ups-overnight': 'UPS Next Day Air'
+                    };
+
+                    payButtonText.textContent = 'Order Tokenized';
+                    resultBox.className = 'success';
+                    resultBox.innerHTML =
+                        '<strong>Test order created.</strong> Card tokenized successfully.<br>' +
+                        'PaymentMethod ID: <code>' + pm.id + '</code><br>' +
+                        'Card: ' + pm.card.brand + ' &bull;&bull;&bull;&bull; ' + pm.card.last4 + '<br>' +
+                        'Items: ' + qty + ' &times; NavSense LiDAR Module<br>' +
+                        'Shipping: ' + methodLabels[key] + ' (' + money(rates[key].price) + ')<br>' +
+                        'Total: ' + money(total) + '<br>' +
+                        '<em>No charge was made &mdash; this confirms tokenization only. A backend ' +
+                        'is required to actually charge this PaymentMethod for the total shown.</em>';
+                });
+            });
+
+            recalcTotals();
+        })();
+    </script>
+</body>
+</html>

@@ -20,11 +20,13 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
             <a href="index.html" class="logo">
-                <img src="assets/images/logo.png?v=3" alt="BayBot Dynamics" class="logo-img">
+                <img src="assets/images/logo-light.png?v=1" alt="BayBot Dynamics" class="logo-img">
             </a>
 
             <button class="mobile-menu-toggle" aria-label="Toggle navigation" id="mobileMenuToggle">
@@ -63,13 +65,19 @@
         </div>
     </nav>
 
-    <!-- Page Header -->
-    <section class="page-header">
-        <div class="container">
-            <h1>About BayBot Dynamics</h1>
-            <p>Pioneering the future of intelligent robotics</p>
-        </div>
-    </section>
+    <main id="main">
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="index.html">Home</a>
+                    <span aria-hidden="true">/</span>
+                    <span aria-current="page">About Us</span>
+                </nav>
+                <h1>About BayBot Dynamics</h1>
+                <p>Pioneering the future of intelligent robotics</p>
+            </div>
+        </section>
 
     <!-- About Content -->
     <section class="about-section">
@@ -165,6 +173,12 @@
             </div>
         </div>
     </section>
+    </main>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <!-- Footer -->
     <footer class="footer">

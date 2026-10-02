@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Stripe Payment Test | BayBot Dynamics</title>
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        .stripe-test-banner {
+            background: #fff8e1;
+            border: 1px solid #f0c849;
+            color: #6b5300;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+        #card-element {
+            background: #fff;
+            border: 1px solid #d7dbe0;
+            border-radius: 8px;
+            padding: 14px;
+        }
+        #card-element.StripeElement--focus {
+            border-color: #0a66ff;
+        }
+        #card-element.StripeElement--invalid {
+            border-color: #e5424d;
+        }
+        #card-errors {
+            color: #e5424d;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            min-height: 1.2em;
+        }
+        #payment-result {
+            margin-top: 18px;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            display: none;
+        }
+        #payment-result.success {
+            display: block;
+            background: #e8f7ee;
+            border: 1px solid #38a169;
+            color: #1b5e34;
+        }
+        #payment-result.error {
+            display: block;
+            background: #fdeeee;
+            border: 1px solid #e5424d;
+            color: #8a1c23;
+        }
+        #payment-result code {
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo-light.png?v=1" alt="BayBot Dynamics" class="logo-img">
+            </a>
+
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navMenu" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li class="has-dropdown">
+                        <a href="industries.html">Industries <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown">
+                            <li><a href="industries.html#healthcare">Healthcare</a></li>
+                            <li><a href="industries.html#warehouse">Warehouse &amp; Logistics</a></li>
+                            <li><a href="industries.html#security">Security</a></li>
+                            <li><a href="industries.html#manufacturing">Manufacturing</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-dropdown">
+                        <a href="products.html">Products <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown">
+                            <li><a href="products.html#cleaning">Cleaning Robots</a></li>
+                            <li><a href="products.html#delivery">Delivery &amp; Reception</a></li>
+                            <li><a href="products.html#industrial">Industrial Transport</a></li>
+                            <li><a href="products.html#quadruped">Quadruped Robots</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="parts-store.html">Parts Store</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+                <a href="schedule-demo.html" class="btn btn-primary">Request Demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main">
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="index.html">Home</a>
+                    <span aria-hidden="true">/</span>
+                    <span aria-current="page">Stripe Payment Test</span>
+                </nav>
+                <h1>Stripe Payment Test</h1>
+                <p>Internal page to verify the Stripe Elements integration</p>
+            </div>
+        </section>
+
+        <section class="about-section">
+            <div class="container">
+                <div class="contact-layout">
+                    <div class="contact-details">
+                        <span class="section-label">Test Mode</span>
+                        <h2 class="section-title">What this page does</h2>
+                        <div class="stripe-test-banner">
+                            <strong>Test mode only.</strong> This page uses a Stripe <em>test</em>
+                            publishable key, so no real card is ever charged. Use any of
+                            <a href="https://docs.stripe.com/testing#cards" target="_blank" rel="noopener">Stripe's test card numbers</a>
+                            &mdash; e.g. <code>4242 4242 4242 4242</code>, any future expiry, any 3-digit CVC.
+                        </div>
+                        <p class="section-description">
+                            This is a standalone test harness, not wired into the Parts Store
+                            cart. It mounts a Stripe Card Element and, on submit, tokenizes the
+                            card into a PaymentMethod directly in the browser &mdash; that confirms
+                            the publishable key, card validation, and Stripe.js are all working.
+                        </p>
+                        <p class="section-description">
+                            This repo now has serverless <code>api/</code> functions (chat, lead,
+                            demo-request), so a real <code>api/create-payment-intent.js</code>
+                            using a Stripe <em>secret</em> key could be added for a fully
+                            server-confirmed charge. That key must never be placed in this file
+                            or any other client-side code.
+                        </p>
+                    </div>
+
+                    <div class="contact-form-wrapper">
+                        <div class="contact-card">
+                            <h3>Test Card Payment</h3>
+                            <p>Enter a Stripe test card to confirm the integration.</p>
+
+                            <form id="payment-form" novalidate>
+                                <div class="form-group">
+                                    <label for="card-element">Card Details</label>
+                                    <div id="card-element"></div>
+                                    <div id="card-errors" role="alert"></div>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-full" id="submit-button">
+                                    <span id="button-text">Create Test PaymentMethod</span>
+                                    <i class="fas fa-lock"></i>
+                                </button>
+                            </form>
+                            <div id="payment-result"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-background">
+            <img src="assets/images/footer-sideshape.png" alt="" class="footer-shape" aria-hidden="true">
+        </div>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="footer-logo">
+                        <img src="assets/images/logo-light.png?v=1" alt="BayBot Dynamics">
+                    </a>
+                    <p class="footer-description">
+                        Leading the future of intelligent robotics with AI-powered solutions for modern businesses.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>Useful Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="parts-store.html">Parts Store</a></li>
+                        <li><a href="schedule-demo.html">Schedule Demo</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 BayBot Dynamics LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        (function () {
+            var stripe = Stripe('pk_test_51ULjP4PMgd1Trf9HqPEDHrRYh2DN84PCM4fqU4wrCiE8dwlEcWZ4zbE2av5Y2iVZHxrILTteIfRScOtT0cMRRvS400pzUI4AvJ');
+            var elements = stripe.elements();
+
+            var style = {
+                base: {
+                    fontFamily: '"Inter", sans-serif',
+                    fontSize: '16px',
+                    color: '#1a1a1a',
+                    '::placeholder': { color: '#8a8f98' }
+                },
+                invalid: { color: '#e5424d' }
+            };
+
+            var cardElement = elements.create('card', { style: style, hidePostalCode: false });
+            cardElement.mount('#card-element');
+
+            cardElement.on('change', function (event) {
+                var displayError = document.getElementById('card-errors');
+                displayError.textContent = event.error ? event.error.message : '';
+            });
+
+            var form = document.getElementById('payment-form');
+            var submitButton = document.getElementById('submit-button');
+            var buttonText = document.getElementById('button-text');
+            var resultBox = document.getElementById('payment-result');
+
+            form.addEventListener('submit', function (ev) {
+                ev.preventDefault();
+                submitButton.disabled = true;
+                buttonText.textContent = 'Processing...';
+                resultBox.className = '';
+                resultBox.innerHTML = '';
+
+                stripe.createPaymentMethod({ type: 'card', card: cardElement }).then(function (result) {
+                    submitButton.disabled = false;
+                    buttonText.textContent = 'Create Test PaymentMethod';
+
+                    if (result.error) {
+                        resultBox.className = 'error';
+                        resultBox.textContent = result.error.message;
+                        return;
+                    }
+
+                    var pm = result.paymentMethod;
+                    resultBox.className = 'success';
+                    resultBox.innerHTML =
+                        '<strong>PaymentMethod created.</strong> The card tokenized successfully ' +
+                        'with your test key.<br>' +
+                        'PaymentMethod ID: <code>' + pm.id + '</code><br>' +
+                        'Card: ' + pm.card.brand + ' &bull;&bull;&bull;&bull; ' + pm.card.last4 +
+                        ' (exp ' + pm.card.exp_month + '/' + pm.card.exp_year + ')<br>' +
+                        '<em>No charge was made &mdash; this confirms tokenization only. ' +
+                        'A backend is required to actually charge this PaymentMethod.</em>';
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

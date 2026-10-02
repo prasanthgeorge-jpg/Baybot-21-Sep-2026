@@ -382,6 +382,42 @@ back to opening the visitor's email app instead (the same fallback the
 generic `.js-contact-form` handler uses) - a demo request is never silently
 dropped.
 
+### Shipping rates (USPS & UPS)
+
+The Parts Store checkout (`product-navsense-lidar.html`) calls
+`api/shipping-rates.js` for a quote. Out of the box, with no credentials
+configured, it returns a simulated estimate based on how far the destination
+ZIP is from the Ruskin, FL warehouse - clearly labeled as estimated in the
+checkout UI. Configure the environment variables below to switch each
+carrier over to live rates; USPS and UPS are independent, so you can
+configure just one if that's all you have.
+
+**USPS** (https://developers.usps.com):
+1. Create a free developer account and register an app.
+2. Copy the Consumer Key/Secret into `USPS_CONSUMER_KEY` /
+   `USPS_CONSUMER_SECRET`.
+3. That's it - USPS rate lookups don't need a mailer/permit account, just the
+   API credentials.
+
+**UPS** (https://developer.ups.com):
+1. Create a free developer account, register an app to get a Client
+   ID/Secret, and put them in `UPS_CLIENT_ID` / `UPS_CLIENT_SECRET`.
+2. To get real (negotiated) rates rather than generic published ones, you
+   also need your own UPS shipper account number - opened separately at
+   ups.com, typically with billing on file. Put it in `UPS_ACCOUNT_NUMBER`.
+   Without an account number configured, UPS rates fall back to the
+   simulated estimate even if the Client ID/Secret are set.
+
+Optionally set `SHIP_FROM_ZIP` if you ship from somewhere other than Ruskin,
+FL (33570).
+
+**Before relying on this in production:** both carriers' request/response
+field names were written from their public API docs at the time this was
+built, not verified against a live sandbox call. Run one real test order
+through each carrier once credentials are in place and check the response
+shape still matches what `api/shipping-rates.js` expects - carrier APIs do
+shift field names between versions.
+
 ### Before going live
 
 - **`terms.html` is an outline, not a legal agreement.** Have counsel draft

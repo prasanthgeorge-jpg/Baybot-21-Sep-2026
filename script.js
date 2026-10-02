@@ -595,3 +595,178 @@ document.addEventListener('keydown', function(e) {
         mobileMenuToggle.focus();
     }
 });
+
+// ==== UX improvements (restored from earlier audit) ====
+// ---- Mobile Nav Overlay (tap-outside-to-close) ----
+(function() {
+    const overlay = document.createElement('div');
+    overlay.className = 'nav-overlay';
+    overlay.id = 'navOverlay';
+    document.body.appendChild(overlay);
+
+    const navMenu = document.getElementById('navMenu');
+    const toggle = document.getElementById('mobileMenuToggle');
+
+    function closeMobile() {
+        if (!navMenu || !toggle) return;
+        navMenu.classList.remove('active');
+        toggle.classList.remove('active');
+        toggle.setAttribute('aria-expanded', 'false');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    overlay.addEventListener('click', closeMobile);
+
+    // Enhance existing toggle to also control overlay & body scroll
+    if (toggle) {
+        toggle.addEventListener('click', function() {
+            const isOpen = navMenu.classList.contains('active');
+            overlay.classList.toggle('active', isOpen);
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
+    }
+})();
+
+
+// ---- Sticky Category Tab Bar (products.html) ----
+(function() {
+    const tabBar = document.getElementById('categoryTabBar');
+    if (!tabBar) return;
+
+    const sections = ['cleaning', 'delivery', 'industrial', 'quadruped'];
+    const tabs = tabBar.querySelectorAll('.category-tab');
+    const triggerEl = document.getElementById('cleaning');
+
+    // Show tab bar once the first product family scrolls into view
+    const showObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            tabBar.classList.toggle('active', entry.isIntersecting || entry.boundingClientRect.top < 0);
+        });
+    }, { rootMargin: '-70px 0px 0px 0px' });
+    if (triggerEl) showObserver.observe(triggerEl);
+
+    // Highlight active tab based on scroll position
+    const sectionEls = sections.map(function(id) { return document.getElementById(id); }).filter(Boolean);
+    window.addEventListener('scroll', function() {
+        let active = null;
+        sectionEls.forEach(function(s) {
+            if (s.getBoundingClientRect().top <= 150) active = s.id;
+        });
+        tabs.forEach(function(t) {
+            t.classList.toggle('active', t.getAttribute('href') === '#' + active);
+        });
+    });
+})();
+
+// ---- Demo Form Pre-Fill from URL params ----
+(function() {
+    const params = new URLSearchParams(window.location.search);
+    const product = params.get('product');
+    const industry = params.get('industry');
+
+    if (product) {
+        // Show product context badge above form
+        const form = document.querySelector('.js-contact-form');
+        if (form) {
+            const badge = document.createElement('div');
+            badge.className = 'demo-product-context';
+            badge.innerHTML = '<i class="fas fa-robot"></i> Requesting demo for: <strong>' +
+                product.replace(/-/g, ' ').replace(/\b\w/g, function(l) { return l.toUpperCase(); }) +
+                '</strong>';
+            form.parentNode.insertBefore(badge, form);
+
+            // Pre-fill hidden field or message
+            const msgField = form.querySelector('#d-message');
+            if (msgField && !msgField.value) {
+                msgField.value = 'I\'m interested in a demo of the ' +
+                    product.replace(/-/g, ' ').replace(/\b\w/g, function(l) { return l.toUpperCase(); }) + '.';
+            }
+        }
+    }
+
+    if (industry) {
+        const indSelect = document.querySelector('#d-industry');
+        if (indSelect) {
+            Array.from(indSelect.options).forEach(function(opt) {
+                if (opt.textContent.toLowerCase().replace(/[^a-z]/g, '')
+                    .includes(industry.toLowerCase().replace(/[^a-z]/g, ''))) {
+                    opt.selected = true;
+                }
+            });
+        }
+    }
+})();
+
+
+// ---- Product Selector Wizard ----
+(function() {
+    var wizard = document.getElementById('productWizard');
+    if (!wizard) return;
+
+    var steps = wizard.querySelectorAll('.wizard-step');
+    var current = 0;
+    var answers = {};
+    var products = [
+        { name:'PUDU CC1', href:'product-pudu-cc1.html', img:'assets/images/models/pudu-cc1.png', desc:'Autonomous wet & dry floor cleaning.', needs:['cleaning'], sizes:['small','medium'], industries:['healthcare','hospitality','commercial'] },
+        { name:'PUDU CC1 Pro', href:'product-pudu-cc1-pro.html', img:'assets/images/models/pudu-cc1-pro.png', desc:'Multi-function commercial cleaning.', needs:['cleaning'], sizes:['medium','large'], industries:['healthcare','commercial','manufacturing'] },
+        { name:'PUDU MT1 Max', href:'product-pudu-mt1-max.html', img:'assets/images/models/pudu-mt1-max.png', desc:'AI cleaning for large areas.', needs:['cleaning'], sizes:['large'], industries:['commercial','manufacturing','warehouse'] },
+        { name:'PUDU MT1 Vac', href:'product-pudu-mt1-vac.html', img:'assets/images/models/pudu-mt1-vac.png', desc:'High-power vacuum for large areas.', needs:['cleaning'], sizes:['large'], industries:['commercial','manufacturing','warehouse'] },
+        { name:'PUDU BG1 Pro', href:'product-pudu-bg1-pro.html', img:'assets/images/models/pudu-bg1-pro.png', desc:'Industrial-grade floor cleaning.', needs:['cleaning'], sizes:['large'], industries:['manufacturing','warehouse','commercial'] },
+        { name:'PUDU SH1', href:'product-pudu-sh1.html', img:'assets/images/models/pudu-sh1.png', desc:'Smart upright scrubber dryer.', needs:['cleaning'], sizes:['small','medium'], industries:['healthcare','hospitality','commercial'] },
+        { name:'BellaBot Pro', href:'product-bellabot-pro.html', img:'assets/images/models/bellabot-pro.png', desc:'Premium delivery & advertising.', needs:['delivery'], sizes:['small','medium'], industries:['hospitality','healthcare'] },
+        { name:'KettyBot Pro', href:'product-pudu-kettybot-pro.html', img:'assets/images/models/pudu-kettybot-pro.png', desc:'Reception & in-venue delivery.', needs:['delivery'], sizes:['small','medium'], industries:['hospitality','commercial'] },
+        { name:'PuduBot 2', href:'product-pudubot-2.html', img:'assets/images/models/pudubot-2.png', desc:'Versatile commercial delivery.', needs:['delivery'], sizes:['small','medium'], industries:['hospitality','healthcare'] },
+        { name:'PUDU T150', href:'product-pudu-t150.html', img:'assets/images/models/pudu-t150.png', desc:'Light-payload transport.', needs:['transport'], sizes:['small','medium'], industries:['warehouse','manufacturing'] },
+        { name:'PUDU T300', href:'product-pudu-t300.html', img:'assets/images/models/pudu-t300.png', desc:'Medium-payload transport.', needs:['transport'], sizes:['medium'], industries:['warehouse','manufacturing'] },
+        { name:'PUDU T600', href:'product-pudu-t600.html', img:'assets/images/models/pudu-t600.png', desc:'Heavy-payload transport.', needs:['transport'], sizes:['medium','large'], industries:['warehouse','manufacturing'] },
+        { name:'PUDU D5', href:'product-pudu-d5-series.html', img:'assets/images/models/pudu-d5.png', desc:'All-terrain quadruped.', needs:['inspection','security'], sizes:['medium','large'], industries:['security','manufacturing','warehouse'] }
+    ];
+
+
+    function showStep(idx) {
+        steps.forEach(function(s, i) { s.classList.toggle('active', i === idx); });
+        current = idx;
+    }
+
+    wizard.querySelectorAll('.wizard-option').forEach(function(opt) {
+        opt.addEventListener('click', function() {
+            var step = this.closest('.wizard-step');
+            step.querySelectorAll('.wizard-option').forEach(function(o) { o.classList.remove('selected'); });
+            this.classList.add('selected');
+            answers[step.dataset.key] = this.dataset.value;
+        });
+    });
+
+    wizard.querySelectorAll('[data-wizard-next]').forEach(function(btn) {
+        btn.addEventListener('click', function() { showStep(current + 1); });
+    });
+    wizard.querySelectorAll('[data-wizard-back]').forEach(function(btn) {
+        btn.addEventListener('click', function() { showStep(current - 1); });
+    });
+    wizard.querySelectorAll('[data-wizard-results]').forEach(function(btn) {
+        btn.addEventListener('click', function() { showStep(current + 1); renderResults(); });
+    });
+
+    function renderResults() {
+        var container = wizard.querySelector('.wizard-results');
+        if (!container) return;
+        var matches = products.filter(function(p) {
+            var score = 0;
+            if (answers.need && p.needs.indexOf(answers.need) !== -1) score++;
+            if (answers.size && p.sizes.indexOf(answers.size) !== -1) score++;
+            if (answers.industry && p.industries.indexOf(answers.industry) !== -1) score++;
+            return score >= 2;
+        }).slice(0, 4);
+
+        if (!matches.length) {
+            container.innerHTML = '<p>No exact matches — <a href="contact.html">talk to our team</a> for a custom recommendation.</p>';
+            return;
+        }
+        container.innerHTML = '<h4>We recommend ' + matches.length + ' robot' + (matches.length > 1 ? 's' : '') + ' for you:</h4>' +
+            matches.map(function(p) {
+                return '<a href="' + p.href + '" class="wizard-result-item"><img src="' + p.img + '" alt="' + p.name + '"><div class="result-info"><h5>' + p.name + '</h5><p>' + p.desc + '</p></div><i class="fas fa-arrow-right"></i></a>';
+            }).join('');
+    }
+})();
+
