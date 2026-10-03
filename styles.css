@@ -3517,3 +3517,45 @@ body.has-chat-launcher .back-to-top {
         padding: var(--spacing-lg);
     }
 }
+
+
+/* Keep the navbar on one line between the mobile breakpoint and wide desktops
+   (the Location menu made it too wide, wrapping "Contact Us" onto two lines). */
+@media (min-width: 969px) and (max-width: 1240px) {
+    .nav-menu {
+        gap: var(--spacing-md);
+    }
+
+    .nav-links {
+        gap: 1rem;
+    }
+
+    .nav-links a {
+        font-size: 0.9rem;
+        white-space: nowrap;
+    }
+
+    .nav-menu .btn {
+        padding: 0.65rem 1.1rem;
+        font-size: 0.9rem;
+        white-space: nowrap;
+    }
+
+    .logo-img {
+        height: 42px;
+    }
+}
+
+/* Three hero buttons (demo, robots, contact) fit on one row on desktop. */
+@media (min-width: 969px) {
+    .hero-grid .hero-cta {
+        gap: 0.75rem;
+        flex-wrap: nowrap;
+    }
+
+    .hero-grid .hero-cta .btn {
+        padding: 0.85rem 1.25rem;
+        font-size: 0.95rem;
+        white-space: nowrap;
+    }
+}
