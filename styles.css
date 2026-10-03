@@ -3054,3 +3054,466 @@ html {
     .related-products .model-grid { grid-template-columns: 1fr; }
 }
 
+
+
+/* ==========================================================================
+   Locations (home section, locations index, city pages)
+   ========================================================================== */
+.location-section {
+    padding: var(--spacing-3xl) 0;
+}
+
+.location-layout {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: var(--spacing-xl);
+    align-items: stretch;
+    margin-top: var(--spacing-xl);
+}
+
+.location-hq,
+.loc-hq-card {
+    background: linear-gradient(135deg, var(--dark-bg), var(--dark-blue));
+    color: var(--white);
+    border-radius: var(--radius-lg, 20px);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-lg);
+}
+
+.location-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--secondary-color);
+}
+
+.location-hq h3,
+.loc-hq-card h2 {
+    color: var(--white);
+    margin: 0.5rem 0 var(--spacing-md);
+    font-size: 1.6rem;
+}
+
+.loc-hq-card .section-label {
+    color: var(--secondary-color);
+}
+
+.location-hq-list,
+.loc-contact-list {
+    list-style: none;
+    margin: 0 0 var(--spacing-lg);
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+}
+
+.location-hq-list li {
+    display: flex;
+    gap: 0.9rem;
+    align-items: flex-start;
+    line-height: 1.5;
+}
+
+.location-hq-list i {
+    flex: 0 0 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--secondary-color);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.location-hq-list a,
+.loc-hq-card a:not(.btn) {
+    color: var(--white);
+}
+
+.location-hq-list a:hover,
+.loc-hq-card a:not(.btn):hover {
+    color: var(--secondary-color);
+}
+
+.location-hq-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.btn-outline-light {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid rgba(255, 255, 255, 0.55);
+}
+
+.btn-outline-light:hover {
+    background: var(--white);
+    color: var(--dark-bg);
+}
+
+.loc-map {
+    border-radius: var(--radius-lg, 20px);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    min-height: 340px;
+    background: #e6eefb;
+}
+
+.loc-map-frame {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 340px;
+    border: 0;
+}
+
+.location-cities {
+    margin-top: var(--spacing-xl);
+    text-align: center;
+}
+
+.location-cities h3 {
+    margin-bottom: var(--spacing-md);
+}
+
+.loc-chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+}
+
+.loc-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 1.05rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--lighter-gray);
+    color: var(--dark-bg);
+    font-weight: var(--font-weight-medium);
+    font-size: 0.92rem;
+    transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.loc-chip i {
+    color: var(--primary-color);
+    font-size: 0.8rem;
+}
+
+.loc-chip:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+.loc-chip:hover i {
+    color: var(--white);
+}
+
+.location-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: var(--spacing-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--primary-color);
+}
+
+/* Locations index */
+.loc-hq-row {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: var(--spacing-xl);
+    align-items: stretch;
+}
+
+.loc-contact-list li {
+    display: flex;
+    gap: 0.9rem;
+    align-items: flex-start;
+    line-height: 1.5;
+}
+
+.loc-contact-list li > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.loc-contact-list strong {
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+
+.loc-ic {
+    flex: 0 0 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(0, 102, 204, 0.12);
+    color: var(--primary-color);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.loc-hq-card .loc-ic {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--secondary-color);
+}
+
+.loc-city-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+}
+
+.loc-city-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid var(--lighter-gray);
+    box-shadow: var(--shadow-sm);
+    color: var(--dark-bg);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.loc-city-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.loc-city-card h3 {
+    margin: 0.5rem 0 0;
+    font-size: 1.15rem;
+}
+
+.loc-city-card p {
+    margin: 0;
+    color: var(--medium-gray);
+    font-size: 0.9rem;
+    word-break: break-all;
+}
+
+.loc-more-link {
+    margin-top: 0.5rem;
+    color: var(--primary-color);
+    font-weight: var(--font-weight-semibold);
+    font-size: 0.92rem;
+}
+
+/* City detail page */
+.loc-detail-layout {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: var(--spacing-xl);
+    align-items: start;
+}
+
+.loc-p {
+    color: var(--dark-gray);
+    line-height: 1.8;
+    margin-bottom: var(--spacing-md);
+}
+
+.loc-subtitle {
+    font-size: 1.5rem;
+    margin: 0 0 var(--spacing-md);
+}
+
+.loc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--spacing-md);
+    display: grid;
+    gap: 0.6rem;
+}
+
+.loc-list li {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+}
+
+.loc-list i {
+    color: var(--secondary-color);
+    margin-top: 0.3rem;
+}
+
+.loc-side {
+    position: sticky;
+    top: 110px;
+    display: grid;
+    gap: var(--spacing-md);
+}
+
+.loc-card {
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid var(--lighter-gray);
+    border-radius: var(--radius-lg, 20px);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+.loc-card h3 {
+    margin: 0 0 var(--spacing-md);
+}
+
+.loc-card .loc-contact-list a {
+    color: var(--primary-color);
+    word-break: break-all;
+}
+
+.loc-card .btn + .btn {
+    margin-top: 0.6rem;
+}
+
+.loc-map-frame {
+    min-height: 260px;
+}
+
+.loc-more {
+    padding: var(--spacing-2xl, 3rem) 0 var(--spacing-3xl);
+}
+
+.loc-more .section-title {
+    margin-bottom: var(--spacing-lg);
+}
+
+@media (max-width: 968px) {
+    .location-layout,
+    .loc-hq-row,
+    .loc-detail-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .loc-side {
+        position: static;
+    }
+}
+
+/* ==========================================================================
+   Floating chat launcher (home page)
+   ========================================================================== */
+.chat-launcher {
+    position: fixed;
+    right: var(--spacing-lg);
+    bottom: var(--spacing-lg);
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.75rem;
+}
+
+.chat-launcher-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.4rem;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: var(--white);
+    font-family: var(--font-primary);
+    font-weight: var(--font-weight-semibold);
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 10px 28px rgba(0, 102, 204, 0.45);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.chat-launcher-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgba(0, 102, 204, 0.55);
+}
+
+.chat-launcher-btn i {
+    font-size: 1.15rem;
+}
+
+.chat-panel {
+    position: relative;
+    width: min(390px, calc(100vw - 2rem));
+    max-height: calc(100vh - 8rem);
+    max-height: calc(100dvh - 8rem);
+    overflow-y: auto;
+    border-radius: 18px;
+    box-shadow: 0 24px 60px rgba(10, 14, 26, 0.35);
+}
+
+.chat-panel[hidden] {
+    display: none;
+}
+
+.chat-panel .chat-card {
+    background-color: #ffffff;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    margin: 0;
+    min-height: 460px;
+    overflow: hidden;
+}
+
+.chat-panel-close {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    z-index: 3;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(10, 14, 26, 0.08);
+    color: var(--dark-bg);
+    cursor: pointer;
+}
+
+.chat-panel-close:hover {
+    background: rgba(10, 14, 26, 0.16);
+}
+
+body.has-chat-launcher .back-to-top {
+    bottom: 5.75rem;
+}
+
+@media (max-width: 640px) {
+    .chat-launcher {
+        right: 1rem;
+        bottom: 1rem;
+    }
+
+    .chat-launcher-btn span {
+        display: none;
+    }
+
+    .chat-launcher-btn {
+        padding: 1rem;
+    }
+
+    body.has-chat-launcher .back-to-top {
+        bottom: 5.5rem;
+        right: 1rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .location-hq,
+    .loc-hq-card {
+        padding: var(--spacing-lg);
+    }
+}

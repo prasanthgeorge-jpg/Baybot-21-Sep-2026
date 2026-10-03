@@ -787,3 +787,23 @@ document.addEventListener('keydown', function(e) {
     window.gtag('js', new Date());
     window.gtag('config', GA_MEASUREMENT_ID, { anonymize_ip: true });
 })();
+
+
+// ==== Floating chat launcher (home page) ====
+(function () {
+    var btn = document.getElementById('chatLauncherBtn');
+    var panel = document.getElementById('chatPanel');
+    if (!btn || !panel) return;
+    var closeBtn = document.getElementById('chatPanelClose');
+
+    function setOpen(open) {
+        panel.hidden = !open;
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+
+    btn.addEventListener('click', function () { setOpen(panel.hidden); });
+    if (closeBtn) closeBtn.addEventListener('click', function () { setOpen(false); btn.focus(); });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !panel.hidden) { setOpen(false); btn.focus(); }
+    });
+})();

@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/24.7.0/build/css/intlTelInput.min.css">
     <link rel="stylesheet" href="styles.css">
     
     <!-- Structured Data -->
@@ -74,8 +75,33 @@
         ]
     }
     </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "BayBot Dynamics",
+        "url": "https://www.baybotdynamics.com/",
+        "telephone": "+1-813-400-3338",
+        "email": "info@baybotdynamics.com",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "207 College Ave W",
+            "addressLocality": "Ruskin",
+            "addressRegion": "FL",
+            "postalCode": "33570",
+            "addressCountry": "US"
+        },
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "08:00",
+            "closes": "17:00"
+        },
+        "areaServed": ["Bradenton", "Clearwater", "Lakeland", "Lakewood Ranch", "Ocala", "Orlando", "Sarasota", "St. Petersburg", "Tampa", "Venice"]
+    }
+    </script>
 </head>
-<body>
+<body class="has-chat-launcher">
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
@@ -108,6 +134,21 @@
                             <li><a href="products.html#delivery">Delivery &amp; Reception</a></li>
                             <li><a href="products.html#industrial">Industrial Transport</a></li>
                             <li><a href="products.html#quadruped">Quadruped Robots</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-dropdown">
+                        <a href="locations.html">Location <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown">
+                            <li><a href="location-bradenton-florida.html">Bradenton, Florida</a></li>
+                            <li><a href="location-clearwater-florida.html">Clearwater, Florida</a></li>
+                            <li><a href="location-lakeland-florida.html">Lakeland, Florida</a></li>
+                            <li><a href="location-lakewood-ranch-florida.html">Lakewood Ranch, Florida</a></li>
+                            <li><a href="location-ocala-florida.html">Ocala, Florida</a></li>
+                            <li><a href="location-orlando-florida.html">Orlando, Florida</a></li>
+                            <li><a href="location-sarasota-florida.html">Sarasota, Florida</a></li>
+                            <li><a href="location-st-petersburg-florida.html">St. Petersburg, Florida</a></li>
+                            <li><a href="location-tampa-florida.html">Tampa, Florida</a></li>
+                            <li><a href="location-venice-florida.html">Venice, Florida</a></li>
                         </ul>
                     </li>
                     <li><a href="blog.html">Blog</a></li>
@@ -329,6 +370,57 @@
     </section>
 
     <!-- FAQ Section -->
+    <!-- Locations -->
+    <section class="location-section" id="locations">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-label">Locations</span>
+                <h2 class="section-title">Local Robotics Support Across Florida</h2>
+                <p class="section-description">
+                    From our Tampa Bay headquarters we deliver demos, deployment, training
+                    and service to businesses throughout Florida.
+                </p>
+            </div>
+
+            <div class="location-layout">
+                <div class="location-hq">
+                    <span class="location-badge"><i class="fas fa-location-dot"></i> Headquarters</span>
+                    <h3>Ruskin (Tampa Bay), Florida</h3>
+                    <ul class="location-hq-list">
+                        <li><i class="fas fa-location-dot"></i><span>207 College Ave W, Ruskin, FL 33570</span></li>
+                        <li><i class="fas fa-phone"></i><span><a href="tel:+18134003338">813-400-3338</a><br><a href="tel:+18777229268">1-877-7BAYBOT</a></span></li>
+                        <li><i class="fas fa-envelope"></i><span><a href="mailto:info@baybotdynamics.com">info@baybotdynamics.com</a></span></li>
+                        <li><i class="fas fa-clock"></i><span>Mon-Fri, 8 AM - 5 PM</span></li>
+                    </ul>
+                    <div class="location-hq-actions">
+                        <a href="https://www.google.com/maps/dir/?api=1&destination=207+College+Ave+W,+Ruskin,+FL+33570" class="btn btn-primary" target="_blank" rel="noopener">Get directions <i class="fas fa-diamond-turn-right"></i></a>
+                        <a href="schedule-demo.html" class="btn btn-outline-light">Request a demo</a>
+                    </div>
+                </div>
+                <div class="loc-map location-map">
+                    <iframe class="loc-map-frame" title="BayBot Dynamics headquarters map" src="https://maps.google.com/maps?q=207+College+Ave+W,+Ruskin,+FL+33570&z=13&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="location-cities">
+                <h3>Cities we serve</h3>
+                <div class="loc-chips">
+                        <a href="location-bradenton-florida.html" class="loc-chip"><i class="fas fa-location-dot"></i> Bradenton</a>
+                        <a href="location-clearwater-florida.html" class="loc-chip"><i class="fas fa-location-dot"></i> Clearwater</a>
+                        <a href="location-lakeland-florida.html" class="loc-chip"><i class="fas fa-location-dot"></i> Lakeland</a>
+                        <a href="location-lakewood-ranch-florida.html" class="loc-chip"><i class="fas fa-location-dot"></i> Lakewood Ranch</a>
+                        <a href="location-ocala-florida.html" class="loc-chip"><i class="fas fa-location-dot"></i> Ocala</a>
+                        <a href="location-orlando-florida.html" class="loc-chip"><i class="fas fa-location-dot"></i> Orlando</a>
+                        <a href="location-sarasota-florida.html" class="loc-chip"><i class="fas fa-location-dot"></i> Sarasota</a>
+                        <a href="location-st-petersburg-florida.html" class="loc-chip"><i class="fas fa-location-dot"></i> St. Petersburg</a>
+                        <a href="location-tampa-florida.html" class="loc-chip"><i class="fas fa-location-dot"></i> Tampa</a>
+                        <a href="location-venice-florida.html" class="loc-chip"><i class="fas fa-location-dot"></i> Venice</a>
+                </div>
+                <a href="locations.html" class="location-all">View all locations <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
     <section class="faq-section">
         <div class="container">
             <div class="section-grid">
@@ -472,7 +564,7 @@
                         </li>
                         <li>
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>Tampa Bay, Florida</span>
+                            <span>207 College Ave W, Ruskin, FL 33570</span>
                         </li>
                     </ul>
                 </div>
@@ -485,11 +577,80 @@
     </footer>
 
     <!-- Back to Top Button -->
+    <!-- Floating chat launcher -->
+    <div class="chat-launcher" id="chatLauncher">
+        <div class="chat-panel" id="chatPanel" hidden>
+            <button type="button" class="chat-panel-close" id="chatPanelClose" aria-label="Close chat panel"><i class="fas fa-times"></i></button>
+            <div class="contact-card chat-card" id="chatCard">
+                            <div class="chat-intro" id="chatIntro">
+                                <h3>Chat with Us</h3>
+                                <p>Get instant answers from our AI assistant, any time of day.</p>
+                                <button type="button" class="btn btn-primary w-full" id="startChatBtn">
+                                    Chat with Us
+                                    <i class="fas fa-comment-dots"></i>
+                                </button>
+                                <p class="chat-fallback">
+                                    Prefer to talk to a person? Call
+                                    <a href="tel:+18777229268">1-877-7BAYBOT</a>
+                                    or email
+                                    <a href="mailto:info@baybotdynamics.com">info@baybotdynamics.com</a>.
+                                </p>
+                            </div>
+
+                            <form class="chat-lead-form" id="chatLeadForm" novalidate hidden>
+                                <h3>Before we chat</h3>
+                                <p>Share a few details so we can follow up if the conversation gets cut short.</p>
+                                <div class="form-group">
+                                    <label for="chat-lead-name">Your Name</label>
+                                    <input type="text" id="chat-lead-name" name="name" autocomplete="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="chat-lead-email">Your Email</label>
+                                    <input type="email" id="chat-lead-email" name="email" autocomplete="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="chat-lead-phone">Phone Number</label>
+                                    <input type="tel" id="chat-lead-phone" name="phone" autocomplete="tel" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-full">
+                                    Start Chat
+                                    <i class="fas fa-comment-dots"></i>
+                                </button>
+                                <button type="button" class="chat-lead-back" id="chatLeadBack">Back</button>
+                                <p class="form-status" id="chatLeadStatus" role="status" aria-live="polite"></p>
+                            </form>
+
+                            <div class="chat-window" id="chatWindow" hidden>
+                                <div class="chat-header">
+                                    <span class="chat-header-title"><i class="fas fa-robot"></i> BayBot Assistant</span>
+                                    <button type="button" class="chat-close" id="chatCloseBtn" aria-label="Close chat">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <div class="chat-messages" id="chatMessages" role="log" aria-live="polite"></div>
+                                <form class="chat-input-row" id="chatForm">
+                                    <label for="chatInput" class="visually-hidden">Type your message</label>
+                                    <input type="text" id="chatInput" autocomplete="off" placeholder="Type your message…" required>
+                                    <button type="submit" class="chat-send" aria-label="Send message">
+                                        <i class="fas fa-paper-plane"></i>
+                                    </button>
+                                </form>
+                                <p class="chat-status" id="chatStatus" role="status" aria-live="polite"></p>
+                            </div>
+                        </div>
+        </div>
+        <button type="button" class="chat-launcher-btn" id="chatLauncherBtn" aria-expanded="false" aria-controls="chatPanel">
+            <i class="fas fa-comment-dots" aria-hidden="true"></i>
+            <span>Chat with us</span>
+        </button>
+    </div>
+
     <button class="back-to-top" id="backToTop" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>
     </button>
 
     <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/24.7.0/build/js/intlTelInputWithUtils.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
