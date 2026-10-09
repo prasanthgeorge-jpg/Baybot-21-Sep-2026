@@ -343,3 +343,73 @@ input, select, textarea { background: #fff; border-color: var(--sky-300); }
     .dropdown-industries { min-width: 0; }
     .dropdown-industries small { display: none; }
 }
+
+/* ==========================================================================
+   Neutral "Lovable" canvas
+   Near-white page, cool-grey alternating bands, hairline borders, whisper
+   shadows. Blue stays only as the accent. Overrides the sky-blue layer above.
+   ========================================================================== */
+:root {
+    --sky-50: #f9fafb;
+    --sky-100: #f3f5f7;
+    --sky-200: #e6e9ed;
+    --sky-300: #d5dae0;
+    --ink: #1c2229;
+    --blue-glow: 0 8px 36px rgba(20, 30, 50, 0.07);
+    --card-shadow: 0 1px 2px rgba(20, 30, 50, .04), 0 6px 20px rgba(20, 30, 50, .05);
+}
+body { background: #fff; background-attachment: scroll; color: var(--ink); }
+
+/* Navbar */
+.navbar { background: rgba(255, 255, 255, .9); border-bottom: 1px solid var(--fr-border); }
+
+/* Hero: near-white wash like the new design, no coloured orb */
+.hero-section { background-color: #f6f8fa; }
+.hero-section::before {
+    background: linear-gradient(90deg, rgba(250,251,252,.97) 0%, rgba(250,251,252,.92) 28%, rgba(250,251,252,.38) 55%, rgba(250,251,252,0) 72%);
+}
+.hero-section::after { display: none; }
+.hero-eyebrow { border-color: var(--fr-border); box-shadow: none; }
+.hero-subtitle { color: var(--fr-muted); }
+.hero-media-caption { box-shadow: var(--blue-glow); border: 1px solid var(--fr-border); }
+
+/* Trust strip: hairline bar */
+.trust-grid { border: 1px solid var(--fr-border); box-shadow: var(--blue-glow); border-radius: 12px; }
+.trust-item + .trust-item { border-left-color: var(--fr-border); }
+.trust-item i { background: var(--fr-accent); }
+
+/* Section bands: white, then cool grey */
+.industries-section, .faq-section { background: var(--fr-card); }
+.industries-section, .faq-section, .page-header, .product-hero { border-top: 1px solid var(--fr-border); }
+.section-label { border-color: var(--fr-border); box-shadow: none; }
+.section-description, .why-choose-section .section-description { color: var(--fr-muted); }
+.check-list.light li { color: #3d4652; }
+
+/* Cards */
+.industry-card, .model-card, .contact-card, .radio-card, .chat-card, .feature-card, .faq-item { border-color: var(--fr-border); border-radius: 12px; }
+.industry-card:hover, .model-card:hover { border-color: #c6d4ee; }
+.industry-card-media, .model-card-media { background: var(--fr-card); }
+
+/* Inner-page banners: flat light grey */
+.page-header, .product-hero { background: var(--fr-card); border-bottom: 1px solid var(--fr-border); }
+
+/* Gradient-tinted bits go flat */
+.contact-info-list li { background: var(--fr-card); }
+input, select, textarea { border-color: var(--fr-border); }
+.btn-outline { border-color: var(--fr-border); }
+.btn-white { border-color: var(--fr-border); box-shadow: none; }
+
+/* Retire the old "Blue & White Translucent" layer from styles.css */
+:root {
+    --page-blue: #ffffff;
+    --page-blue-soft: #ffffff;
+    --glass: #ffffff;
+    --glass-strong: #ffffff;
+    --glass-blue: #f6f8fa;
+}
+body::before { display: none !important; }
+body { background-color: #fff; }
+.industries-section { background: var(--fr-card); }
+.hero-section { background-color: #f6f8fa; }
+.cta-section { background: linear-gradient(135deg, #1a5fd6 0%, #1450b8 60%, #0f3d94 100%); }
+.page-header, .product-hero { background: var(--fr-card); }
