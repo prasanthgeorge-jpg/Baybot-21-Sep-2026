@@ -60,7 +60,6 @@ h1, h2, h3, h4,
     border-bottom: 1px solid var(--fr-border);
 }
 .navbar.scrolled { background: var(--fr-bg); box-shadow: none; }
-.logo-img { filter: none; }
 .nav-links > li > a { font-size: 0.9rem; font-weight: 550; color: var(--fr-fg); }
 .nav-links > li > a:hover { color: var(--primary-color); }
 .dropdown {
@@ -140,19 +139,6 @@ input:focus, select:focus, textarea:focus {
 /* CTA band: flat blue */
 .cta-section { background: var(--primary-color); }
 
-/* Footer: light surface to match the new design */
-.footer { background: var(--fr-bg); color: var(--fr-muted); border-top: 1px solid var(--fr-border); }
-.footer-background, .footer-shape { display: none; }
-.footer h4 { color: var(--fr-fg); font-family: var(--font-heading); }
-.footer a, .footer p, .footer li { color: var(--fr-muted); }
-.footer a:hover { color: var(--primary-color); }
-.footer-bottom { border-top: 1px solid var(--fr-border); color: var(--fr-muted); }
-.social-links a { background: var(--fr-card); border: 1px solid var(--fr-border); color: var(--fr-muted); }
-.social-links a:hover { background: var(--primary-color); color: #fff; border-color: var(--primary-color); }
-.footer-logo img { filter: none; }
-
-/* Logo: faint edge so the silver lettering reads on white */
-.logo-img { filter: drop-shadow(0 1px 1px rgba(10, 14, 26, 0.35)); }
 
 /* Inner-page banners and icon tiles: flat, no gradients */
 .page-header { background: var(--fr-card); border-bottom: 1px solid var(--fr-border); }
