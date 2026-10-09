@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="theme-friendly.css?v=5">
+    <link rel="stylesheet" href="theme-friendly.css?v=6">
 </head>
 <body>
     <a href="#main" class="skip-link">Skip to main content</a>
@@ -45,11 +45,13 @@
                     <li><a href="about.html">About Us</a></li>
                     <li class="has-dropdown">
                         <a href="industries.html" class="active" aria-current="page">Industries <i class="fas fa-chevron-down"></i></a>
-                        <ul class="dropdown">
-                            <li><a href="industries.html#healthcare">Healthcare</a></li>
-                            <li><a href="industries.html#warehouse">Warehouse &amp; Logistics</a></li>
-                            <li><a href="industries.html#security">Security</a></li>
-                            <li><a href="industries.html#manufacturing">Manufacturing</a></li>
+                        <ul class="dropdown dropdown-industries">
+                            <li><a href="industries.html#healthcare" class="dropdown-media"><img src="assets/images/industries/thumbs/healthcare.webp" alt="" width="56" height="56" loading="lazy" decoding="async"><span><strong>Healthcare</strong><small>Cleaning, disinfection, delivery</small></span></a></li>
+                            <li><a href="industries.html#warehouse" class="dropdown-media"><img src="assets/images/industries/thumbs/warehouse.webp" alt="" width="56" height="56" loading="lazy" decoding="async"><span><strong>Warehouse &amp; Logistics</strong><small>Transport and material handling</small></span></a></li>
+                            <li><a href="industries.html#security" class="dropdown-media"><img src="assets/images/industries/thumbs/security.webp" alt="" width="56" height="56" loading="lazy" decoding="async"><span><strong>Security</strong><small>Autonomous patrol</small></span></a></li>
+                            <li><a href="industries.html#manufacturing" class="dropdown-media"><img src="assets/images/industries/thumbs/manufacturing.webp" alt="" width="56" height="56" loading="lazy" decoding="async"><span><strong>Manufacturing</strong><small>Plant-floor transport</small></span></a></li>
+                            <li><a href="industries.html#hospitality" class="dropdown-media"><img src="assets/images/industries/thumbs/hospitality.webp" alt="" width="56" height="56" loading="lazy" decoding="async"><span><strong>Hospitality</strong><small>Hotels and restaurants</small></span></a></li>
+                            <li><a href="industries.html#commercial" class="dropdown-media"><img src="assets/images/industries/thumbs/commercial.webp" alt="" width="56" height="56" loading="lazy" decoding="async"><span><strong>Commercial Facilities</strong><small>Offices and retail</small></span></a></li>
                         </ul>
                     </li>
                     <li class="has-dropdown">
@@ -100,36 +102,42 @@
 
                 <div class="industries-grid">
                     <a href="#healthcare" class="industry-card industry-card-link">
+                        <div class="industry-card-media"><img src="assets/images/industries/healthcare.webp" alt="Autonomous service robot in a healthcare facility" width="512" height="300" loading="lazy" decoding="async" style="object-position:50% 50%"></div>
                         <div class="industry-icon"><i class="fas fa-hospital"></i></div>
                         <h3>Healthcare</h3>
                         <p>Cleaning, disinfection and supply delivery that protect clinical time.</p>
                         <span class="card-link">Jump to section <i class="fas fa-arrow-down"></i></span>
                     </a>
                     <a href="#warehouse" class="industry-card industry-card-link">
+                        <div class="industry-card-media"><img src="assets/images/industries/warehouse.webp" alt="PUDU T600 transport robot for warehouses" width="512" height="300" loading="lazy" decoding="async" style="object-position:50% 50%"></div>
                         <div class="industry-icon"><i class="fas fa-warehouse"></i></div>
                         <h3>Warehouse &amp; Logistics</h3>
                         <p>Material movement and inventory support across long shifts.</p>
                         <span class="card-link">Jump to section <i class="fas fa-arrow-down"></i></span>
                     </a>
                     <a href="#security" class="industry-card industry-card-link">
+                        <div class="industry-card-media"><img src="assets/images/industries/security.webp" alt="Autonomous patrol robot for security" width="512" height="300" loading="lazy" decoding="async" style="object-position:50% 22%"></div>
                         <div class="industry-icon"><i class="fas fa-shield-alt"></i></div>
                         <h3>Security &amp; Surveillance</h3>
                         <p>Continuous patrol and monitoring on predictable routes.</p>
                         <span class="card-link">Jump to section <i class="fas fa-arrow-down"></i></span>
                     </a>
                     <a href="#manufacturing" class="industry-card industry-card-link">
+                        <div class="industry-card-media"><img src="assets/images/industries/manufacturing.webp" alt="Transport robot moving totes in a plant" width="512" height="300" loading="lazy" decoding="async" style="object-position:50% 50%"></div>
                         <div class="industry-icon"><i class="fas fa-industry"></i></div>
                         <h3>Manufacturing</h3>
                         <p>Inspection, transport and quality support on the plant floor.</p>
                         <span class="card-link">Jump to section <i class="fas fa-arrow-down"></i></span>
                     </a>
                     <a href="#hospitality" class="industry-card industry-card-link">
+                        <div class="industry-card-media"><img src="assets/images/industries/hospitality.webp" alt="Service robot delivering to restaurant guests" width="512" height="300" loading="lazy" decoding="async" style="object-position:50% 50%"></div>
                         <div class="industry-icon"><i class="fas fa-hotel"></i></div>
                         <h3>Hospitality</h3>
                         <p>Guest-facing service and back-of-house running in parallel.</p>
                         <span class="card-link">Jump to section <i class="fas fa-arrow-down"></i></span>
                     </a>
                     <a href="#commercial" class="industry-card industry-card-link">
+                        <div class="industry-card-media"><img src="assets/images/industries/commercial.webp" alt="Cleaning robot in a commercial lobby" width="512" height="300" loading="lazy" decoding="async" style="object-position:50% 50%"></div>
                         <div class="industry-icon"><i class="fas fa-building"></i></div>
                         <h3>Commercial Facilities</h3>
                         <p>Cleaning and facility management across large floorplates.</p>
