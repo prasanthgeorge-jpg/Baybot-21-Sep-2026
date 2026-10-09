@@ -25,15 +25,17 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     
     <!-- Styles -->
+    <link rel="preload" as="image" href="assets/images/warehouse-hero.webp" fetchpriority="high">
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="theme-friendly.css?v=2">
+    <link rel="stylesheet" href="theme-friendly.css?v=4">
     
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -149,13 +151,23 @@
                     </div>
                 </div>
                 <div class="hero-media fade-in-up delay-1">
-                    <img src="assets/images/models/pudu-cc1.png" alt="PUDU CC1 autonomous commercial floor cleaning robot" class="hero-product-image" fetchpriority="high">
+                    <img src="assets/images/models/pudu-cc1.webp" alt="PUDU CC1 autonomous commercial floor cleaning robot" class="hero-product-image" fetchpriority="high">
                     <a href="product-pudu-cc1.html" class="hero-media-caption">Meet the PUDU CC1 <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
                 </div>
             </div>
         </div>
         <div class="scroll-indicator">
             <span></span>
+        </div>
+    </section>
+
+    <!-- Trust strip -->
+    <section class="trust-strip" aria-label="Why BayBot">
+        <div class="container trust-grid">
+            <div class="trust-item"><i class="fas fa-location-arrow" aria-hidden="true"></i><span><strong>AI-powered</strong> navigation</span></div>
+            <div class="trust-item"><i class="fas fa-sliders" aria-hidden="true"></i><span><strong>Tailored</strong> to your workflow</span></div>
+            <div class="trust-item"><i class="fas fa-shield-halved" aria-hidden="true"></i><span><strong>Reliable</strong> in the real world</span></div>
+            <div class="trust-item"><i class="fas fa-headset" aria-hidden="true"></i><span><strong>Local experts.</strong> Lasting support</span></div>
         </div>
     </section>
 
@@ -166,7 +178,7 @@
                 <div class="about-images">
                     <div class="image-wrapper">
                         <img src="assets/images/pro/Bots-in-Field1.webp" alt="BayBot robots in action" class="about-image-main">
-                        <img src="assets/images/about-image2.png" alt="Robot technology" class="about-image-secondary">
+                        <img src="assets/images/about-image2.webp" alt="Robot technology" class="about-image-secondary">
                     </div>
                 </div>
                 <div class="about-content">
@@ -324,7 +336,7 @@
                     </a>
                 </div>
                 <div class="why-choose-image">
-                    <img src="assets/images/choose-image.png" alt="BayBot robotics technology" class="feature-image">
+                    <img src="assets/images/choose-image.webp" alt="BayBot robotics technology" class="feature-image">
                 </div>
             </div>
         </div>
@@ -492,6 +504,6 @@
     </button>
 
     <!-- Scripts -->
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>

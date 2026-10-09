@@ -289,7 +289,7 @@ def render_card(m, indent="                "):
     if m.get("image"):
         alt = m.get("image_alt") or "%s robot" % m["name"]
         out.append('%s        <a href="%s" class="model-card-media" tabindex="-1" aria-hidden="true">' % (i, href))
-        out.append('%s            <img src="%s" alt="%s" loading="lazy">' % (i, esc(m["image"]), esc(alt)))
+        out.append('%s            <img src="%s" alt="%s" loading="lazy" decoding="async">' % (i, esc(m["image"]), esc(alt)))
         out.append('%s        </a>' % i)
     out.append('%s        <div class="model-card-body">' % i)
     flags = []
@@ -366,9 +366,12 @@ def render_head(m):
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="theme-friendly.css?v=4">
 </head>
 """ % (GENERATED_MARKER, esc(desc), esc(m["name"]), esc(desc), esc(title), esc(detail_href(m)))
 
@@ -390,7 +393,7 @@ def render_video(m):
                 </div>
                 <div class="video-embed" data-video-id="%s" data-title="%s">
                     <a class="video-embed-poster" href="https://www.youtube.com/watch?v=%s" target="_blank" rel="noopener">
-                        <img src="https://i.ytimg.com/vi/%s/hqdefault.jpg" alt="" loading="lazy">
+                        <img src="https://i.ytimg.com/vi/%s/hqdefault.jpg" alt="" loading="lazy" decoding="async">
                         <span class="video-embed-play" aria-hidden="true"><i class="fas fa-play"></i></span>
                         <span class="visually-hidden">Play video: %s</span>
                     </a>
@@ -446,7 +449,7 @@ def render_functions(m):
                                  ('                        <div class="rich-text">%s</div>\n' % body) if body else "")
         if f.get("image"):
             img = """                    <div class="product-function-media">
-                        <img src="%s" alt="%s: %s" loading="lazy">
+                        <img src="%s" alt="%s: %s" loading="lazy" decoding="async">
                     </div>""" % (esc(f["image"]), esc(m["name"]), esc(f["title"]))
             inner = (img + "\n" + text) if n % 2 == 0 else (text + "\n" + img)
             cls = "product-function"
