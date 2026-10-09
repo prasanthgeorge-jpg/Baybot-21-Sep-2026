@@ -435,3 +435,114 @@ body { background-color: #fff; }
 .industries-grid:has(> :nth-child(4):last-child) { grid-template-columns: repeat(4, 1fr); }
 @media (max-width: 1100px) { .industries-grid:has(> :nth-child(4):last-child) { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px) { .industries-grid:has(> :nth-child(4):last-child) { grid-template-columns: 1fr; } }
+
+/* ==========================================================================
+   BLUE THEME
+   Same layout, cards and imagery; the canvas moves from white/grey to blue.
+   Sky-blue page, deeper-blue alternating bands, navy "why choose" bands and
+   page banners, white cards on top. Delete this block to return to neutral.
+   ========================================================================== */
+:root {
+    --fr-bg: #ffffff;
+    --fr-card: #cfe1fd;
+    --fr-border: #b3cdf5;
+    --fr-accent: #c4daff;
+    --fr-muted: #4a6288;
+    --sky-50: #e8f1ff;
+    --sky-100: #dce9fe;
+    --sky-200: #c3d9fb;
+    --sky-300: #a9c8f6;
+    --ink: #0f2547;
+    --navy-1: #0b2a6b;
+    --navy-2: #1450b8;
+    --blue-glow: 0 14px 40px rgba(15, 60, 150, .18);
+    --card-shadow: 0 2px 4px rgba(15, 60, 150, .06), 0 10px 28px rgba(15, 60, 150, .12);
+    --page-blue: #cfe1fd;
+    --page-blue-soft: #dcebff;
+    --glass-blue: #cfe1fd;
+}
+body {
+    background:
+        radial-gradient(1000px 600px at 5% 0%, #eaf3ff 0%, transparent 60%),
+        linear-gradient(180deg, #dce9fe 0%, #c5daf9 100%);
+    background-color: #d3e4fd;
+    color: var(--ink);
+}
+
+/* Navbar */
+.navbar { background: rgba(234, 243, 255, .9); border-bottom: 1px solid var(--sky-300); }
+.navbar.scrolled { background: rgba(234, 243, 255, .97); }
+
+/* Hero: blue wash over the photo */
+.hero-section { background-color: #cfe1fd; }
+.hero-section::before {
+    background: linear-gradient(90deg, rgba(214,230,254,.97) 0%, rgba(206,225,253,.9) 30%, rgba(190,213,250,.5) 58%, rgba(26,95,214,.12) 100%);
+}
+.hero-eyebrow { background: #fff; border-color: var(--sky-300); }
+.hero-subtitle { color: #3a5278; }
+.hero-media-caption { background: rgba(255,255,255,.92); border-color: var(--sky-200); }
+
+/* Trust strip */
+.trust-grid { border-color: var(--sky-300); }
+.trust-item i { background: linear-gradient(135deg, var(--sky-100), var(--sky-200)); }
+
+/* Section bands */
+.about-section { background: transparent; }
+.industries-section { background: #b9d3fa; border-top: 1px solid var(--sky-300); border-bottom: 1px solid var(--sky-300); }
+.faq-section { background: #c3d9fb; border-top: 1px solid var(--sky-300); }
+.section-label { background: #fff; border-color: var(--sky-300); }
+.section-description { color: #3d557d; }
+
+/* "Why choose us" / mission: deep blue band, light text (original treatment) */
+.why-choose-section { background: linear-gradient(135deg, var(--navy-1) 0%, var(--navy-2) 100%); color: #fff; }
+.why-choose-background { display: block; opacity: .35; }
+.why-choose-section .section-title, .why-choose-section h2, .features-list h4 { color: #fff; }
+.why-choose-section .section-description, .features-list p, .why-choose-section .section-description.light { color: rgba(255,255,255,.82); }
+.why-choose-section .section-label { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.3); color: #fff; }
+.features-list i { color: #8fc0ff; }
+.check-list.light li { color: rgba(255,255,255,.92); }
+.check-list.light i { color: #8fc0ff; }
+.why-choose-section .btn-white, .about-section .btn-white, .btn-white { background: #fff; color: var(--primary-dark); border-color: #fff; }
+.btn-white:hover { background: #e8f1ff; color: var(--primary-dark); }
+.why-choose-image img, .why-choose-section .feature-image { box-shadow: 0 18px 44px rgba(0, 20, 70, .45); }
+
+/* Cards and panels stay white on the blue canvas */
+.industry-card, .model-card, .contact-card, .radio-card, .chat-card, .feature-card, .faq-item { border-color: var(--sky-200); box-shadow: var(--card-shadow); }
+.industry-card:hover, .model-card:hover { border-color: var(--primary-color); }
+.industry-card-media, .model-card-media { background: linear-gradient(180deg, #eef5ff, #d3e4fd); }
+.contact-info-list li { background: #fff; border: 1px solid var(--sky-200); }
+.faq-item, .faq-section details { background: #fff; }
+
+/* Inner-page banners: navy with white type */
+.page-header {
+    background:
+        radial-gradient(520px 240px at 85% 0%, rgba(120,170,255,.35), transparent 70%),
+        linear-gradient(135deg, var(--navy-1) 0%, var(--navy-2) 100%);
+    border: 0;
+}
+.page-header h1, .page-header p { color: #fff; }
+.page-header p { color: rgba(255,255,255,.85); }
+.page-header .breadcrumb, .page-header .breadcrumb a, .page-header .breadcrumb span { color: rgba(255,255,255,.8); }
+.page-header .breadcrumb [aria-current], .page-header .breadcrumb a:hover { color: #fff; }
+.product-hero {
+    background:
+        radial-gradient(560px 280px at 85% 0%, rgba(255,255,255,.7), transparent 70%),
+        linear-gradient(135deg, #cfe1fd 0%, #b3cff9 100%);
+    border-bottom: 1px solid var(--sky-300);
+}
+
+/* Fields, buttons */
+input, select, textarea { background: #fff; border-color: var(--sky-300); }
+.btn-outline { background: rgba(255,255,255,.9); border-color: var(--sky-300); }
+
+/* Footer: deep navy, original logo untouched (no tile needed) */
+.footer { background: linear-gradient(135deg, #0a1f4d, #0f3380); color: rgba(255,255,255,.75); border-top: 0; }
+.footer h4 { color: #fff; }
+.footer a, .footer p, .footer li { color: rgba(255,255,255,.78); }
+.footer a:hover { color: #fff; }
+.footer-contact i { color: #8fc0ff; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,.15); color: rgba(255,255,255,.65); }
+.footer-logo, .footer-logo:hover { background: transparent; padding: 0; border-radius: 0; }
+.social-links a { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #fff; }
+.social-links a:hover { background: #fff; color: var(--primary-dark); border-color: #fff; }
+.product-video-section { background: linear-gradient(135deg, var(--navy-1) 0%, var(--navy-2) 100%); }

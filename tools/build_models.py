@@ -371,7 +371,7 @@ def render_head(m):
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="theme-friendly.css?v=11">
+    <link rel="stylesheet" href="theme-friendly.css?v=13">
 </head>
 """ % (GENERATED_MARKER, esc(desc), esc(m["name"]), esc(desc), esc(title), esc(detail_href(m)))
 
