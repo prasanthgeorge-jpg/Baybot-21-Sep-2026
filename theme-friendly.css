@@ -546,3 +546,24 @@ input, select, textarea { background: #fff; border-color: var(--sky-300); }
 .social-links a { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #fff; }
 .social-links a:hover { background: #fff; color: var(--primary-dark); border-color: #fff; }
 .product-video-section { background: linear-gradient(135deg, var(--navy-1) 0%, var(--navy-2) 100%); }
+
+/* Navbar: deep blue bar so the site's light-lettered logo (logo-light.png)
+   stays legible; white links, white dropdown panels with dark text. */
+.navbar, .navbar.scrolled {
+    background: linear-gradient(90deg, #0a2460 0%, #0f3a8f 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, .12);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+.navbar.scrolled { box-shadow: 0 6px 24px rgba(5, 20, 70, .35); }
+.nav-links > li > a { color: #fff; }
+.nav-links > li > a:hover, .nav-links > li > a.active { color: #cfe3ff; }
+.nav-links > li > a::after { background: #8fc0ff; }
+.dropdown a, .dropdown a:visited { color: var(--ink); }
+.dropdown a:hover { background: var(--sky-100); color: var(--primary-dark); }
+.mobile-menu-toggle span { background-color: #fff; }
+@media (max-width: 968px) {
+    .nav-menu { background: #0b2a6b; }
+    .nav-menu .dropdown a, .dropdown-industries strong { color: #fff; }
+    .nav-menu .dropdown a:hover { background: rgba(255,255,255,.1); color: #fff; }
+}
