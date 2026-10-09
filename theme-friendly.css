@@ -413,3 +413,20 @@ body { background-color: #fff; }
 .hero-section { background-color: #f6f8fa; }
 .cta-section { background: linear-gradient(135deg, #1a5fd6 0%, #1450b8 60%, #0f3d94 100%); }
 .page-header, .product-hero { background: var(--fr-card); }
+
+/* Light footer (Lovable style). Original light-lettered logo is kept as-is,
+   sitting on a navy tile so it stays legible. */
+.footer { background: var(--fr-card); color: var(--fr-muted); border-top: 1px solid var(--fr-border); }
+.footer-background, .footer-shape { display: none; }
+.footer h4 { color: var(--ink); font-family: var(--font-heading); }
+.footer a, .footer p, .footer li { color: var(--fr-muted); }
+.footer a:hover { color: var(--primary-color); }
+.footer-contact i { color: var(--primary-color); }
+.footer-bottom { border-top: 1px solid var(--fr-border); color: var(--fr-muted); }
+.footer-logo { display: inline-block; background: #0f1b33; padding: 12px 18px; border-radius: 10px; }
+.footer-logo:hover { background: #14264a; }
+.footer-logo img { display: block; }
+.social-links a { background: #fff; border: 1px solid var(--fr-border); color: var(--fr-muted); }
+.social-links a:hover { background: var(--primary-color); border-color: var(--primary-color); color: #fff; }
+.footer-logo { margin-bottom: var(--spacing-md); }
+.footer-logo img { margin-bottom: 0; }
