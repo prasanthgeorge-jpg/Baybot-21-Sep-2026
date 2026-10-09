@@ -377,6 +377,14 @@ company, industry, message, IP, city, region, country, user agent, referrer)
 and sends one email to `NOTIFY_EMAIL` with the same details, with `Reply-To`
 set to the requester's email so you can just hit reply.
 
+**Parts Store requests** use the same webhook: the Parts Store form posts to
+`api/parts-request.js`, which forwards to `DEMO_SHEETS_WEBHOOK_URL` with the
+Demo Type column set to "Parts request" and the robot model and serial number
+folded into the message. No extra setup is needed. Re-deploy the updated
+`tools/google-apps-script-demo-webhook.js` (Deploy -> Manage deployments ->
+edit -> New version) if you want those emails to carry a "New parts request"
+subject instead of "New demo request".
+
 **If this isn't configured, or the sheet/email step fails,** the form falls
 back to opening the visitor's email app instead (the same fallback the
 generic `.js-contact-form` handler uses) - a demo request is never silently

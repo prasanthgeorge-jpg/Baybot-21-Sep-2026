@@ -49,11 +49,14 @@ function doPost(e) {
 }
 
 function sendNotificationEmail(data) {
-    var subject = 'New demo request: ' + (data.name || 'Unknown') +
+    // Parts Store requests (api/parts-request.js) reuse this webhook and
+    // arrive with demoType 'Parts request'.
+    var isParts = data.demoType === 'Parts request';
+    var subject = (isParts ? 'New parts request: ' : 'New demo request: ') + (data.name || 'Unknown') +
         (data.company ? ' (' + data.company + ')' : '');
 
     var lines = [
-        'A new demo request came in through the website.',
+        isParts ? 'A new parts request came in through the website.' : 'A new demo request came in through the website.',
         '',
         'Demo type: ' + (data.demoType || '-'),
         'Name: ' + (data.name || '-'),
@@ -62,7 +65,7 @@ function sendNotificationEmail(data) {
         'Company: ' + (data.company || '-'),
         'Industry: ' + (data.industry || '-'),
         '',
-        'What they want to automate:',
+        isParts ? 'Request details:' : 'What they want to automate:',
         data.message || '-',
         '',
         '---',

@@ -176,6 +176,67 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Parts Store request form -> /api/parts-request (same Google Sheet +
+    // email bridge as Schedule Demo). Falls back to mailto if that fails, so
+    // a request is never silently lost.
+    const partsRequestForm = document.getElementById('partsRequestForm');
+    if (partsRequestForm) {
+        partsRequestForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const status = this.querySelector('.form-status');
+            const setStatus = (message, kind) => {
+                if (!status) return;
+                status.textContent = message;
+                status.className = 'form-status' + (kind ? ' is-' + kind : '');
+            };
+
+            const invalid = Array.from(this.querySelectorAll('input, textarea, select'))
+                .filter(field => {
+                    const bad = !field.checkValidity();
+                    field.setAttribute('aria-invalid', bad ? 'true' : 'false');
+                    return bad;
+                });
+
+            if (invalid.length) {
+                setStatus('Please complete the highlighted fields.', 'error');
+                invalid[0].focus();
+                return;
+            }
+
+            const data = Object.fromEntries(new FormData(this).entries());
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitButton.disabled = true;
+            setStatus('');
+
+            fetch('/api/parts-request', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+                .then(function(response) {
+                    return response.json().then(function(body) {
+                        if (!response.ok) throw new Error(body && body.error || 'HTTP ' + response.status);
+                        return body;
+                    });
+                })
+                .then(function() {
+                    partsRequestForm.reset();
+                    setStatus("Thank you - your parts request has been sent. We'll confirm compatibility and pricing within one business day.", 'success');
+                })
+                .catch(function() {
+                    window.location.href = buildMailto('Parts request', data);
+                    setStatus('Your email app should open with your request ready to send.', 'success');
+                })
+                .finally(function() {
+                    submitButton.innerHTML = originalText;
+                    submitButton.disabled = false;
+                });
+        });
+    }
+
     // Schedule Demo page form -> /api/demo-request, which forwards it to a
     // Google Sheet plus an email notification. Falls back to mailto if that
     // fails, same safety net the generic .js-contact-form handler uses, so
