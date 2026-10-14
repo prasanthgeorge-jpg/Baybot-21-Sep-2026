@@ -18,7 +18,7 @@ function buildMailto(subject, data) {
         serial: 'Serial number', message: 'Message'
     };
     const body = Object.entries(data)
-        .filter(([, value]) => String(value).trim() !== '')
+        .filter(([key, value]) => key !== 'captcha' && key !== 'cf-turnstile-response' && String(value).trim() !== '')
         .map(([key, value]) => (labels[key] || key) + ': ' + value)
         .join('\n');
     return 'mailto:' + CONTACT_EMAIL +
@@ -37,6 +37,93 @@ function setupPhoneInput(inputEl) {
         strictMode: true
     });
 }
+
+// --------------------------------------------------------------------------
+// Robot check (Cloudflare Turnstile) - same approach as the Holy Match USA
+// site. The public site key comes from /api/captcha-config; when it is empty
+// the check is simply not shown and forms behave as before. The server
+// (api/_captcha.js) verifies the token, so hiding the box cannot be used to
+// get around it once the secret key is set.
+// --------------------------------------------------------------------------
+const BBCaptcha = (function() {
+    const SCRIPT = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+    let keyPromise;
+    let scriptPromise;
+
+    function getSiteKey() {
+        if (!keyPromise) {
+            keyPromise = fetch('/api/captcha-config')
+                .then(function(r) { return r.ok ? r.json() : {}; })
+                .then(function(c) { return (c && c.siteKey) || ''; })
+                .catch(function() { return ''; });
+        }
+        return keyPromise;
+    }
+
+    function loadScript() {
+        if (!scriptPromise) {
+            scriptPromise = new Promise(function(resolve, reject) {
+                if (window.turnstile) return resolve();
+                const tag = document.createElement('script');
+                tag.src = SCRIPT;
+                tag.async = true;
+                tag.onload = function() { resolve(); };
+                tag.onerror = function() { scriptPromise = undefined; reject(new Error('Could not load the robot check')); };
+                document.head.appendChild(tag);
+            });
+        }
+        return scriptPromise;
+    }
+
+    // Adds the box above the form's submit button. Returns a handle:
+    //   enabled   true once a site key is configured
+    //   token()   the current single-use token ('' until the visitor passes)
+    //   reset()   call after every submit attempt to get a fresh box
+    function attach(form) {
+        const submit = form.querySelector('button[type="submit"]');
+        const holder = document.createElement('div');
+        holder.className = 'captcha-box';
+        let token = '';
+        let widgetId = null;
+        const handle = {
+            enabled: false,
+            token: function() { return token; },
+            reset: function() {
+                token = '';
+                if (widgetId !== null && window.turnstile) window.turnstile.reset(widgetId);
+                sync();
+            }
+        };
+
+        function sync() {
+            if (submit && handle.enabled) submit.disabled = !token;
+        }
+
+        getSiteKey().then(function(siteKey) {
+            if (!siteKey || !submit) return;
+            handle.enabled = true;
+            submit.parentNode.insertBefore(holder, submit);
+            sync();
+            return loadScript().then(function() {
+                widgetId = window.turnstile.render(holder, {
+                    sitekey: siteKey,
+                    theme: 'light',
+                    callback: function(t) { token = t; sync(); },
+                    'expired-callback': function() { token = ''; sync(); },
+                    'error-callback': function() { token = ''; sync(); }
+                });
+            }).catch(function() {
+                holder.textContent = 'The robot check could not load. Please refresh the page, or call 1-877-722-9268.';
+                token = '';
+                sync();
+            });
+        });
+
+        return handle;
+    }
+
+    return { attach: attach };
+})();
 
 document.addEventListener('DOMContentLoaded', function() {
     // Mobile Menu Toggle
@@ -181,6 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // a request is never silently lost.
     const partsRequestForm = document.getElementById('partsRequestForm');
     if (partsRequestForm) {
+        const partsCaptcha = BBCaptcha.attach(partsRequestForm);
         partsRequestForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -204,7 +292,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
+            if (partsCaptcha.enabled && !partsCaptcha.token()) {
+                setStatus('Please confirm you are not a robot.', 'error');
+                return;
+            }
+
             const data = Object.fromEntries(new FormData(this).entries());
+            delete data['cf-turnstile-response'];
+            if (partsCaptcha.enabled) data.captcha = partsCaptcha.token();
             const submitButton = this.querySelector('button[type="submit"]');
             const originalText = submitButton.innerHTML;
             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
@@ -233,6 +328,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .finally(function() {
                     submitButton.innerHTML = originalText;
                     submitButton.disabled = false;
+                    partsCaptcha.reset();
                 });
         });
     }
@@ -245,6 +341,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (scheduleDemoForm) {
         const demoPhoneInput = document.getElementById('d-phone');
         const demoPhoneIti = setupPhoneInput(demoPhoneInput);
+        const demoCaptcha = BBCaptcha.attach(scheduleDemoForm);
 
         scheduleDemoForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -277,7 +374,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             demoPhoneInput.setAttribute('aria-invalid', 'false');
 
+            if (demoCaptcha.enabled && !demoCaptcha.token()) {
+                setStatus('Please confirm you are not a robot.', 'error');
+                return;
+            }
+
             const data = Object.fromEntries(new FormData(this).entries());
+            delete data['cf-turnstile-response'];
+            if (demoCaptcha.enabled) data.captcha = demoCaptcha.token();
             if (demoPhoneIti) data.phone = demoPhoneIti.getNumber();
             const submitButton = this.querySelector('button[type="submit"]');
             const originalText = submitButton.innerHTML;
@@ -307,6 +411,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .finally(function() {
                     submitButton.innerHTML = originalText;
                     submitButton.disabled = false;
+                    demoCaptcha.reset();
                 });
         });
     }
@@ -326,6 +431,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const chatLeadPhone = document.getElementById('chat-lead-phone');
         const chatLeadPhoneIti = setupPhoneInput(chatLeadPhone);
         const chatLeadStatus = document.getElementById('chatLeadStatus');
+        const chatLeadCaptcha = BBCaptcha.attach(chatLeadForm);
         const chatCloseBtn = document.getElementById('chatCloseBtn');
         const chatMessages = document.getElementById('chatMessages');
         const chatForm = document.getElementById('chatForm');
@@ -391,28 +497,53 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             chatLeadPhone.setAttribute('aria-invalid', 'false');
 
+            if (chatLeadCaptcha.enabled && !chatLeadCaptcha.token()) {
+                if (chatLeadStatus) chatLeadStatus.textContent = 'Please confirm you are not a robot.';
+                return;
+            }
+
             lead = {
                 name: chatLeadName.value.trim(),
                 email: chatLeadEmail.value.trim(),
                 phone: chatLeadPhoneIti ? chatLeadPhoneIti.getNumber() : chatLeadPhone.value.trim()
             };
 
-            // Fire-and-forget: save the lead to the spreadsheet in the
-            // background. The chat should open immediately regardless of
-            // whether this succeeds - it's a supplementary record, not a
-            // gate on talking to the assistant.
+            const openChat = function() {
+                chatLeadForm.hidden = true;
+                chatWindow.hidden = false;
+
+                const firstName = lead.name.split(' ')[0];
+                addBubble('Hi ' + firstName + "! I'm the BayBot Dynamics assistant. Ask me anything about our robots, pricing, or support.", 'assistant');
+                chatInput.focus();
+            };
+
+            // Save the lead to the spreadsheet. A failed robot check keeps the
+            // visitor on this form; any other failure (network, sheet not
+            // configured) must not block the chat - the lead is a
+            // supplementary record, not a gate on talking to the assistant.
+            const leadBody = Object.assign({}, lead);
+            if (chatLeadCaptcha.enabled) leadBody.captcha = chatLeadCaptcha.token();
+
             fetch('/api/lead', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(lead)
-            }).catch(function() { /* logged server-side; nothing to show the visitor */ });
-
-            chatLeadForm.hidden = true;
-            chatWindow.hidden = false;
-
-            const firstName = lead.name.split(' ')[0];
-            addBubble('Hi ' + firstName + "! I'm the BayBot Dynamics assistant. Ask me anything about our robots, pricing, or support.", 'assistant');
-            chatInput.focus();
+                body: JSON.stringify(leadBody)
+            })
+                .then(function(response) {
+                    return response.json().catch(function() { return {}; }).then(function(body) {
+                        return { status: response.status, body: body };
+                    });
+                })
+                .then(function(result) {
+                    if (result.status === 400 && result.body && result.body.captcha === false) {
+                        lead = null;
+                        if (chatLeadStatus) chatLeadStatus.textContent = result.body.error || 'Please confirm you are not a robot.';
+                        chatLeadCaptcha.reset();
+                        return;
+                    }
+                    openChat();
+                })
+                .catch(function() { openChat(); });
         });
 
         chatCloseBtn.addEventListener('click', function() {
@@ -422,6 +553,7 @@ document.addEventListener('DOMContentLoaded', function() {
             history.length = 0;
             lead = null;
             chatLeadForm.reset();
+            chatLeadCaptcha.reset();
             if (chatLeadStatus) chatLeadStatus.textContent = '';
         });
 

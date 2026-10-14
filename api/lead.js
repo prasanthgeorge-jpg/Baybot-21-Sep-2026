@@ -4,6 +4,8 @@
 // Configure SHEETS_WEBHOOK_URL and SHEETS_WEBHOOK_SECRET in the environment.
 const MAX_FIELD_LENGTH = 200;
 
+const { requireHuman } = require('./_captcha');
+
 module.exports = async function handler(req, res) {
     if (req.method !== 'POST') {
         res.setHeader('Allow', 'POST');
@@ -21,6 +23,11 @@ module.exports = async function handler(req, res) {
         body = await readBody(req);
     } catch (err) {
         return res.status(400).json({ error: 'Invalid request body.' });
+    }
+
+    const human = await requireHuman(body.captcha, req);
+    if (!human.ok) {
+        return res.status(400).json({ error: human.error, captcha: false });
     }
 
     const name = typeof body.name === 'string' ? body.name.trim().slice(0, MAX_FIELD_LENGTH) : '';

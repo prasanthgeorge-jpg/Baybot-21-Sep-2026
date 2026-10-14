@@ -9,6 +9,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const zlib = require('zlib');
 
 const ROOT = __dirname;
 const API_DIR = path.join(ROOT, 'api');
@@ -34,16 +35,87 @@ const MIME = {
     '.ico': 'image/x-icon',
     '.svg': 'image/svg+xml',
     '.txt': 'text/plain',
-    '.xml': 'application/xml'
+    '.xml': 'application/xml',
+    '.woff': 'font/woff',
+    '.woff2': 'font/woff2',
+    '.mp4': 'video/mp4',
+    '.webm': 'video/webm',
+    '.pdf': 'application/pdf'
 };
 
+// Only these files are ever served. Everything else in the project folder
+// (secrets, source, server config, build tooling) stays private. This matters
+// because the project root doubles as the web root: without it, a request for
+// /.env.local would return the secrets file.
+const PRIVATE_DIRS = new Set(['api', 'tools', 'deploy', 'node_modules', 'data']);
+const PRIVATE_FILES = new Set([
+    'server.js', 'package.json', 'package-lock.json', 'vercel.json',
+    'web.config', 'readme.md'
+]);
+
+function isPublicPath(relPath) {
+    const segments = relPath.split('/').filter(Boolean);
+    if (!segments.length) return false;
+    for (let i = 0; i < segments.length; i++) {
+        const seg = segments[i];
+        // Dotfiles and dot-directories (.env*, .git, .htaccess ...) are private,
+        // except .well-known which certificate validation needs.
+        if (seg.charAt(0) === '.' && !(i === 0 && seg === '.well-known')) return false;
+        if (seg.indexOf('\0') !== -1) return false;
+    }
+    if (PRIVATE_DIRS.has(segments[0].toLowerCase())) return false;
+    if (PRIVATE_FILES.has(segments[segments.length - 1].toLowerCase())) return false;
+    return true;
+}
+
+// Same headers vercel.json sets, so the VPS behaves like Vercel.
+const SECURITY_HEADERS = {
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'SAMEORIGIN',
+    'Referrer-Policy': 'strict-origin-when-cross-origin'
+};
+
+function cacheControlFor(relPath, ext) {
+    if (relPath.indexOf('assets/') === 0) return 'public, max-age=31536000, immutable';
+    if (ext === '.css' || ext === '.js') return 'public, max-age=0, must-revalidate';
+    if (ext === '.html') return 'public, max-age=0, must-revalidate';
+    return 'public, max-age=86400';
+}
+
+const COMPRESSIBLE = new Set(['.html', '.css', '.js', '.json', '.svg', '.txt', '.xml']);
+
+function sendFile(req, res, relPath, data) {
+    const ext = path.extname(relPath).toLowerCase();
+    const headers = Object.assign({
+        'Content-Type': MIME[ext] || 'application/octet-stream',
+        'Cache-Control': cacheControlFor(relPath, ext),
+        'Vary': 'Accept-Encoding'
+    }, SECURITY_HEADERS);
+    const wantsGzip = /\bgzip\b/.test(req.headers['accept-encoding'] || '');
+    if (wantsGzip && COMPRESSIBLE.has(ext) && data.length > 1024) {
+        headers['Content-Encoding'] = 'gzip';
+        data = zlib.gzipSync(data);
+    }
+    headers['Content-Length'] = data.length;
+    res.writeHead(200, headers);
+    res.end(req.method === 'HEAD' ? undefined : data);
+}
+
 const server = http.createServer(function(req, res) {
-    const urlPath = decodeURIComponent(req.url.split('?')[0]);
+    let urlPath;
+    try {
+        urlPath = decodeURIComponent(req.url.split('?')[0]);
+    } catch (e) {
+        res.writeHead(400, { 'Content-Type': 'text/plain' });
+        return res.end('Bad request');
+    }
+
+    Object.keys(SECURITY_HEADERS).forEach(function(h) { res.setHeader(h, SECURITY_HEADERS[h]); });
 
     if (urlPath.startsWith('/api/')) {
         const name = urlPath.slice('/api/'.length);
         const apiFile = path.join(API_DIR, name + '.js');
-        if (/^[\w-]+$/.test(name) && fs.existsSync(apiFile)) {
+        if (/^[\w-]+$/.test(name) && name.charAt(0) !== '_' && fs.existsSync(apiFile)) {
             const handler = require(apiFile);
             return Promise.resolve(handler(req, makeVercelLikeResponse(res))).catch(function(err) {
                 console.error('Unhandled error in ' + urlPath, err);
@@ -57,26 +129,33 @@ const server = http.createServer(function(req, res) {
         return res.end(JSON.stringify({ error: 'No such API route: ' + urlPath }));
     }
 
+    if (req.method !== 'GET' && req.method !== 'HEAD') {
+        res.writeHead(405, { 'Allow': 'GET, HEAD', 'Content-Type': 'text/plain' });
+        return res.end('Method not allowed');
+    }
+
     // cleanUrls-style behaviour (mirrors vercel.json): /contact resolves to
     // contact.html so links written without the extension still work.
     let relPath = urlPath === '/' ? 'index.html' : urlPath.replace(/^\//, '');
     let filePath = path.join(ROOT, relPath);
-    if (!filePath.startsWith(ROOT)) {
+    if (filePath !== ROOT && filePath.indexOf(ROOT + path.sep) !== 0) {
         res.writeHead(403);
         return res.end('Forbidden');
     }
+
+    // Private files get the same 404 as a missing file, so their existence
+    // is not revealed.
+    if (!isPublicPath(relPath)) return notFound(res, urlPath);
 
     fs.readFile(filePath, function(err, data) {
         if (err && path.extname(filePath) === '') {
             return fs.readFile(filePath + '.html', function(err2, data2) {
                 if (err2) return notFound(res, urlPath);
-                res.writeHead(200, { 'Content-Type': MIME['.html'] });
-                res.end(data2);
+                sendFile(req, res, relPath + '.html', data2);
             });
         }
         if (err) return notFound(res, urlPath);
-        res.writeHead(200, { 'Content-Type': MIME[path.extname(filePath)] || 'application/octet-stream' });
-        res.end(data);
+        sendFile(req, res, relPath, data);
     });
 });
 

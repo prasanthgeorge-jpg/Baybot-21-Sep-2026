@@ -567,3 +567,6 @@ input, select, textarea { background: #fff; border-color: var(--sky-300); }
     .nav-menu .dropdown a, .dropdown-industries strong { color: #fff; }
     .nav-menu .dropdown a:hover { background: rgba(255,255,255,.1); color: #fff; }
 }
+
+/* Robot check (Cloudflare Turnstile) above form submit buttons */
+.captcha-box { min-height: 65px; margin: 0 0 var(--spacing-md, 1rem); }
