@@ -1,7 +1,7 @@
 // Parts Store request form -> an email to MAIL_TO (see api/_mail.js), the same
 // inbox as the Get in Touch form and the chat leads.
 const { requireHuman } = require('./_captcha');
-const { sendRequestEmail, oneLine, validEmail } = require('./_mail');
+const { deliverRequest, oneLine, validEmail } = require('./_mail');
 
 const MAX_MESSAGE_LENGTH = 3000;
 
@@ -31,7 +31,8 @@ module.exports = async function handler(req, res) {
         return res.status(400).json({ error: 'Name, a valid email, and the parts needed are required.' });
     }
 
-    const result = await sendRequestEmail(req, {
+    const result = await deliverRequest(req, {
+        kind: 'Parts request',
         subject: 'New parts request: ' + name,
         intro: 'A new parts request came in through the Parts Store form.',
         replyTo: email,

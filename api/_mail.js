@@ -1,7 +1,12 @@
-// Sends website form submissions straight to one mailbox over SMTP - no Google
-// Sheet or Apps Script in the middle. Used by api/contact-request.js,
-// api/parts-request.js and api/lead.js, so every one of those requests lands
-// in the same inbox. Files starting with "_" in api/ are helpers, not routes.
+// Delivers website form submissions (Get in Touch, Parts, chat leads) in one
+// place, so every one of them reaches the same inbox:
+//   1. SMTP straight to MAIL_TO, when SMTP_* are configured; otherwise
+//   2. the Google Apps Script "demo" webhook (DEMO_SHEETS_WEBHOOK_URL), which
+//      logs a sheet row and emails the same address the Schedule Demo form
+//      uses; otherwise
+//   3. reports "not configured", and the browser falls back to the visitor's
+//      email app.
+// Files starting with "_" in api/ are helpers, not routes.
 //
 // Environment (see .env.local.example):
 //   MAIL_TO     the one inbox that receives every request, e.g. info@baybotdynamics.com
@@ -89,4 +94,61 @@ async function sendRequestEmail(req, options) {
     }
 }
 
-module.exports = { sendRequestEmail, isConfigured, oneLine, validEmail };
+// Fallback: the demo webhook (Google Apps Script -> sheet row + email). The
+// request type travels in the "demoType" column, e.g. "Chat lead".
+async function sendViaWebhook(req, options) {
+    const url = process.env.DEMO_SHEETS_WEBHOOK_URL;
+    const secret = process.env.DEMO_SHEETS_WEBHOOK_SECRET;
+    if (!url || !secret) return { ok: false, notConfigured: true };
+
+    const h = (req && req.headers) || {};
+    const field = function(label) {
+        const pair = (options.fields || []).filter(function(p) { return p[0] === label; })[0];
+        return pair ? String(pair[1] == null ? '' : pair[1]).trim() : '';
+    };
+    const message = (options.fields || [])
+        .filter(function(p) { return ['Name', 'Email', 'Phone'].indexOf(p[0]) === -1 && String(p[1] || '').trim(); })
+        .map(function(p) { return p[0] + ': ' + String(p[1]).trim(); })
+        .join('\n');
+
+    try {
+        const upstream = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                secret: secret,
+                submittedAt: new Date().toISOString(),
+                ip: (h['x-forwarded-for'] || '').split(',')[0].trim() || h['x-real-ip'] || '',
+                city: h['x-vercel-ip-city'] ? decodeURIComponent(h['x-vercel-ip-city']) : '',
+                region: h['x-vercel-ip-country-region'] || '',
+                country: h['x-vercel-ip-country'] || '',
+                userAgent: typeof h['user-agent'] === 'string' ? h['user-agent'].slice(0, 300) : '',
+                referrer: typeof h['referer'] === 'string' ? h['referer'].slice(0, 300) : '',
+                demoType: options.kind || 'Website request',
+                name: field('Name'),
+                email: field('Email'),
+                phone: field('Phone'),
+                company: '',
+                industry: '',
+                message: message || '-'
+            })
+        });
+        const result = await upstream.json().catch(function() { return null; });
+        if (!upstream.ok || !result || result.error) {
+            console.error('Webhook delivery failed', upstream.status, result);
+            return { ok: false, error: 'Could not send your message right now.' };
+        }
+        return { ok: true };
+    } catch (err) {
+        console.error('Webhook delivery error:', err && err.message);
+        return { ok: false, error: 'Could not send your message right now.' };
+    }
+}
+
+// Entry point for the form endpoints: SMTP when configured, else the webhook.
+async function deliverRequest(req, options) {
+    if (isConfigured()) return sendRequestEmail(req, options);
+    return sendViaWebhook(req, options);
+}
+
+module.exports = { deliverRequest, sendRequestEmail, isConfigured, oneLine, validEmail };

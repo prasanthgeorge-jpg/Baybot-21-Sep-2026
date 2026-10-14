@@ -49,14 +49,16 @@ function doPost(e) {
 }
 
 function sendNotificationEmail(data) {
-    // Parts Store requests (api/parts-request.js) reuse this webhook and
-    // arrive with demoType 'Parts request'.
-    var isParts = data.demoType === 'Parts request';
-    var subject = (isParts ? 'New parts request: ' : 'New demo request: ') + (data.name || 'Unknown') +
+    // Other forms (Get in Touch, Parts, chat leads) reuse this webhook when SMTP
+    // is not configured; they arrive with demoType set to the request kind.
+    var kind = data.demoType || '';
+    var isDemo = !kind || /meeting|demo/i.test(kind);
+    var isParts = kind === 'Parts request';
+    var subject = (isDemo ? 'New demo request: ' : 'New ' + kind.toLowerCase() + ': ') + (data.name || 'Unknown') +
         (data.company ? ' (' + data.company + ')' : '');
 
     var lines = [
-        isParts ? 'A new parts request came in through the website.' : 'A new demo request came in through the website.',
+        isDemo ? 'A new demo request came in through the website.' : 'A new ' + kind.toLowerCase() + ' came in through the website.',
         '',
         'Demo type: ' + (data.demoType || '-'),
         'Name: ' + (data.name || '-'),
@@ -65,7 +67,7 @@ function sendNotificationEmail(data) {
         'Company: ' + (data.company || '-'),
         'Industry: ' + (data.industry || '-'),
         '',
-        isParts ? 'Request details:' : 'What they want to automate:',
+        isDemo ? 'What they want to automate:' : 'Request details:',
         data.message || '-',
         '',
         '---',

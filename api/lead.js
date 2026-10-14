@@ -2,7 +2,7 @@
 // lead details (name, email, phone) to MAIL_TO - the same inbox as every other
 // form (see api/_mail.js).
 const { requireHuman } = require('./_captcha');
-const { sendRequestEmail, oneLine, validEmail } = require('./_mail');
+const { deliverRequest, oneLine, validEmail } = require('./_mail');
 
 module.exports = async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -28,7 +28,8 @@ module.exports = async function handler(req, res) {
         return res.status(400).json({ error: 'Name, a valid email, and phone are all required.' });
     }
 
-    const result = await sendRequestEmail(req, {
+    const result = await deliverRequest(req, {
+        kind: 'Chat lead',
         subject: 'New chat lead: ' + name,
         intro: 'Someone started a chat with the website assistant and left their details.',
         replyTo: email,

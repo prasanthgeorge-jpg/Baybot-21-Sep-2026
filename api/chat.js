@@ -65,7 +65,7 @@ module.exports = async function handler(req, res) {
         ':generateContent?key=' + apiKey;
 
     try {
-        const upstream = await fetch(url, {
+        const requestInit = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -73,7 +73,15 @@ module.exports = async function handler(req, res) {
                 systemInstruction: { parts: [{ text: systemText }] },
                 generationConfig: { temperature: 0.4, maxOutputTokens: 512 }
             })
-        });
+        };
+
+        // Gemini answers "503 high demand" now and then. Those clear within a
+        // moment, so retry briefly before telling the visitor anything.
+        let upstream = await fetch(url, requestInit);
+        for (let attempt = 1; attempt <= 2 && [429, 500, 502, 503, 504].indexOf(upstream.status) !== -1; attempt++) {
+            await new Promise(function(resolve) { setTimeout(resolve, 700 * attempt); });
+            upstream = await fetch(url, requestInit);
+        }
 
         const data = await upstream.json();
 
