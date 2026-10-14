@@ -263,6 +263,84 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Home page "Get in Touch" form -> /api/contact-request, which emails the
+    // same inbox as the Parts and chat forms. Falls back to the visitor's
+    // email app if sending fails, so an enquiry is never silently lost.
+    const homeContactForm = document.getElementById('contactForm');
+    if (homeContactForm) {
+        const homeCaptcha = BBCaptcha.attach(homeContactForm);
+        homeContactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const status = this.querySelector('.form-status');
+            const setStatus = (message, kind) => {
+                if (!status) return;
+                status.textContent = message;
+                status.className = 'form-status' + (kind ? ' is-' + kind : '');
+            };
+
+            const invalid = Array.from(this.querySelectorAll('input, textarea, select'))
+                .filter(field => {
+                    const bad = !field.checkValidity();
+                    field.setAttribute('aria-invalid', bad ? 'true' : 'false');
+                    return bad;
+                });
+
+            if (invalid.length) {
+                setStatus('Please complete the highlighted fields.', 'error');
+                invalid[0].focus();
+                return;
+            }
+
+            if (homeCaptcha.enabled && !homeCaptcha.token()) {
+                setStatus('Please confirm you are not a robot.', 'error');
+                return;
+            }
+
+            const data = Object.fromEntries(new FormData(this).entries());
+            delete data['cf-turnstile-response'];
+            if (homeCaptcha.enabled) data.captcha = homeCaptcha.token();
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitButton.disabled = true;
+            setStatus('');
+
+            fetch('/api/contact-request', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+                .then(function(response) {
+                    return response.json().then(function(body) {
+                        if (!response.ok) {
+                            const err = new Error(body && body.error || 'HTTP ' + response.status);
+                            err.captchaFailed = Boolean(body && body.captcha === false);
+                            throw err;
+                        }
+                        return body;
+                    });
+                })
+                .then(function() {
+                    homeContactForm.reset();
+                    setStatus("Thank you - your message has been sent. We'll be in touch within one business day.", 'success');
+                })
+                .catch(function(err) {
+                    if (err && err.captchaFailed) {
+                        setStatus(err.message, 'error');
+                        return;
+                    }
+                    window.location.href = buildMailto('Website enquiry', data);
+                    setStatus('Your email app should open with your message ready to send.', 'success');
+                })
+                .finally(function() {
+                    submitButton.innerHTML = originalText;
+                    submitButton.disabled = false;
+                    homeCaptcha.reset();
+                });
+        });
+    }
+
     // Parts Store request form -> /api/parts-request (same Google Sheet +
     // email bridge as Schedule Demo). Falls back to mailto if that fails, so
     // a request is never silently lost.
@@ -313,7 +391,11 @@ document.addEventListener('DOMContentLoaded', function() {
             })
                 .then(function(response) {
                     return response.json().then(function(body) {
-                        if (!response.ok) throw new Error(body && body.error || 'HTTP ' + response.status);
+                        if (!response.ok) {
+                            const err = new Error(body && body.error || 'HTTP ' + response.status);
+                            err.captchaFailed = Boolean(body && body.captcha === false);
+                            throw err;
+                        }
                         return body;
                     });
                 })
@@ -321,7 +403,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     partsRequestForm.reset();
                     setStatus("Thank you - your parts request has been sent. We'll confirm compatibility and pricing within one business day.", 'success');
                 })
-                .catch(function() {
+                .catch(function(err) {
+                    if (err && err.captchaFailed) {
+                        setStatus(err.message, 'error');
+                        return;
+                    }
                     window.location.href = buildMailto('Parts request', data);
                     setStatus('Your email app should open with your request ready to send.', 'success');
                 })

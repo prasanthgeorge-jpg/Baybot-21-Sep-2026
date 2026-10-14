@@ -9,5 +9,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node tools/dev-server.js"
+  },
+  "dependencies": {
+    "nodemailer": "^10.1.0"
   }
 }
