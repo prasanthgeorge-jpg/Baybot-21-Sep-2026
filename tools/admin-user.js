@@ -1,17 +1,19 @@
 #!/usr/bin/env node
-// Creates or resets the login for the product admin (/site-admin).
+// Manages who can log in to the product admin (/site-admin).
 //
-//   node tools/admin-user.js
+//   node tools/admin-user.js add bm@baybotdynamics.com georgep@baybotdynamics.com
+//   node tools/admin-user.js invite bm@baybotdynamics.com     (new one-time code)
+//   node tools/admin-user.js list
+//   node tools/admin-user.js remove someone@baybotdynamics.com
 //
-// It asks for a username and a password (hidden while you type) and stores a
-// scrypt hash in DATA_DIR/admin.json. There is no default account: until this
-// has been run, nobody can log in. Run it on the server, with the same
-// DATA_DIR as the website (it reads .env.local).
+// Admins are identified by email and start with NO password. Each one sets
+// their own: on the login page they choose "Set a password", enter their email
+// and either follow the emailed link (needs SMTP set up) or type the one-time
+// invite code printed here. Codes work once and expire after 72 hours. Run this
+// on the server so it uses the same DATA_DIR as the website (it reads .env.local).
 const fs = require('fs');
 const path = require('path');
-const readline = require('readline');
 
-// Load .env.local / .env so DATA_DIR matches the running site.
 ['.env.local', '.env'].forEach(function(name) {
     const file = path.join(__dirname, '..', name);
     if (!fs.existsSync(file)) return;
@@ -28,31 +30,44 @@ const readline = require('readline');
 const auth = require('../lib/auth');
 const { dataDir } = require('../lib/config');
 
-function ask(question, hidden) {
-    return new Promise(function(resolve) {
-        const rl = readline.createInterface({ input: process.stdin, output: process.stdout, terminal: true });
-        if (hidden) {
-            rl._writeToOutput = function(str) { if (str.indexOf(question) === 0) rl.output.write(str); else rl.output.write(''); };
-        }
-        rl.question(question, function(answer) {
-            rl.close();
-            if (hidden) process.stdout.write('\n');
-            resolve(answer);
-        });
-    });
+const INVITE_MS = 72 * 3600 * 1000;
+const [command, ...args] = process.argv.slice(2);
+const base = (process.env.SITE_URL || 'https://baybotdynamics.com').replace(/\/+$/, '');
+
+function invite(email) {
+    const token = auth.createSetupToken(email, INVITE_MS);
+    console.log('  ' + email);
+    console.log('    invite code : ' + auth.formatToken(token) + '   (works once, valid 72 hours)');
 }
 
-(async function main() {
-    console.log('Product admin login. Data folder: ' + dataDir());
-    const existing = auth.readAdmin();
-    if (existing) console.log('An account named "' + existing.username + '" exists. It will be replaced.');
-    const username = (await ask('Username: ', false)).trim();
-    if (!/^[A-Za-z0-9._@-]{3,60}$/.test(username)) { console.error('Use 3 to 60 letters, numbers or . _ @ -'); process.exit(1); }
-    const p1 = await ask('Password: ', true);
-    const problem = auth.passwordProblem(p1);
-    if (problem) { console.error(problem); process.exit(1); }
-    const p2 = await ask('Repeat password: ', true);
-    if (p1 !== p2) { console.error('The two passwords do not match.'); process.exit(1); }
-    auth.writeAdmin(username, p1);
-    console.log('Saved. Log in at /site-admin with username "' + username + '".');
-}());
+function usage() {
+    console.log('Usage:\n  node tools/admin-user.js add <email> [more emails]\n  node tools/admin-user.js invite <email>\n  node tools/admin-user.js list\n  node tools/admin-user.js remove <email>');
+    process.exit(1);
+}
+
+try {
+    console.log('Data folder: ' + dataDir() + '\n');
+    if (command === 'add' && args.length) {
+        args.forEach(function(e) { auth.addAdmin(e); });
+        console.log('Admins created. Give each person their code (or let them use the emailed link):\n');
+        args.forEach(function(e) { invite(auth.normEmail(e)); });
+        console.log('\nThey open ' + base + '/site-admin, choose "Set a password", enter their email and the code.');
+    } else if (command === 'invite' && args.length === 1) {
+        if (!auth.findAdmin(args[0])) { console.error('No admin with that email. Add it first: node tools/admin-user.js add ' + args[0]); process.exit(1); }
+        invite(auth.normEmail(args[0]));
+    } else if (command === 'list') {
+        const all = auth.listAdmins();
+        if (!all.length) console.log('No admins yet. Add some: node tools/admin-user.js add <email>');
+        all.forEach(function(a) {
+            console.log(a.email + '  -  ' + (a.hash ? 'password set ' + String(a.passwordSetAt || '').slice(0, 10) : 'NO PASSWORD YET') +
+                (a.setupTokenHash && a.setupExpires > Date.now() ? '  (invite pending)' : ''));
+        });
+    } else if (command === 'remove' && args.length === 1) {
+        console.log(auth.removeAdmin(args[0]) ? 'Removed ' + auth.normEmail(args[0]) + '. Their sessions stop working immediately.' : 'No admin with that email.');
+    } else {
+        usage();
+    }
+} catch (e) {
+    console.error(e.message);
+    process.exit(1);
+}

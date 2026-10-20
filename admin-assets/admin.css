@@ -74,3 +74,6 @@ details.admin-card summary { cursor: pointer; font-family: var(--font-display); 
     .admin-row { grid-template-columns: 1fr; }
     .admin-photo { grid-template-columns: 1fr; }
 }
+.admin-who { color: #b9cffa; font-size: .9rem; padding-left: 12px; border-left: 1px solid rgba(255, 255, 255, .25); }
+.admin-setup-link { margin: 1.25rem 0 0; }
+.admin-login + .admin-login { margin-top: 24px; }

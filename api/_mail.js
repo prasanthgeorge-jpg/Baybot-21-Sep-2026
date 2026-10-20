@@ -151,4 +151,29 @@ async function deliverRequest(req, options) {
     return sendViaWebhook(req, options);
 }
 
-module.exports = { deliverRequest, sendRequestEmail, isConfigured, oneLine, validEmail };
+// True when the server can send mail at all (needs only the SMTP login, not MAIL_TO).
+function smtpReady() {
+    const e = process.env;
+    return Boolean(e.SMTP_HOST && e.SMTP_USER && e.SMTP_PASS);
+}
+
+// One plain-text email to a specific recipient (used for admin setup links).
+async function sendDirect(options) {
+    if (!smtpReady()) return { ok: false, notConfigured: true };
+    if (!validEmail(String(options.to || ''))) return { ok: false, error: 'Invalid recipient.' };
+    try {
+        await getTransport().sendMail({
+            from: process.env.MAIL_FROM || process.env.SMTP_USER,
+            to: options.to,
+            subject: oneLine(options.subject, 200),
+            text: String(options.text || '')
+        });
+        return { ok: true };
+    } catch (err) {
+        console.error('Direct mail failed:', err && err.message);
+        transport = undefined;
+        return { ok: false, error: 'Could not send the email.' };
+    }
+}
+
+module.exports = { deliverRequest, sendRequestEmail, sendDirect, smtpReady, isConfigured, oneLine, validEmail };
