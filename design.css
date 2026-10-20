@@ -702,3 +702,11 @@ input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="
     .pl-specs, .pl-two-col { grid-template-columns: 1fr; }
     .pl-gallery-big figure:first-child { grid-column: auto; grid-row: auto; }
 }
+
+/* Layout tabs in the preview bar */
+.pl-preview-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 14px; }
+.pl-bar-label { opacity: .85; font-weight: 500; }
+.pl-tab { background: transparent; color: #fff; border: 1.5px solid rgba(255, 255, 255, .7); border-radius: 6px; padding: 4px 14px; text-decoration: none; font-weight: 600; }
+.pl-tab:hover { background: rgba(255, 255, 255, .15); color: #fff; }
+.pl-tab.is-current { background: #fff; color: var(--blue-deep); border-color: #fff; }
+.pl-bar-note { font-weight: 500; opacity: .9; font-size: .95rem; }

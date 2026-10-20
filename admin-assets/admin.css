@@ -77,3 +77,12 @@ details.admin-card summary { cursor: pointer; font-family: var(--font-display); 
 .admin-who { color: #b9cffa; font-size: .9rem; padding-left: 12px; border-left: 1px solid rgba(255, 255, 255, .25); }
 .admin-setup-link { margin: 1.25rem 0 0; }
 .admin-login + .admin-login { margin-top: 24px; }
+
+.admin-newcat { border-left: 3px solid var(--blue); background: var(--tint); padding: 14px 16px; margin: 0 0 1rem; border-radius: 0 var(--r-plate) var(--r-plate) 0; }
+.admin-newcat[hidden] { display: none; }
+.admin-newcat label { margin-bottom: .75rem; }
+.admin-inline { margin-top: 8px; }
+.admin-inline summary { cursor: pointer; color: var(--blue); font-weight: 600; }
+.admin-catform { max-width: 560px; margin-top: 12px; }
+.admin-catform label { display: block; font-weight: 600; margin: 0 0 1rem; }
+.admin-catform input[type="text"], .admin-catform select { display: block; width: 100%; margin-top: 6px; font-weight: 400; }

@@ -547,8 +547,16 @@ older CMS and is left alone).
 **What it does**
 - Log in, add a product: name, category, headline, summary, overview, key
   features, specifications, a YouTube video, a main photo and up to 8 more.
-- Pick one of three layouts: *Showcase*, *Spec sheet* or *Gallery*. Preview a
-  draft before publishing. Edit, unpublish or delete later.
+- Pick one of three layouts: *Showcase*, *Spec sheet* or *Gallery*. Before
+  saving anything, **Preview** shows the page built from what has been typed (and
+  any photos chosen), with tabs to flip between all three layouts. Nothing is saved
+  by a preview; it is held in memory for 30 minutes and only the logged-in admin can
+  see it. Edit, unpublish or delete later.
+- Add **categories**: in *Categories* (or with "+ Add a new category" inside the product
+  form). A custom category appears on the Products page, in the family cards and in the
+  "Products" menu on every page once it has a published product; the "View N models"
+  counts and "N Robots Across X Families" headline follow. The four built-in categories
+  cannot be renamed or deleted, and a category with products cannot be deleted.
 - A published product gets its own page (`/product-<name>.html`) and a card in
   the right section of the Products page. The "View N models" counts and the
   headline total update by themselves.

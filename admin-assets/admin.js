@@ -61,6 +61,15 @@
         });
     });
 
+    // Show the "new category" fields only when that option is chosen
+    document.querySelectorAll('[data-category-select]').forEach(function (select) {
+        var box = document.querySelector('[data-newcat]');
+        if (!box) return;
+        function sync() { box.hidden = select.value !== '__new__'; }
+        select.addEventListener('change', sync);
+        sync();
+    });
+
     // Robot check on the login form
     var box = document.querySelector('.cf-box[data-sitekey]');
     if (box) {

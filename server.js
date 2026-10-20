@@ -86,6 +86,13 @@ const COMPRESSIBLE = new Set(['.html', '.css', '.js', '.json', '.svg', '.txt', '
 
 function sendFile(req, res, relPath, data) {
     const ext = path.extname(relPath).toLowerCase();
+    // Categories added in the admin appear in the "Products" menu on every page.
+    if (ext === '.html') {
+        try {
+            const withNav = require('./lib/render').injectNav(data.toString('utf8'));
+            data = Buffer.from(withNav, 'utf8');
+        } catch (e) { console.error('Could not add admin categories to the menu', e); }
+    }
     const headers = Object.assign({
         'Content-Type': MIME[ext] || 'application/octet-stream',
         'Cache-Control': cacheControlFor(relPath, ext),
