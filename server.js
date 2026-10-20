@@ -47,7 +47,7 @@ const MIME = {
 // (secrets, source, server config, build tooling) stays private. This matters
 // because the project root doubles as the web root: without it, a request for
 // /.env.local would return the secrets file.
-const PRIVATE_DIRS = new Set(['api', 'tools', 'deploy', 'node_modules', 'data']);
+const PRIVATE_DIRS = new Set(['api', 'tools', 'deploy', 'node_modules', 'data', 'lib', 'admin-assets']);
 const PRIVATE_FILES = new Set([
     'server.js', 'package.json', 'package-lock.json', 'vercel.json',
     'web.config', 'readme.md'
@@ -129,6 +129,35 @@ const server = http.createServer(function(req, res) {
         return res.end(JSON.stringify({ error: 'No such API route: ' + urlPath }));
     }
 
+    // Product admin (login, add/edit products). Lives under /site-admin because
+    // /admin on baybotdynamics.com is the older CMS.
+    if (urlPath === '/site-admin' || urlPath.indexOf('/site-admin/') === 0) {
+        const query = new URL(req.url, 'http://localhost').searchParams;
+        return Promise.resolve(require('./lib/admin').handle(req, res, urlPath, query)).catch(function(err) {
+            console.error('Unhandled admin error', err);
+            if (!res.headersSent) {
+                res.writeHead(500, { 'Content-Type': 'text/plain' });
+                res.end('Something went wrong.');
+            }
+        });
+    }
+
+    // Photos uploaded through the admin. File names are random, so they can be cached for a year.
+    const upload = urlPath.match(/^\/uploads\/([a-f0-9]{16})\/([a-f0-9]{16}\.webp)$/);
+    if (upload) {
+        const file = path.join(require('./lib/store').uploadsDir(), upload[1], upload[2]);
+        return fs.readFile(file, function(err, data) {
+            if (err) return notFound(res, urlPath);
+            res.writeHead(200, {
+                'Content-Type': 'image/webp',
+                'Content-Length': data.length,
+                'Cache-Control': 'public, max-age=31536000, immutable',
+                'X-Content-Type-Options': 'nosniff'
+            });
+            res.end(req.method === 'HEAD' ? undefined : data);
+        });
+    }
+
     if (req.method !== 'GET' && req.method !== 'HEAD') {
         res.writeHead(405, { 'Allow': 'GET, HEAD', 'Content-Type': 'text/plain' });
         return res.end('Method not allowed');
@@ -147,14 +176,19 @@ const server = http.createServer(function(req, res) {
     // is not revealed.
     if (!isPublicPath(relPath)) return notFound(res, urlPath);
 
+    // The Products page gets the admin-added products injected into its grids.
+    const isProductsPage = relPath === 'products' || relPath === 'products.html';
+
     fs.readFile(filePath, function(err, data) {
         if (err && path.extname(filePath) === '') {
             return fs.readFile(filePath + '.html', function(err2, data2) {
-                if (err2) return notFound(res, urlPath);
+                if (err2) return customProduct(req, res, relPath, urlPath);
+                if (isProductsPage) data2 = injectProducts(data2);
                 sendFile(req, res, relPath + '.html', data2);
             });
         }
-        if (err) return notFound(res, urlPath);
+        if (err) return customProduct(req, res, relPath, urlPath);
+        if (isProductsPage) data = injectProducts(data);
         sendFile(req, res, relPath, data);
     });
 });
@@ -167,6 +201,25 @@ server.listen(PORT, function() {
         }
     });
 });
+
+function injectProducts(buffer) {
+    try { return Buffer.from(require('./lib/render').injectCards(buffer.toString('utf8')), 'utf8'); }
+    catch (e) { console.error('Could not add admin products to the Products page', e); return buffer; }
+}
+
+// /product-<slug> (or .html) for a published product added through the admin.
+function customProduct(req, res, relPath, urlPath) {
+    const m = relPath.match(/^product-([a-z0-9-]{1,60}?)(?:\.html)?$/);
+    if (!m) return notFound(res, urlPath);
+    try {
+        const product = require('./lib/store').getBySlug(m[1]);
+        if (!product || product.status !== 'published') return notFound(res, urlPath);
+        sendFile(req, res, 'product-' + m[1] + '.html', Buffer.from(require('./lib/render').productPage(product, false), 'utf8'));
+    } catch (e) {
+        console.error('Could not render product page', e);
+        notFound(res, urlPath);
+    }
+}
 
 function notFound(res, urlPath) {
     res.writeHead(404, { 'Content-Type': 'text/plain' });

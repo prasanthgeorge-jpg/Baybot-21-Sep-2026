@@ -536,3 +536,38 @@ Redesign preserves the original BayBot Dynamics brand identity while modernizing
 
 ## License
 © 2026 BayBot Dynamics LLC. All rights reserved.
+
+## Product admin (/site-admin)
+
+The customer can add products, choose the page layout and publish, without a
+developer. It runs on the Node server (Hetzner), not on Vercel, because it
+saves files. It is at `/site-admin` (`/admin` on baybotdynamics.com is the
+older CMS and is left alone).
+
+**What it does**
+- Log in, add a product: name, category, headline, summary, overview, key
+  features, specifications, a YouTube video, a main photo and up to 8 more.
+- Pick one of three layouts: *Showcase*, *Spec sheet* or *Gallery*. Preview a
+  draft before publishing. Edit, unpublish or delete later.
+- A published product gets its own page (`/product-<name>.html`) and a card in
+  the right section of the Products page. The "View N models" counts and the
+  headline total update by themselves.
+- Photos are checked and converted to optimised WebP (max 1600 px).
+- Built-in products (from `data/models.json`) are listed read-only.
+
+**One-time setup on the server**
+1. Choose a data folder outside the code: `mkdir -p /home/devuser/baybot-data`
+   and add `DATA_DIR=/home/devuser/baybot-data` to `~/baybot-new/.env.local`.
+2. `cd ~/baybot-new && npm install --omit=dev` (adds `sharp` and `busboy`).
+3. Create the login (no default exists): `node tools/admin-user.js`. It asks for
+   a username and a password of 12+ characters, and stores only a hash.
+4. `pm2 restart baybot-new --update-env`. Apache needs no change.
+
+**Security notes**
+- Login is rate limited (5 tries per username, 20 per address, 15-minute
+  lock), uses a signed HttpOnly SameSite=Strict cookie, and CSRF tokens on every
+  change. When Turnstile is configured, the login also asks for the robot check.
+- Everything the admin types is escaped on output. Descriptions are plain text.
+- Uploads must be real images; anything else is refused.
+- Admin pages send `noindex`, a strict Content-Security-Policy and no-store.
+- Back up `DATA_DIR` (it holds the products, photos and login). Deploys do not touch it.
