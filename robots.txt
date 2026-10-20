@@ -1,7 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /site-admin
-Disallow: /uploads/
 
 # A Sitemap directive has to be an absolute URL, which is the one thing that
 # cannot be domain-agnostic. Uncomment and set it to the live domain once the
