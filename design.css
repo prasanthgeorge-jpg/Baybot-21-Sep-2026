@@ -818,3 +818,6 @@ input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="
 .hero-dot { width: 12px; height: 12px; padding: 0; border-radius: 50%; border: 2px solid var(--blue); background: #fff; cursor: pointer; }
 .hero-dot.is-active { background: var(--blue); }
 @media (prefers-reduced-motion: reduce) { .hero-slide { transition: none; transform: none; } }
+
+/* Tennant family list: show each family's icon in the first column */
+.industries-grid.brand-families:has(> .industry-card:nth-child(6)) .industry-icon { display: flex; grid-column: 1; grid-row: 1 / span 2; align-items: center; justify-content: flex-start; font-size: 1.9rem; margin: 0; }
