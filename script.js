@@ -1086,3 +1086,37 @@ document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && !panel.hidden) { setOpen(false); btn.focus(); }
     });
 })();
+
+// ---- Products page: jump to a section and stay on it ----
+// Photos above the target load lazily and push the page down, so a plain anchor jump
+// lands on the wrong section. Load them first, then keep re-aligning until the layout settles.
+(function() {
+    if (!document.getElementById('categoryTabBar')) return;
+    function goTo(id) {
+        var el = document.getElementById(id);
+        if (!el) return false;
+        document.querySelectorAll('img[loading="lazy"]').forEach(function(i) { i.loading = 'eager'; });
+        var stop = false, start = Date.now();
+        function stopOnUser() { stop = true; }
+        window.addEventListener('wheel', stopOnUser, { once: true, passive: true });
+        window.addEventListener('touchstart', stopOnUser, { once: true, passive: true });
+        (function align() {
+            if (stop) return;
+            var top = el.getBoundingClientRect().top;
+            var offset = 150;
+            if (Math.abs(top - offset) > 2) window.scrollTo(0, window.scrollY + top - offset);
+            if (Date.now() - start < 3000) requestAnimationFrame(align);
+        })();
+        return true;
+    }
+    document.addEventListener('click', function(e) {
+        var a = e.target.closest && e.target.closest('a[href^="#"]');
+        if (!a || a.getAttribute('href').length < 2) return;
+        var id = a.getAttribute('href').slice(1);
+        if (!document.getElementById(id)) return;
+        e.preventDefault();
+        history.replaceState(null, '', '#' + id);
+        goTo(id);
+    });
+    if (location.hash.length > 1) window.addEventListener('load', function() { goTo(location.hash.slice(1)); });
+})();
