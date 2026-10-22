@@ -789,11 +789,12 @@ input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="
 .product-hero-text .distributor-badge { margin: 0.5rem 0 0.8rem; }
 
 /* Brand bands on the Products page */
-.brand-sub { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; margin: 40px 0 24px; padding: 18px 22px; border: 2px solid var(--ink); border-radius: 14px; background: var(--paper); scroll-margin-top: 90px; }
-.brand-sub-tennant { background: var(--tint); margin-top: 56px; }
-.brand-sub-title { font-size: clamp(1.3rem, 2.2vw, 1.7rem); margin: 0; }
-.brand-sub-label { color: var(--blue, #1d4ed8); }
-.brand-sub .distributor-badge { margin: 0; }
+.brand-switch { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 40px 0 28px; padding: 14px 20px; border: 2px solid var(--ink); border-radius: 14px; background: var(--tint); scroll-margin-top: 170px; }
+.brand-switch-label { font-weight: 700; color: var(--ink); }
+.brand-switch-select { font: inherit; font-weight: 700; font-size: 1.05rem; padding: 10px 40px 10px 16px; border: 2px solid var(--ink); border-radius: 10px; background: #fff; color: var(--ink); cursor: pointer; min-width: 240px; width: auto; flex: 0 0 auto; }
+.brand-switch .distributor-badge { margin: 0 0 0 auto; }
+.brand-panel[hidden] { display: none; }
+.brand-empty { padding: 24px; border: 1px dashed var(--ink); border-radius: 12px; background: var(--paper); }
 .brand-group { margin-top: 32px; scroll-margin-top: 90px; }
 .brand-group h4 { font-size: 1.15rem; margin-bottom: .4rem; }
 .brand-group > .section-description { margin-bottom: 1.25rem; }
