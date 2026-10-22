@@ -1120,3 +1120,23 @@ document.addEventListener('keydown', function(e) {
     });
     if (location.hash.length > 1) window.addEventListener('load', function() { goTo(location.hash.slice(1)); });
 })();
+
+// ---- Home hero: rolling robot pictures ----
+(function() {
+    var box = document.getElementById('heroSlides');
+    if (!box) return;
+    var slides = box.querySelectorAll('.hero-slide'), dots = box.querySelectorAll('.hero-dot');
+    var i = 0, timer = null;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function show(n) {
+        i = (n + slides.length) % slides.length;
+        slides.forEach(function(s, k) { s.classList.toggle('is-active', k === i); });
+        dots.forEach(function(d, k) { d.classList.toggle('is-active', k === i); });
+    }
+    function start() { if (!reduce && !timer) timer = setInterval(function() { show(i + 1); }, 4000); }
+    function stop() { clearInterval(timer); timer = null; }
+    dots.forEach(function(d) { d.addEventListener('click', function() { show(Number(d.getAttribute('data-slide'))); }); });
+    box.addEventListener('mouseenter', stop); box.addEventListener('mouseleave', start);
+    box.addEventListener('focusin', stop); box.addEventListener('focusout', start);
+    start();
+})();
