@@ -92,6 +92,7 @@ function sendFile(req, res, relPath, data) {
             let page = require('./lib/render').injectNav(data.toString('utf8'));
             // Edits made to built-in products in the admin (text, photo, video).
             page = require('./lib/builtin').applyPublic(page, relPath);
+            page = require('./lib/badges').addBadges(page, relPath);
             data = Buffer.from(page, 'utf8');
         } catch (e) { console.error('Could not add admin categories to the menu', e); }
     }

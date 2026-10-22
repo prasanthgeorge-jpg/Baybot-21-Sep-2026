@@ -710,3 +710,13 @@ input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="
 .pl-tab:hover { background: rgba(255, 255, 255, .15); color: #fff; }
 .pl-tab.is-current { background: #fff; color: var(--blue-deep); border-color: #fff; }
 .pl-bar-note { font-weight: 500; opacity: .9; font-size: .95rem; }
+
+/* "Official Distributor" badge (text only) */
+.distributor-badge {
+    display: inline-flex; align-items: center; gap: .45rem;
+    background: var(--navy); color: #fff; border-radius: var(--r-control);
+    padding: .4rem .8rem; font-size: .9rem; font-weight: 600; letter-spacing: 0;
+    margin: 0 0 1rem; line-height: 1.2;
+}
+.distributor-badge i { color: #8fb4ff; }
+.page-header .distributor-badge { margin: 0 0 1rem; }
