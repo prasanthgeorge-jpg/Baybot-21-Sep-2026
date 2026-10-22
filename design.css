@@ -789,11 +789,11 @@ input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="
 .product-hero-text .distributor-badge { margin: 0.5rem 0 0.8rem; }
 
 /* Brand bands on the Products page */
-.brand-band { padding: clamp(56px, 7vw, 88px) 0 clamp(24px, 3vw, 40px); background: var(--paper); border-top: 2px solid var(--ink); }
-.brand-band-tennant { background: var(--tint); border-top: 2px solid var(--ink); }
-.brand-band-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 32px; }
-.brand-band-head .distributor-badge { margin: 0; }
-.brand-band-head .section-description { margin-bottom: 0; }
-.brand-group { margin-top: 40px; }
-.brand-group h3 { font-size: clamp(1.4rem, 2.2vw, 1.8rem); margin-bottom: .5rem; }
-.brand-group > .section-description { margin-bottom: 1.5rem; }
+.brand-sub { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; margin: 40px 0 24px; padding: 18px 22px; border: 2px solid var(--ink); border-radius: 14px; background: var(--paper); scroll-margin-top: 90px; }
+.brand-sub-tennant { background: var(--tint); margin-top: 56px; }
+.brand-sub-title { font-size: clamp(1.3rem, 2.2vw, 1.7rem); margin: 0; }
+.brand-sub-label { color: var(--blue, #1d4ed8); }
+.brand-sub .distributor-badge { margin: 0; }
+.brand-group { margin-top: 32px; scroll-margin-top: 90px; }
+.brand-group h4 { font-size: 1.15rem; margin-bottom: .4rem; }
+.brand-group > .section-description { margin-bottom: 1.25rem; }
