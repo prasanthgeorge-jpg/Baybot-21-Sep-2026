@@ -798,3 +798,14 @@ input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="
 .brand-group { margin-top: 32px; scroll-margin-top: 90px; }
 .brand-group h4 { font-size: 1.15rem; margin-bottom: .4rem; }
 .brand-group > .section-description { margin-bottom: 1.25rem; }
+
+/* Family tab menu: hover or focus a tab to pick PUDU or Tennant (desktop) */
+.category-tab-wrap { position: relative; flex: 0 0 auto; display: flex; }
+.category-tab-menu { display: none; }
+@media (min-width: 900px) {
+    .category-tab-bar .container { overflow: visible; }
+    .category-tab-menu { position: absolute; top: 100%; left: 0; min-width: 190px; z-index: 900; background: #fff; border: 1px solid var(--line-strong); border-radius: 0 0 12px 12px; box-shadow: 0 12px 28px rgba(15, 43, 107, .18); padding: 6px; }
+    .category-tab-wrap:hover .category-tab-menu, .category-tab-wrap:focus-within .category-tab-menu { display: block; }
+    .category-tab-menu a { display: block; padding: 10px 14px; border-radius: 8px; font-weight: 700; color: var(--ink); text-decoration: none; }
+    .category-tab-menu a:hover, .category-tab-menu a:focus { background: var(--tint); color: var(--blue-deep); }
+}
