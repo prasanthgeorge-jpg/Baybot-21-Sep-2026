@@ -913,9 +913,9 @@ document.addEventListener('keydown', function(e) {
     const tabBar = document.getElementById('categoryTabBar');
     if (!tabBar) return;
 
-    const sections = ['cleaning', 'delivery', 'industrial', 'quadruped'];
     const tabs = tabBar.querySelectorAll('.category-tab');
-    const triggerEl = document.getElementById('cleaning');
+    const sections = Array.prototype.map.call(tabs, function(t) { return t.getAttribute('href').slice(1); });
+    const triggerEl = document.getElementById(sections[0]);
 
     // Show tab bar once the first product family scrolls into view
     const showObserver = new IntersectionObserver(function(entries) {
@@ -1085,35 +1085,4 @@ document.addEventListener('keydown', function(e) {
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && !panel.hidden) { setOpen(false); btn.focus(); }
     });
-})();
-
-// Brand dropdown inside each Products family section (PUDU robots / Tennant robots).
-(function() {
-    function setBrand(sel, brand, scroll) {
-        var id = sel.getAttribute('data-brand-switch');
-        sel.value = brand;
-        document.querySelectorAll('[id^="' + id + '-"][data-brand-panel]').forEach(function(p) {
-            p.hidden = p.getAttribute('data-brand-panel') !== brand;
-        });
-        if (scroll) { var bar = document.getElementById(id + '-brands'); if (bar) bar.scrollIntoView(); }
-    }
-    function fromHash() {
-        var m = /^#([a-z0-9-]+)-(pudu|tennant)$/.exec(location.hash);
-        if (!m) return;
-        var sel = document.querySelector('[data-brand-switch="' + m[1] + '"]');
-        if (sel) setBrand(sel, m[2], true);
-    }
-    document.querySelectorAll('[data-brand-switch]').forEach(function(sel) {
-        sel.addEventListener('change', function() { setBrand(sel, sel.value, false); });
-    });
-    document.querySelectorAll('[data-brand-go]').forEach(function(a) {
-        a.addEventListener('click', function(e) {
-            e.preventDefault();
-            var v = a.getAttribute('data-brand-go').split(':');
-            var sel = document.querySelector('[data-brand-switch="' + v[0] + '"]');
-            if (sel) setBrand(sel, v[1], true);
-        });
-    });
-    window.addEventListener('hashchange', fromHash);
-    fromHash();
 })();

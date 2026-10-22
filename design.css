@@ -789,22 +789,21 @@ input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="
 .product-hero-text .distributor-badge { margin: 0.5rem 0 0.8rem; }
 
 /* Brand bands on the Products page */
-.brand-switch { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 40px 0 28px; padding: 14px 20px; border: 2px solid var(--ink); border-radius: 14px; background: var(--tint); scroll-margin-top: 170px; }
-.brand-switch-label { font-weight: 700; color: var(--ink); }
-.brand-switch-select { font: inherit; font-weight: 700; font-size: 1.05rem; padding: 10px 40px 10px 16px; border: 2px solid var(--ink); border-radius: 10px; background: #fff; color: var(--ink); cursor: pointer; min-width: 240px; width: auto; flex: 0 0 auto; }
-.brand-switch .distributor-badge { margin: 0 0 0 auto; }
-.brand-panel[hidden] { display: none; }
-.brand-empty { padding: 24px; border: 1px dashed var(--ink); border-radius: 12px; background: var(--paper); }
+.brand-band { padding: clamp(48px, 6vw, 72px) 0 clamp(24px, 3vw, 40px); background: var(--paper); border-top: 2px solid var(--ink); scroll-margin-top: 150px; }
+.brand-band-tennant { background: var(--tint); }
+.brand-band-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 32px; }
+.brand-band-head .distributor-badge { margin: 0; }
+.brand-band-head .section-description { margin-bottom: 0; }
 .brand-group { margin-top: 32px; scroll-margin-top: 90px; }
 .brand-group h4 { font-size: 1.15rem; margin-bottom: .4rem; }
 .brand-group > .section-description { margin-bottom: 1.25rem; }
 
-/* Family tab menu: hover or focus a tab to pick PUDU or Tennant (desktop) */
+/* Brand tabs: hover or focus a tab to jump to one of its families (desktop) */
 .category-tab-wrap { position: relative; flex: 0 0 auto; display: flex; }
 .category-tab-menu { display: none; }
 @media (min-width: 900px) {
     .category-tab-bar .container { overflow: visible; }
-    .category-tab-menu { position: absolute; top: 100%; left: 0; min-width: 190px; z-index: 900; background: #fff; border: 1px solid var(--line-strong); border-radius: 0 0 12px 12px; box-shadow: 0 12px 28px rgba(15, 43, 107, .18); padding: 6px; }
+    .category-tab-menu { position: absolute; top: 100%; left: 0; min-width: 220px; z-index: 900; background: #fff; border: 1px solid var(--line-strong); border-radius: 0 0 12px 12px; box-shadow: 0 12px 28px rgba(15, 43, 107, .18); padding: 6px; }
     .category-tab-wrap:hover .category-tab-menu, .category-tab-wrap:focus-within .category-tab-menu { display: block; }
     .category-tab-menu a { display: block; padding: 10px 14px; border-radius: 8px; font-weight: 700; color: var(--ink); text-decoration: none; }
     .category-tab-menu a:hover, .category-tab-menu a:focus { background: var(--tint); color: var(--blue-deep); }
