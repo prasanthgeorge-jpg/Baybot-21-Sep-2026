@@ -711,12 +711,89 @@ input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="
 .pl-tab.is-current { background: #fff; color: var(--blue-deep); border-color: #fff; }
 .pl-bar-note { font-weight: 500; opacity: .9; font-size: .95rem; }
 
-/* "Official Distributor" badge (text only) */
+/* "Official Distributor" Certified Partner Logo Badge */
 .distributor-badge {
-    display: inline-flex; align-items: center; gap: .45rem;
-    background: var(--navy); color: #fff; border-radius: var(--r-control);
-    padding: .4rem .8rem; font-size: .9rem; font-weight: 600; letter-spacing: 0;
-    margin: 0 0 1rem; line-height: 1.2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    background: linear-gradient(135deg, #0e2246 0%, #071530 100%);
+    color: #ffffff;
+    border: 1px solid rgba(212, 175, 55, 0.45);
+    border-radius: 999px;
+    padding: 0.35rem 0.85rem 0.35rem 0.4rem;
+    box-shadow: 0 4px 14px rgba(7, 21, 48, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    margin: 0 0 1rem;
+    vertical-align: middle;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
-.distributor-badge i { color: #8fb4ff; }
+
+.distributor-badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(7, 21, 48, 0.28), 0 0 12px rgba(212, 175, 55, 0.25);
+    border-color: rgba(255, 215, 0, 0.7);
+}
+
+.distributor-seal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
+}
+
+.distributor-seal-svg {
+    width: 30px;
+    height: 30px;
+    display: block;
+}
+
+.distributor-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.15;
+    text-align: left;
+}
+
+.distributor-sub {
+    font-size: 0.58rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #e5c365;
+}
+
+.distributor-main {
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #ffffff;
+}
+
+.distributor-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffd700;
+    font-size: 0.8rem;
+    margin-left: 0.1rem;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
 .page-header .distributor-badge { margin: 0 0 1rem; }
+.hero-content .distributor-badge { margin-bottom: 1.25rem; }
+.product-hero-text .distributor-badge { margin: 0.5rem 0 0.8rem; }
+
+/* Brand bands on the Products page */
+.brand-band { padding: clamp(56px, 7vw, 88px) 0 clamp(24px, 3vw, 40px); background: var(--paper); border-top: 2px solid var(--ink); }
+.brand-band-tennant { background: var(--tint); border-top: 2px solid var(--ink); }
+.brand-band-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 32px; }
+.brand-band-head .distributor-badge { margin: 0; }
+.brand-band-head .section-description { margin-bottom: 0; }
+.brand-group { margin-top: 40px; }
+.brand-group h3 { font-size: clamp(1.4rem, 2.2vw, 1.8rem); margin-bottom: .5rem; }
+.brand-group > .section-description { margin-bottom: 1.5rem; }

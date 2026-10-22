@@ -1,0 +1,532 @@
+// Script to populate Tennant products and categories into store (.data/products.json)
+// and generate static HTML product pages for maximum portability.
+const fs = require('fs');
+const path = require('path');
+const store = require('../lib/store');
+const render = require('../lib/render');
+const badges = require('../lib/badges');
+
+const CATEGORIES = [
+    {
+        id: 'robotic-scrubbers',
+        label: 'Robotic Floor Scrubbers',
+        description: 'Autonomous compact, walk-behind, and industrial ride-on scrubbers from Tennant.',
+        icon: 'broom',
+        createdAt: new Date().toISOString()
+    },
+    {
+        id: 'robotic-sweepers',
+        label: 'Robotic Floor Sweepers',
+        description: 'High-capacity autonomous sweepers engineered for industrial facilities and warehouses.',
+        icon: 'dolly',
+        createdAt: new Date().toISOString()
+    },
+    {
+        id: 'robotic-vacuums',
+        label: 'Robotic Vacuums',
+        description: 'Autonomous vacuuming and dry mopping for commercial facilities and hospitality.',
+        icon: 'robot',
+        createdAt: new Date().toISOString()
+    }
+];
+
+const PRODUCTS = [
+    {
+        id: 'tnt380amr0000001',
+        slug: 'tennant-t380amr',
+        name: 'Tennant T380AMR',
+        brand: 'tennant',
+        category: 'robotic-scrubbers',
+        categoryLabel: 'Robotic Floor Scrubbers',
+        layout: 'showcase',
+        tagline: 'Compact Autonomous Floor Scrubber for Narrow Aisles and Small Spaces',
+        summary: 'Autonomous floor scrubbing designed for tight aisles and compact spaces, navigating safely around staff and customers with BrainOS AI.',
+        overview: 'Increase productivity, maintain a high standard of cleaning, and effectively clean narrow aisles and spaces with the T380AMR, a compact robotic floor cleaning machine. This robotic floor scrubber is specifically designed for autonomous cleaning, working safely alongside employees and customers, while navigating around obstacles. The T380AMR is powered by BrainOS®, an advanced artificial intelligence and robotic technology platform, from Tennant partner Brain Corporation. Choose between two power source options: high capacity lithium-ion batteries or flooded lead acid batteries.',
+        videoId: '',
+        deployedIn: ['Retail & Supermarkets', 'Education', 'Healthcare Facilities', 'Commercial Offices', 'Hospitality'],
+        features: [
+            {
+                title: 'BrainOS® Artificial Intelligence',
+                text: 'Advanced robotic vision and AI navigation platform ensures safe, consistent autonomous cleaning around staff and customers.'
+            },
+            {
+                title: 'Compact Narrow-Aisle Design',
+                text: '20-inch (500 mm) scrubbing path maneuvers effortlessly through narrow store aisles, doorways, and checkout lanes.'
+            },
+            {
+                title: 'ec-H2O NanoClean® Technology',
+                text: 'Electrically converts water into an effective cleaning solution, reducing chemical usage and environmental impact.'
+            },
+            {
+                title: 'Intuitive Teach & Repeat Operation',
+                text: 'Easy-to-understand controls allow staff to quickly train and run multiple consecutive cleaning routes with minimal supervision.'
+            },
+            {
+                title: 'Optimal Water Recovery',
+                text: 'Parabolic squeegee system delivers superior water recovery on both left and right turns, minimizing slip-and-fall hazards.'
+            },
+            {
+                title: 'Flexible Power Options',
+                text: 'Available with long-life high-capacity lithium-ion batteries or economical flooded lead-acid battery packs.'
+            }
+        ],
+        specs: [
+            { label: 'Cleaning Path', value: '20 in / 500 mm' },
+            { label: 'Coverage Rate', value: 'Up to 33,440 sq ft / 3,106 sq m per hr' },
+            { label: 'Run Time', value: 'Up to 5 hrs (Lithium-Ion) / Up to 4 hrs (Lead Acid)' },
+            { label: 'Solution Tank Capacity', value: '20 gal / 75 L' },
+            { label: 'Recovery Tank Capacity', value: '20 gal / 75 L' },
+            { label: 'Machine Type', value: 'Robotic, Micro-Rider' },
+            { label: 'Brush Head Type', value: 'Disk (Up to 215 RPM)' },
+            { label: 'Brush Down Pressure', value: 'Up to 62 lbs / 28 kg (low), 90 lbs / 41 kg (high)' },
+            { label: 'Dimensions (L x W x H)', value: '62 in x 25 in x 55 in (1,575 x 635 x 1,397 mm)' },
+            { label: 'Weight (with batteries)', value: '850 lbs / 385 kg' },
+            { label: 'Sound Level', value: '70 dBA' },
+            { label: 'Charger Type', value: 'Off-board smart charger' },
+            { label: 'Navigation Platform', value: 'BrainOS® Commercial Autonomy' },
+            { label: 'Certifications', value: 'FCC Compliant' }
+        ],
+        image: 'assets/images/models/tennant-t380amr.webp',
+        gallery: [],
+        status: 'published',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    },
+    {
+        id: 'tnt7amr000000002',
+        slug: 'tennant-t7amr',
+        name: 'Tennant T7AMR',
+        brand: 'tennant',
+        category: 'robotic-scrubbers',
+        categoryLabel: 'Robotic Floor Scrubbers',
+        layout: 'showcase',
+        tagline: 'Micro-Rider Robotic Floor Scrubber for Medium and Large Facilities',
+        summary: 'Commercial autonomous rider scrubber delivering reliable cleaning performance, intelligent obstacle avoidance, and water savings across medium to large footprints.',
+        overview: 'The T7AMR autonomous floor scrubber delivers autonomous floor cleaning with intelligent navigation and reliable performance. Help reduce labor demands, improve operational efficiency, and conserve water and detergent with available ec-H2O NanoClean® technology. Powered by BrainOS®, an advanced artificial intelligence and robotic technology platform, the T7AMR is specifically designed for autonomous cleaning in commercial spaces, working safely alongside employees and customers.',
+        videoId: '',
+        deployedIn: ['Airports & Transit', 'Higher Education', 'Large Retail', 'Healthcare Hubs', 'Convention Centers'],
+        features: [
+            {
+                title: 'BrainOS® Commercial Autonomy',
+                text: 'Autonomous navigation handles dynamic real-world environments, automatically routing around pedestrians, luggage, and displays.'
+            },
+            {
+                title: 'High-Efficiency Scrub Paths',
+                text: '26-inch (650 mm) scrub path handles medium to large facilities with up to 45,760 sq ft/hr coverage.'
+            },
+            {
+                title: 'ec-H2O NanoClean® Cleaning',
+                text: 'Cleans without harsh chemicals, reducing detergent handling and leaving floors slip-resistant and clean.'
+            },
+            {
+                title: 'Hygenic® Easy-Clean Tanks',
+                text: 'Fully accessible solution and recovery tanks simplify daily rinse-out and prevent mold, bacteria, and odor buildup.'
+            },
+            {
+                title: 'Extended Lithium-Ion Runtime',
+                text: 'High-capacity lithium battery option delivers up to 6.5 hours of continuous scrubbing per charge.'
+            },
+            {
+                title: 'Reporting & Fleet Management',
+                text: 'Weekly performance reports and cellular usage metrics verify completed routes and daily cleaning coverage.'
+            }
+        ],
+        specs: [
+            { label: 'Cleaning Path', value: '26 in / 650 mm (Disk or Cylindrical)' },
+            { label: 'Coverage Rate', value: 'Up to 45,760 sq ft / 4,250 sq m per hr' },
+            { label: 'Run Time', value: 'Up to 6.5 hrs (Lithium-Ion) / Up to 4 hrs (Lead Acid)' },
+            { label: 'Solution Tank Capacity', value: '29 gal / 110 L' },
+            { label: 'Recovery Tank Capacity', value: '29 gal / 110 L' },
+            { label: 'Machine Type', value: 'Ride-On, Robotic' },
+            { label: 'Brush Down Pressure', value: 'Up to 190 lbs / 86 kg' },
+            { label: 'Dimensions (L x W x H)', value: '65 in x 33 in x 57 in (1,650 x 850 x 1,450 mm)' },
+            { label: 'Weight (with batteries)', value: '1,070 lbs / 485 kg' },
+            { label: 'Sound Level', value: '69 dBA' },
+            { label: 'Charger Type', value: 'Off-board smart charger' },
+            { label: 'Navigation Platform', value: 'BrainOS® Commercial Autonomy' },
+            { label: 'Certifications', value: 'FCC Compliant' }
+        ],
+        image: 'assets/images/models/tennant-t7amr.webp',
+        gallery: [],
+        status: 'published',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    },
+    {
+        id: 'tnt16amr00000003',
+        slug: 'tennant-t16amr',
+        name: 'Tennant T16AMR',
+        brand: 'tennant',
+        category: 'robotic-scrubbers',
+        categoryLabel: 'Robotic Floor Scrubbers',
+        layout: 'showcase',
+        tagline: 'Industrial Robotic Floor Scrubber for Warehouses and Logistics Hubs',
+        summary: 'Heavy-duty industrial autonomous floor scrubber engineered for distribution centers, manufacturing facilities, and large-scale industrial operations.',
+        overview: 'The T16AMR delivers autonomous floor cleaning for industrial environments with intelligent navigation and reliable performance. Designed to reduce pre-sweeping, improve operational efficiency, and conserve water and detergent with ec-H2O NanoClean® technology. Featuring a heavy-duty scrub deck, massive 50-gallon capacity, and up to 200 lbs of brush down pressure, the T16AMR tackles the toughest industrial grime autonomously.',
+        videoId: '',
+        deployedIn: ['Warehousing & Logistics', 'Distribution Centers', 'Manufacturing', 'Automotive Plants', 'Food & Beverage'],
+        features: [
+            {
+                title: 'Heavy-Duty Industrial Scrubbing',
+                text: 'Up to 200 lbs (91 kg) of down pressure removes stubborn grease, tire marks, and heavy manufacturing debris.'
+            },
+            {
+                title: 'Wide 36-Inch Scrubbing Width',
+                text: 'Cleans expansive industrial floor areas at up to 63,360 sq ft / 5,890 sq m per hour.'
+            },
+            {
+                title: 'Integrated Pre-Sweep Hopper',
+                text: 'Cylindrical scrub heads sweep solid debris into a 0.6 cu ft hopper while simultaneously wet-scrubbing.'
+            },
+            {
+                title: 'High-Racking Autonomy',
+                text: 'Equipped with multi-sensor 3D vision and LiDAR tuned for complex warehouse layouts with high rack aisles.'
+            },
+            {
+                title: 'ec-H2O NanoClean® Option',
+                text: 'Saves thousands of gallons of water and cuts detergent expenses across massive square footages.'
+            },
+            {
+                title: 'Long-Life Industrial Batteries',
+                text: 'High-capacity lithium battery pack supports multi-shift operations with up to 5.5 hours of runtime.'
+            }
+        ],
+        specs: [
+            { label: 'Cleaning Path', value: '36 in / 910 mm' },
+            { label: 'Coverage Rate', value: 'Up to 63,360 sq ft / 5,890 sq m per hr' },
+            { label: 'Run Time', value: 'Up to 5.5 hrs (Lithium-Ion) / Up to 4 hrs (Lead Acid)' },
+            { label: 'Solution Tank Capacity', value: '50 gal / 190 L (ES Extended Scrub: 90 gal)' },
+            { label: 'Recovery Tank Capacity', value: '60 gal / 225 L' },
+            { label: 'Machine Type', value: 'Industrial Ride-On, Robotic' },
+            { label: 'Brush Down Pressure', value: 'Up to 200 lbs / 91 kg' },
+            { label: 'Debris Hopper Capacity', value: '0.6 cu ft / 17 L' },
+            { label: 'Dimensions (L x W x H)', value: '74 in x 41 in x 58 in (1,880 x 1,040 x 1,470 mm)' },
+            { label: 'Weight (with batteries)', value: '2,180 lbs / 989 kg' },
+            { label: 'Sound Level', value: '71 dBA' },
+            { label: 'Navigation Platform', value: 'BrainOS® Industrial Autonomy' },
+            { label: 'Certifications', value: 'FCC Compliant' }
+        ],
+        image: 'assets/images/models/tennant-t16amr.webp',
+        gallery: [],
+        status: 'published',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    },
+    {
+        id: 'tntx2rovr0000004',
+        slug: 'tennant-x2-rovr',
+        name: 'Tennant X2 ROVR',
+        brand: 'tennant',
+        category: 'robotic-scrubbers',
+        categoryLabel: 'Robotic Floor Scrubbers',
+        layout: 'showcase',
+        tagline: 'Nimble Compact Autonomous Floor Scrubber with Docking Ecosystem',
+        summary: 'Small-format autonomous floor scrubber delivering big-machine cleaning in tight spaces with intelligent autonomy and a complete docking ecosystem.',
+        overview: "X2 ROVR SCRUB's nimble, small-format is built to deliver big-machine results in tight, high-traffic spaces with intelligent autonomy and a complete docking ecosystem. Engineered specifically for facilities with narrow hallways, doorways, and dense floor plans where traditional scrubbers cannot operate.",
+        videoId: '',
+        deployedIn: ['Retail Stores', 'Medical Clinics', 'Quick-Serve Restaurants', 'Boutique Fitness', 'Offices'],
+        features: [
+            {
+                title: 'Compact Agile Footprint',
+                text: 'Ultra-slim chassis glides through standard doorways, tight checkout aisles, and between tables effortlessly.'
+            },
+            {
+                title: 'Autonomous Docking Ecosystem',
+                text: 'Pairs with the X2 Dock RFSH Charging Dock for automated hands-free recharging and solution handling.'
+            },
+            {
+                title: 'Dual Disk Scrubbing',
+                text: 'Counter-rotating dual disk brushes deliver rigorous floor cleaning and precision edge scrubbing.'
+            },
+            {
+                title: 'Fast-Charge Lithium Battery',
+                text: 'High-efficiency commercial lithium-ion pack recharges quickly to support multiple daily cleaning rounds.'
+            },
+            {
+                title: 'Rapid Deployment Mapping',
+                text: 'Fast mapping process enables teams to deploy autonomous cleaning routes within minutes of unboxing.'
+            }
+        ],
+        specs: [
+            { label: 'Cleaning Path', value: '16 in / 406 mm' },
+            { label: 'Coverage Rate', value: 'Up to 10,000 sq ft / 929 sq m (per solution tank)' },
+            { label: 'Machine Type', value: 'Walk-Behind, Robotic' },
+            { label: 'Head Type', value: 'Dual Disk' },
+            { label: 'Down Pressure', value: '25 lbs / 11.3 kg' },
+            { label: 'Recovery Tank Capacity', value: '3 gal / 11.35 L' },
+            { label: 'Power Source', value: 'Lithium-Ion Battery' },
+            { label: 'Docking Compatibility', value: 'X2 Dock RFSH Charging Dock' },
+            { label: 'Certifications', value: 'FCC Compliant' }
+        ],
+        image: 'assets/images/models/tennant-x2-rovr.webp',
+        gallery: [],
+        status: 'published',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    },
+    {
+        id: 'tntx4rovr0000005',
+        slug: 'tennant-x4-rovr',
+        name: 'Tennant X4 ROVR',
+        brand: 'tennant',
+        category: 'robotic-scrubbers',
+        categoryLabel: 'Robotic Floor Scrubbers',
+        layout: 'showcase',
+        tagline: 'Compact Autonomous Floor Scrubber for Dynamic Commercial Environments',
+        summary: 'Purpose-built autonomous floor scrubber with enhanced maneuverability, advanced obstacle detection, and compact agility for complex commercial environments.',
+        overview: 'The X4 ROVR™ delivers exceptional cleaning performance in smaller spaces, combining enhanced maneuverability, advanced obstacle detection, and improved mobility to reduce operator assists and maximize ROI. Built from the ground up as a purpose-engineered robotic scrubber, the X4 ROVR navigates dynamic foot traffic and changing floor setups with ease.',
+        videoId: '',
+        deployedIn: ['K-12 & Higher Education', 'Supermarkets', 'Hospitality', 'Commercial Real Estate', 'Municipal Facilities'],
+        features: [
+            {
+                title: 'Next-Gen Vision & LiDAR Sensors',
+                text: 'Multi-layer sensor suite detects low-profile obstacles, sudden pedestrian movement, and dynamic changes in real time.'
+            },
+            {
+                title: 'Compact 20-Inch Scrub Deck',
+                text: 'Ideal balance of compact mobility and high cleaning capacity, covering up to 20,000 sq ft per solution tank.'
+            },
+            {
+                title: 'Intuitive Touchscreen Interface',
+                text: 'Large operator touchscreen provides visual route selection, status updates, and diagnostic alerts.'
+            },
+            {
+                title: 'Optimal Moisture Extraction',
+                text: 'High-performance vacuum turbine and precision squeegee ensure dry, pedestrian-safe floors immediately.'
+            },
+            {
+                title: 'Cloud Fleet Analytics',
+                text: 'Track cleaning progress, completed routes, and machine health remotely from any mobile device or desktop.'
+            }
+        ],
+        specs: [
+            { label: 'Cleaning Path', value: '20 in / 500 mm' },
+            { label: 'Coverage Rate', value: 'Up to 20,000 sq ft / 1,860 sq m (per solution tank)' },
+            { label: 'Run Time', value: 'Up to 2.5 hours per charge' },
+            { label: 'Machine Type', value: 'Robotic, Walk-Behind' },
+            { label: 'Brush Down Pressure', value: 'Up to 42 lbs / 19 kg' },
+            { label: 'Pad Speed', value: '220 RPM' },
+            { label: 'Recovery Tank Capacity', value: '10 gal / 38 L' },
+            { label: 'Power Source', value: 'Commercial Lithium-Ion Battery' },
+            { label: 'Certifications', value: 'FCC Compliant' }
+        ],
+        image: 'assets/images/models/tennant-x4-rovr.webp',
+        gallery: [],
+        status: 'published',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    },
+    {
+        id: 'tntx6rovr0000006',
+        slug: 'tennant-x6-rovr',
+        name: 'Tennant X6 ROVR',
+        brand: 'tennant',
+        category: 'robotic-scrubbers',
+        categoryLabel: 'Robotic Floor Scrubbers',
+        layout: 'showcase',
+        tagline: 'High-Capacity Autonomous Scrubber with SelfPath™ AI and XC1 Docking',
+        summary: 'Maximum autonomous cleaning coverage across diverse commercial facilities, powered by SelfPath™ AI navigation and the automated XC1 Charging Dock.',
+        overview: 'Powered by SelfPath™ AI and the XC1 Charging Dock, the X6 ROVR™ delivers maximum autonomous cleaning coverage across diverse environments. Intelligent navigation, adaptive route optimization, and automated charging help reduce operator involvement and free teams for higher-value tasks. The X6 ROVR is designed for expansive retail, healthcare, airport, and educational campuses.',
+        videoId: '',
+        deployedIn: ['Airports', 'Shopping Malls', 'Convention Centers', 'Corporate Campuses', 'University Buildings'],
+        features: [
+            {
+                title: 'SelfPath™ Adaptive AI Navigation',
+                text: 'Dynamically calculates the most efficient cleaning paths and continuously adapts to changing facility layouts.'
+            },
+            {
+                title: 'Automated XC1 Charging Station',
+                text: 'Hands-free auto-docking recharges lithium-ion batteries and enables continuous scheduled cleaning cycles.'
+            },
+            {
+                title: 'Impressive 6-Hour Runtime',
+                text: 'Extended run duration easily completes full facility cleaning passes on a single charge.'
+            },
+            {
+                title: 'Expansive 26-Inch Scrub Width',
+                text: 'Cleans up to 75,000 sq ft per solution tank with powerful dual disk scrubbing action.'
+            },
+            {
+                title: 'Heavy Down Pressure Control',
+                text: 'Variable down pressure up to 120 lbs (54 kg) deep cleans tough scuffs and ingrained soil.'
+            }
+        ],
+        specs: [
+            { label: 'Cleaning Path', value: '26 in / 650 mm' },
+            { label: 'Coverage Rate', value: 'Up to 75,000 sq ft / 6,967 sq m (per solution tank)' },
+            { label: 'Run Time', value: 'Up to 6 hours continuous runtime' },
+            { label: 'Machine Type', value: 'Robotic, Walk-Behind' },
+            { label: 'Head Type', value: 'Dual Disk' },
+            { label: 'Brush Down Pressure', value: 'Up to 120 lbs / 54 kg' },
+            { label: 'Recovery Tank Capacity', value: '25 gal / 95 L' },
+            { label: 'Docking Station', value: 'Tennant XC1 Automated Self-Charging Dock' },
+            { label: 'Navigation Platform', value: 'SelfPath™ AI Commercial Autonomy' },
+            { label: 'Certifications', value: 'FCC Compliant' }
+        ],
+        image: 'assets/images/models/tennant-x6-rovr.webp',
+        gallery: [],
+        status: 'published',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    },
+    {
+        id: 'tntx16sweep00007',
+        slug: 'tennant-x16-sweep',
+        name: 'Tennant X16 SWEEP',
+        brand: 'tennant',
+        category: 'robotic-sweepers',
+        categoryLabel: 'Robotic Floor Sweepers',
+        layout: 'showcase',
+        tagline: 'Autonomous Industrial Floor Sweeper with High-Dump Hydraulic Hopper',
+        summary: 'Autonomous industrial rider sweeper engineered to deliver increased sweeping efficiency and dust control in complex manufacturing and warehouse environments.',
+        overview: 'The X16 SWEEP Autonomous Floor Sweeper is designed to deliver increased efficiency in complex industrial environments. Engineered for tough manufacturing and warehouse facilities, it sweeps bulk debris, sand, pallet chips, and fine dust autonomously with multi-stage filtration and a hydraulic high-dump hopper.',
+        videoId: '',
+        deployedIn: ['Warehouses & Distribution', 'Manufacturing Facilities', 'Heavy Industrial Hubs', 'Automotive Plants'],
+        features: [
+            {
+                title: 'Hydraulic High-Dump Hopper',
+                text: '5.3 cu ft (150 L) hopper hydraulically lifts and dumps debris directly into standard industrial dumpsters.'
+            },
+            {
+                title: 'Wide 46-Inch Sweeping Path',
+                text: 'Robust main broom and dual side brushes clear wide aisles in single passes at up to 49,750 sq ft/hr.'
+            },
+            {
+                title: 'Multi-Stage Dust Filtration',
+                text: 'Advanced filtration system captures fine airborne particulate to maintain clean facility breathing zones.'
+            },
+            {
+                title: 'Complex Aisle Autonomy',
+                text: '3D perception sensors allow safe autonomous navigation around pallet stacks, forklifts, and staging areas.'
+            },
+            {
+                title: 'Rugged Industrial Build',
+                text: 'Steel frame and impact-resistant body panels withstand demanding 24/7 industrial production environments.'
+            }
+        ],
+        specs: [
+            { label: 'Sweeping Path', value: '46 in / 116 cm' },
+            { label: 'Coverage Rate', value: 'Up to 49,750 sq ft / 4,621 sq m per hr' },
+            { label: 'Hopper Capacity', value: '5.3 cu ft / 150 L' },
+            { label: 'Dump Mechanism', value: 'Hydraulic High Dump (Direct-to-Dumpster)' },
+            { label: 'Technology', value: 'Broom Technology with Multi-Stage Dust Filtration' },
+            { label: 'Machine Type', value: 'Robotic, Ride-On Sweeper' },
+            { label: 'Application', value: 'Indoor Industrial & Commercial' },
+            { label: 'Certifications', value: 'FCC Compliant' }
+        ],
+        image: 'assets/images/models/tennant-x16-sweep.webp',
+        gallery: [],
+        status: 'published',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    },
+    {
+        id: 'tntp1vac00000008',
+        slug: 'tennant-p1-vac',
+        name: 'Tennant P1 VAC',
+        brand: 'tennant',
+        category: 'robotic-vacuums',
+        categoryLabel: 'Robotic Vacuums',
+        layout: 'showcase',
+        tagline: 'Autonomous Commercial Vacuum and Dry Mopping Robot',
+        summary: 'Practical autonomous vacuuming, sweeping, and dust mopping designed to maintain carpets and hard floors with whisper-quiet operation.',
+        overview: 'The P1 VAC delivers autonomous vacuuming, sweeping, and dust mopping in a practical, easy-to-use platform designed to help facilities maintain consistent cleanliness on carpeted and hard floor surfaces while making better use of labor resources. Whisper-quiet operation enables daytime cleaning in active office and hospitality environments.',
+        videoId: '',
+        deployedIn: ['Commercial Offices', 'Hotels & Hospitality', 'Schools & Libraries', 'Senior Living Facilities', 'Banks'],
+        features: [
+            {
+                title: 'Dual-Surface Cleaning',
+                text: 'Cleans commercial carpet, area rugs, and hard floor surfaces with automatic height and suction adjustment.'
+            },
+            {
+                title: '2-Stage HEPA Filtration',
+                text: 'High-efficiency particulate filtration traps dust mites, pollen, and fine dust to improve indoor air quality.'
+            },
+            {
+                title: 'Whisper-Quiet Daytime Sound',
+                text: 'Operates as low as 62 dBA, enabling daytime vacuuming in occupied offices and quiet hospital corridors.'
+            },
+            {
+                title: 'Edge & Baseboard Scrubbing',
+                text: 'Dedicated perimeter brushes and precision edge sensors clean tight against walls and furniture legs.'
+            },
+            {
+                title: 'Lightweight & Portable',
+                text: 'Compact 101 lb build can easily be moved between floors or building wings by a single custodian.'
+            }
+        ],
+        specs: [
+            { label: 'Cleaning Path', value: '17.25 in / 440 mm' },
+            { label: 'Sound Level', value: 'As low as 62 dBA (gentle) / 65 dBA (standard)' },
+            { label: 'Filter Type', value: '2-Stage High Efficiency HEPA Filtration' },
+            { label: 'Machine Type', value: 'Walk-Behind, Autonomous Commercial Vacuum' },
+            { label: 'Dimensions (L x W x H)', value: '22 in x 17 in x 23 in (558 x 420 x 592 mm)' },
+            { label: 'Weight', value: '101 lbs / 46 kg' },
+            { label: 'Floor Types', value: 'Low-Pile Carpet, Vinyl, Hardwood, Tile, Concrete' },
+            { label: 'Certifications', value: 'FCC Compliant' }
+        ],
+        image: 'assets/images/models/tennant-p1-vac.webp',
+        gallery: [],
+        status: 'published',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+    }
+];
+
+async function main() {
+    console.log('Populating Tennant products into store...');
+    await store.mutate(data => {
+        data.categories = data.categories || [];
+        for (const cat of CATEGORIES) {
+            const idx = data.categories.findIndex(c => c.id === cat.id);
+            if (idx >= 0) {
+                data.categories[idx] = Object.assign({}, data.categories[idx], cat);
+            } else {
+                data.categories.push(cat);
+            }
+        }
+
+        data.products = data.products || [];
+        for (const prod of PRODUCTS) {
+            const idx = data.products.findIndex(p => p.slug === prod.slug || p.id === prod.id);
+            if (idx >= 0) {
+                data.products[idx] = Object.assign({}, data.products[idx], prod);
+            } else {
+                data.products.push(prod);
+            }
+        }
+    });
+
+    console.log('Generating static HTML files for all Tennant products with distributor badge...');
+    const rootDir = path.join(__dirname, '..');
+    for (const prod of PRODUCTS) {
+        const filePath = path.join(rootDir, 'product-' + prod.slug + '.html');
+        let pageHtml = render.productPage(prod, false);
+        pageHtml = badges.addBadges(pageHtml, 'product-' + prod.slug + '.html');
+        pageHtml = render.injectNav(pageHtml);
+        fs.writeFileSync(filePath, pageHtml, 'utf8');
+        console.log('Saved static page with badge & nav:', filePath);
+    }
+
+    console.log('Updating static products.html and index.html with distributor badge & Tennant robots...');
+    const productsFile = path.join(rootDir, 'products.html');
+    let productsHtml = fs.readFileSync(productsFile, 'utf8');
+    productsHtml = render.injectCards(productsHtml);
+    productsHtml = badges.addBadges(productsHtml, 'products.html');
+    productsHtml = render.injectNav(productsHtml);
+    fs.writeFileSync(productsFile, productsHtml, 'utf8');
+    console.log('Saved static products.html with badges and Tennant catalog');
+
+    const indexFile = path.join(rootDir, 'index.html');
+    let indexHtml = fs.readFileSync(indexFile, 'utf8');
+    indexHtml = badges.addBadges(indexHtml, 'index.html');
+    indexHtml = render.injectNav(indexHtml);
+    fs.writeFileSync(indexFile, indexHtml, 'utf8');
+    console.log('Saved static index.html with distributor badge & nav');
+    console.log('Done!');
+}
+
+main().catch(err => {
+    console.error('Error populating Tennant products:', err);
+    process.exit(1);
+});
