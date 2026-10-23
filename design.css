@@ -842,3 +842,22 @@ input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="
 .video-more { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
 .video-more figure { margin: 0; }
 .video-more figcaption { color: rgba(255, 255, 255, .85); font-size: .9rem; margin-top: .5rem; }
+
+/* Phone and tablet menu: a fixed panel directly under the navbar. The old rule used top: 100%,
+   which for a fixed element is the bottom of the screen, so the menu opened off-screen. */
+@media (max-width: 968px) {
+    .navbar .nav-menu { top: var(--nav-h, 77px); max-height: calc(100vh - var(--nav-h, 77px)); max-height: calc(100dvh - var(--nav-h, 77px)); }
+    body.menu-open { overflow: hidden; }
+    .nav-menu .nav-links a { padding: 14px 0; font-size: 1.05rem; }
+}
+@media (max-width: 968px) {
+    .navbar .nav-menu { padding: 8px 20px 28px; gap: 0; }
+    .navbar .nav-menu .nav-links { gap: 0; margin: 0; padding: 0; }
+    .navbar .nav-menu .nav-links > li { margin: 0; border-bottom: 1px solid rgba(255, 255, 255, .1); }
+    .navbar .nav-menu .nav-links > li > a { padding: 14px 0; min-height: 0; display: flex; align-items: center; justify-content: space-between; }
+    .navbar .nav-menu .dropdown { border: 0; outline: 0; box-shadow: none; margin: 0; padding: 0; background: transparent; }
+    .navbar .nav-menu .has-dropdown.active > .dropdown { padding: 2px 0 10px 14px; border-left: 2px solid rgba(255, 255, 255, .2); margin-bottom: 8px; }
+    .navbar .nav-menu .dropdown li { margin: 0; }
+    .navbar .nav-menu .dropdown a { display: block; padding: 11px 0; font-size: 1rem; min-height: 0; }
+    .navbar .nav-menu .btn { margin-top: 18px; }
+}

@@ -136,6 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const open = navMenu.classList.toggle('active');
             this.classList.toggle('active', open);
             this.setAttribute('aria-expanded', open ? 'true' : 'false');
+            document.body.classList.toggle('menu-open', open);
         });
     }
 
@@ -146,6 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 mobileMenuToggle.classList.remove('active');
                 mobileMenuToggle.setAttribute('aria-expanded', 'false');
                 navMenu.classList.remove('active');
+                document.body.classList.remove('menu-open');
             }
         }
     });
