@@ -861,3 +861,12 @@ input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="
     .navbar .nav-menu .dropdown a { display: block; padding: 11px 0; font-size: 1rem; min-height: 0; }
     .navbar .nav-menu .btn { margin-top: 18px; }
 }
+
+/* Phones: Tennant and Hivebotics families fold up behind a button so the page stays short */
+.family-fold-btn { display: none; }
+@media (max-width: 768px) {
+    .family-fold-btn { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; margin: 0 0 18px; padding: 14px 18px; font: inherit; font-weight: 700; color: var(--ink); background: #fff; border: 2px solid var(--ink); border-radius: 12px; cursor: pointer; }
+    .family-fold.is-collapsed .model-grid { display: none; }
+    .family-fold { padding-top: 36px; padding-bottom: 12px; }
+    .family-fold.is-collapsed .section-header { margin-bottom: 14px; }
+}

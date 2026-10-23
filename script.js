@@ -1101,9 +1101,32 @@ document.addEventListener('keydown', function(e) {
 // lands on the wrong section. Load them first, then keep re-aligning until the layout settles.
 (function() {
     if (!document.getElementById('categoryTabBar')) return;
+    // Phones: long families start folded behind a "Show N models" button.
+    var phone = window.matchMedia ? window.matchMedia('(max-width: 768px)') : { matches: false };
+    function setFold(section, open) {
+        section.classList.toggle('is-collapsed', !open);
+        var btn = section.querySelector('.family-fold-btn');
+        if (!btn) return;
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        var n = btn.getAttribute('data-count');
+        btn.querySelector('.family-fold-text').textContent = (open ? 'Hide ' : 'Show ') + n + ' model' + (n === '1' ? '' : 's');
+        btn.querySelector('i').className = 'fas fa-chevron-' + (open ? 'up' : 'down');
+    }
+    var folds = document.querySelectorAll('.family-fold');
+    folds.forEach(function(sec) {
+        if (phone.matches) setFold(sec, false);
+        var btn = sec.querySelector('.family-fold-btn');
+        if (btn) btn.addEventListener('click', function() { setFold(sec, sec.classList.contains('is-collapsed')); });
+    });
+    function openFoldFor(el) {
+        var sec = el.classList && el.classList.contains('family-fold') ? el : el.closest && el.closest('.family-fold');
+        if (sec && sec.classList.contains('is-collapsed')) setFold(sec, true);
+    }
+
     function goTo(id) {
         var el = document.getElementById(id);
         if (!el) return false;
+        openFoldFor(el);
         document.querySelectorAll('img[loading="lazy"]').forEach(function(i) { i.loading = 'eager'; });
         var stop = false, start = Date.now();
         function stopOnUser() { stop = true; }
