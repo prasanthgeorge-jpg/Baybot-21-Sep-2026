@@ -1109,12 +1109,14 @@ document.addEventListener('keydown', function(e) {
         function stopOnUser() { stop = true; }
         window.addEventListener('wheel', stopOnUser, { once: true, passive: true });
         window.addEventListener('touchstart', stopOnUser, { once: true, passive: true });
+        var calm = 0;
         (function align() {
             if (stop) return;
-            var top = el.getBoundingClientRect().top;
-            var offset = 150;
-            if (Math.abs(top - offset) > 2) window.scrollTo(0, window.scrollY + top - offset);
-            if (Date.now() - start < 3000) requestAnimationFrame(align);
+            var delta = el.getBoundingClientRect().top - 150;
+            if (Math.abs(delta) > 2) { window.scrollTo({ top: window.scrollY + delta, behavior: 'instant' }); calm = 0; }
+            else calm++;
+            // keep correcting while photos above load and push the page around
+            if (calm < 40 && Date.now() - start < 8000) requestAnimationFrame(align);
         })();
         return true;
     }
