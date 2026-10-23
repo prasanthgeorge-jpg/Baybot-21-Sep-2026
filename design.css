@@ -827,3 +827,7 @@ input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="
     .hero-media-caption { font-size: .85rem; padding: .6rem .8rem; }
     .hero-dot { width: 10px; height: 10px; }
 }
+
+/* Product video from a direct file (official maker video) */
+.video-embed.video-file { max-width: 960px; margin: 0 auto; border-radius: var(--r-plate, 12px); overflow: hidden; background: #000; }
+.video-embed.video-file video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #000; }

@@ -107,7 +107,10 @@
       "status": "published",
       "categoryLabel": "Robotic Floor Scrubbers",
       "createdAt": "2026-10-22T12:52:46.493Z",
-      "updatedAt": "2026-10-22T12:52:46.493Z"
+      "updatedAt": "2026-10-22T12:52:46.493Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/UztmYsgd-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/UztmYsgd/poster.jpg?width=720",
+      "videoTitle": "T380AMR & T7AMR Education"
     },
     {
       "id": "tnt7amr000000002",
@@ -212,7 +215,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-22T12:52:46.493Z",
-      "updatedAt": "2026-10-22T12:52:46.493Z"
+      "updatedAt": "2026-10-22T12:52:46.493Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/Pvdje5t3-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/Pvdje5t3/poster.jpg?width=720",
+      "videoTitle": "T7AMR Overview - Industrial"
     },
     {
       "id": "tnt16amr00000003",
@@ -317,7 +323,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-22T12:52:46.493Z",
-      "updatedAt": "2026-10-22T12:52:46.493Z"
+      "updatedAt": "2026-10-22T12:52:46.493Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/7QNl9AzV-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/7QNl9AzV/poster.jpg?width=720",
+      "videoTitle": "T16AMR Demo"
     },
     {
       "id": "tntx2rovr0000004",
@@ -402,7 +411,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-22T12:52:46.493Z",
-      "updatedAt": "2026-10-22T12:52:46.493Z"
+      "updatedAt": "2026-10-22T12:52:46.493Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/vVJGB2X0-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/vVJGB2X0/poster.jpg?width=720",
+      "videoTitle": "X2 ROVR SCRUB Overview"
     },
     {
       "id": "tntx4rovr0000005",
@@ -488,7 +500,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-22T12:52:46.493Z",
-      "updatedAt": "2026-10-22T12:52:46.493Z"
+      "updatedAt": "2026-10-22T12:52:46.493Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/h2F23bj5-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/h2F23bj5/poster.jpg?width=720",
+      "videoTitle": "X4 ROVR Overview"
     },
     {
       "id": "tntx6rovr0000006",
@@ -577,7 +592,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-22T12:52:46.493Z",
-      "updatedAt": "2026-10-22T12:52:46.493Z"
+      "updatedAt": "2026-10-22T12:52:46.493Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/Ua7UKmxg-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/Ua7UKmxg/poster.jpg?width=720",
+      "videoTitle": "X6 ROVR Overview"
     },
     {
       "id": "tntx16sweep00007",
@@ -657,7 +675,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-22T12:52:46.493Z",
-      "updatedAt": "2026-10-22T12:52:46.493Z"
+      "updatedAt": "2026-10-22T12:52:46.493Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/oauKzfVn-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/oauKzfVn/poster.jpg?width=720",
+      "videoTitle": "X16 SWEEP Overview"
     },
     {
       "id": "tntp1vac00000008",
@@ -738,7 +759,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-22T12:52:46.493Z",
-      "updatedAt": "2026-10-22T12:52:46.493Z"
+      "updatedAt": "2026-10-22T12:52:46.493Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/Rj0J1AZn-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/Rj0J1AZn/poster.jpg?width=720",
+      "videoTitle": "P1 VAC Autonomous Vacuum"
     },
     {
       "id": "tn8eede2ac42e5f3",
@@ -780,7 +804,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/A5KSrEwX-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/A5KSrEwX/poster.jpg?width=720",
+      "videoTitle": "CS5 Walk-Behind Micro-Scrubber Overview"
     },
     {
       "id": "tnfe7025e967e234",
@@ -801,7 +828,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/xkpLfmwr-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/xkpLfmwr/poster.jpg?width=720",
+      "videoTitle": "i-mop XL Plus / i-mop XXL Plus Overview"
     },
     {
       "id": "tnc1a2bcf7c3741d",
@@ -822,7 +852,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/gur22YgD-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/gur22YgD/poster.jpg?width=720",
+      "videoTitle": "i-mop Pro Lite - i-mop Pro XL Overview"
     },
     {
       "id": "tn35a5af18337a87",
@@ -843,7 +876,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/gur22YgD-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/gur22YgD/poster.jpg?width=720",
+      "videoTitle": "i-mop Pro Lite - i-mop Pro XL Overview"
     },
     {
       "id": "tn79361416b9dc4f",
@@ -864,7 +900,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/OjPrvRLF-E0m8u9cV.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/OjPrvRLF/poster.jpg?width=720",
+      "videoTitle": "T1 Overview"
     },
     {
       "id": "tn6f092dd532b823",
@@ -885,7 +924,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/CxJpsrL3-E0m8u9cV.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/CxJpsrL3/poster.jpg?width=720",
+      "videoTitle": "T1B Overview"
     },
     {
       "id": "tn424ffddb5cf114",
@@ -927,7 +969,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/APe39p0w-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/APe39p0w/poster.jpg?width=720",
+      "videoTitle": "T260 Overview"
     },
     {
       "id": "tn9839b56f3faa1b",
@@ -948,7 +993,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/aCZq19ef-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/aCZq19ef/poster.jpg?width=720",
+      "videoTitle": "T291 Overview"
     },
     {
       "id": "tnee98f3f29cfe08",
@@ -969,7 +1017,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/jaZA6Aah-E0m8u9cV.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/jaZA6Aah/poster.jpg?width=720",
+      "videoTitle": "T300 / T300e Highlights"
     },
     {
       "id": "tnafc1ff846c4e2c",
@@ -990,7 +1041,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/jaZA6Aah-E0m8u9cV.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/jaZA6Aah/poster.jpg?width=720",
+      "videoTitle": "T300 / T300e Highlights"
     },
     {
       "id": "tn147b4fe1b827da",
@@ -1011,7 +1065,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/k6RVgiA4-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/k6RVgiA4/poster.jpg?width=720",
+      "videoTitle": "T360 Overview"
     },
     {
       "id": "tn9de9b19a248930",
@@ -1032,7 +1089,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/22RvyK5m-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/22RvyK5m/poster.jpg?width=720",
+      "videoTitle": "T391 Overview"
     },
     {
       "id": "tna122da7ffe2c90",
@@ -1053,7 +1113,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/mg6n6Das-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/mg6n6Das/poster.jpg?width=720",
+      "videoTitle": "T500 Overview"
     },
     {
       "id": "tncfcc02ae976c90",
@@ -1095,7 +1158,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/JaL0zhGn-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/JaL0zhGn/poster.jpg?width=720",
+      "videoTitle": "T581 Overview"
     },
     {
       "id": "tnfcb91992191f9b",
@@ -1116,7 +1182,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/qyXU2T0M-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/qyXU2T0M/poster.jpg?width=720",
+      "videoTitle": "T600/T600e Walk-Behind Scrubber Overview"
     },
     {
       "id": "tn648ba4e54918f9",
@@ -1137,7 +1206,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/qyXU2T0M-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/qyXU2T0M/poster.jpg?width=720",
+      "videoTitle": "T600/T600e Walk-Behind Scrubber Overview"
     },
     {
       "id": "tn9b10a121d4860f",
@@ -1158,7 +1230,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/pF6x0iBH-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/pF6x0iBH/poster.jpg?width=720",
+      "videoTitle": "T12 XP Highlights Video"
     },
     {
       "id": "tn54a4a75ab72416",
@@ -1263,7 +1338,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/DESdnQ5U-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/DESdnQ5U/poster.jpg?width=720",
+      "videoTitle": "T350 Stand-On Scrubber Overview"
     },
     {
       "id": "tn7a1c7c55d0d38d",
@@ -1305,7 +1383,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/sItiWpfW-E0m8u9cV.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/sItiWpfW/poster.jpg?width=720",
+      "videoTitle": "T7 Overview"
     },
     {
       "id": "tnd12991b27a22e6",
@@ -1431,7 +1512,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/mv5LBnqe-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/mv5LBnqe/poster.jpg?width=720",
+      "videoTitle": "S16 Ride-On Sweeper Overview"
     },
     {
       "id": "tnddb5c595cb4741",
@@ -1998,7 +2082,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/wHnkeowN-E0m8u9cV.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/wHnkeowN/poster.jpg?width=720",
+      "videoTitle": "Backpack Vacuum Overview"
     },
     {
       "id": "tndc8135a0de76c1",
@@ -2082,7 +2169,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/6XnoQyYN-jloWO1Y2.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/6XnoQyYN/poster.jpg?width=720",
+      "videoTitle": "V-SMU-14 Overview"
     },
     {
       "id": "tn62231026ddd4e9",
@@ -2166,7 +2256,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/RedH2dxy-v0xa59HE.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/RedH2dxy/poster.jpg?width=720",
+      "videoTitle": "V-WD-9 / V-WD-24 / V-WD-24P Overview"
     },
     {
       "id": "tnc3d6697d770c7c",
@@ -2292,7 +2385,10 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.jwplayer.com/videos/8pPDbpes-jloWO1Y2.mp4",
+      "videoPoster": "https://cdn.jwplayer.com/v2/media/8pPDbpes/poster.jpg?width=720",
+      "videoTitle": "Multi-Surface Cleaner Overview"
     },
     {
       "id": "pd19da9414453849",
@@ -2388,7 +2484,9 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.pudutech.com/PUDU_MP_2000_1080_aa11ea505a.mp4",
+      "videoPoster": "https://cdn.pudutech.com/s1_head_pc_7b6f7c63ce.webp"
     },
     {
       "id": "pdbdbb52bcd1e4f4",
@@ -2468,7 +2566,9 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.pudutech.com/PUDU_GT_3_EN_1080_P_05580a2b43.mp4",
+      "videoPoster": "https://cdn.pudutech.com/s1_head_pc_4ff68ee999.webp"
     },
     {
       "id": "pdc9e5b2f8d91474",
@@ -2572,7 +2672,9 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.pudutech.com/PUDU_GT_5_EN_1080p_bda11133cc.mp4",
+      "videoPoster": "https://cdn.pudutech.com/s1_head_pc_621c5f87c8.webp"
     },
     {
       "id": "pd7a414ba0939ce8",
@@ -2680,7 +2782,9 @@
       "gallery": [],
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
-      "updatedAt": "2026-10-23T00:00:00.000Z"
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "videoSrc": "https://cdn.pudutech.com/PUDU_GT_7_EN_1080_P_24d21e241a.mp4",
+      "videoPoster": "https://cdn.pudutech.com/s1_head_pc_799074e916.webp"
     }
   ],
   "categories": [
