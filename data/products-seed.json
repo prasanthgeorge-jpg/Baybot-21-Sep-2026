@@ -2293,6 +2293,394 @@
       "status": "published",
       "createdAt": "2026-10-23T00:00:00.000Z",
       "updatedAt": "2026-10-23T00:00:00.000Z"
+    },
+    {
+      "id": "pd19da9414453849",
+      "slug": "pudu-mp2000",
+      "name": "PUDU MP2000",
+      "brand": "pudu",
+      "category": "forklift",
+      "categoryLabel": "Autonomous Forklifts",
+      "layout": "showcase",
+      "tagline": "AI-Native Pallet Handling Robot",
+      "summary": "Powered by multi-sensor navigation and edge intelligence, the robot requires no site modifications, platform integration, or complex deployment. Fast site mapping and configuration shorten deployment cycles and accelerate time to value.",
+      "overview": "Powered by multi-sensor navigation and edge intelligence, the robot requires no site modifications, platform integration, or complex deployment. Fast site mapping and configuration shorten deployment cycles and accelerate time to value.\n\nAI-native intelligence enables storage occupancy detection, load-carrier recognition, and clearance assessment for autonomous operation in dynamic warehouses. This reduces manual checks, site modifications, and commissioning.\n\nDistributed fleet orchestration enables each robot to make decisions and plan routes, with inter-robot communication ensuring efficient coordination. Even offline, the fleet continues operating in sync.\n\nWith fork insertion completed in 20 seconds and speeds up to 1.6 m/s unloaded and 1.2 m/s loaded, the robot reduces cycle times and accelerates material flow for higher throughput.",
+      "videoId": "",
+      "deployedIn": [
+        "Warehouses",
+        "Distribution Centers",
+        "Manufacturing Plants",
+        "Logistics Hubs"
+      ],
+      "features": [
+        {
+          "title": "Plug-and-Play, Rapid Deployment",
+          "text": "Powered by multi-sensor navigation and edge intelligence, the robot requires no site modifications, platform integration, or complex deployment. Fast site mapping and configuration shorten deployment cycles and accelerate time to value."
+        },
+        {
+          "title": "AI-Native Intelligence, Autonomous Operations",
+          "text": "AI-native intelligence enables storage occupancy detection, load-carrier recognition, and clearance assessment for autonomous operation in dynamic warehouses. This reduces manual checks, site modifications, and commissioning."
+        },
+        {
+          "title": "Intelligent Fleet Orchestration",
+          "text": "Distributed fleet orchestration enables each robot to make decisions and plan routes, with inter-robot communication ensuring efficient coordination. Even offline, the fleet continues operating in sync."
+        },
+        {
+          "title": "20s Fork Insertion, Fast Pickup",
+          "text": "With fork insertion completed in 20 seconds and speeds up to 1.6 m/s unloaded and 1.2 m/s loaded, the robot reduces cycle times and accelerates material flow for higher throughput."
+        },
+        {
+          "title": "More Storage in Narrow Aisles",
+          "text": "Handles 90° pallet pickup in aisles as narrow as 2 m, with pallet spacing down to 15 cm. Maximizes storage space and supports business growth without facility expansion."
+        }
+      ],
+      "specs": [
+        {
+          "label": "Model",
+          "value": "MPID01-M"
+        },
+        {
+          "label": "Overall dimensions",
+          "value": "1585 x 910 x 1870 mm（62.40 x 35.83 x 73.62 inches）"
+        },
+        {
+          "label": "Max. load",
+          "value": "2000 kg（4409.25 lbs）"
+        },
+        {
+          "label": "Max. lift height",
+          "value": "200±5 mm（7.87±0.20 inches）"
+        },
+        {
+          "label": "Lowered fork height",
+          "value": "80±5 mm（3.15±0.20 inches）"
+        },
+        {
+          "label": "Right-angle stacking aisle width",
+          "value": "≤2000 mm, 1200*1000 mm Pallet (1200 along forks) (≤78.74 inches, 48*40 inches Pallet (48 along forks) ) / ≤1960 mm, 1200*800 mm Pallet (1200 along forks)(≤77.17 inches, 48*31.5 inches Pallet (48 along forks))"
+        },
+        {
+          "label": "Fork outer width",
+          "value": "620 mm （24.41 inches)"
+        },
+        {
+          "label": "Navigation method",
+          "value": "3D LiDAR-SLAM, VSLAM"
+        },
+        {
+          "label": "Max. surmountable height/gap",
+          "value": "10 mm（0.39 inch） / 35 mm（1.38 inches）"
+        },
+        {
+          "label": "Gradeability",
+          "value": "3°/ 8° (Full Load/Unloaded)"
+        },
+        {
+          "label": "Charging time",
+          "value": "About 2 h, input voltage 200V~240Vac / About 3.2h, input voltage 100V~120Vac"
+        },
+        {
+          "label": "Battery life",
+          "value": "12 h (None load) / 6 h (Max. load)"
+        }
+      ],
+      "image": "assets/images/models/pudu-mp2000.webp",
+      "gallery": [],
+      "status": "published",
+      "createdAt": "2026-10-23T00:00:00.000Z",
+      "updatedAt": "2026-10-23T00:00:00.000Z"
+    },
+    {
+      "id": "pdbdbb52bcd1e4f4",
+      "slug": "pudu-gt3",
+      "name": "PUDU GT3",
+      "brand": "pudu",
+      "category": "lawn-mowers",
+      "categoryLabel": "Robotic Lawn Mowers",
+      "layout": "showcase",
+      "tagline": "Commercial Compact Robotic Mower",
+      "summary": "The GT3 cuts, vacuums, and collects grass clippings, fallen leaves, and light turf debris simultaneously during large-scale rotary mowing. This continuous system leaves behind a spotless field, completely eliminating the need for secondary ",
+      "overview": "The GT3 cuts, vacuums, and collects grass clippings, fallen leaves, and light turf debris simultaneously during large-scale rotary mowing. This continuous system leaves behind a spotless field, completely eliminating the need for secondary cleanups or follow-up crews.\n\nThe GT3 handles both mowing and sweeping. Disabling the blades turns the machine into a walkway cleaner, keeping your asset productive all year round.\n\nThe GT3 autonomously transits to empty its hopper when full, then returns precisely to the breakpoint to continue its task. This built-in feature ensures seamless performance without requiring operator intervention.\n\nThe GT3 instantly recognizes pedestrians, vehicles, and assets like hoses or light poles. Based on risk levels, it automatically slows down, bypasses, or stops to eliminate collision risks on public turf.",
+      "videoId": "",
+      "deployedIn": [
+        "Campuses",
+        "Parks",
+        "Golf Courses",
+        "Commercial Grounds"
+      ],
+      "features": [
+        {
+          "title": "One-Pass Cutting & Collection",
+          "text": "The GT3 cuts, vacuums, and collects grass clippings, fallen leaves, and light turf debris simultaneously during large-scale rotary mowing. This continuous system leaves behind a spotless field, completely eliminating the need for secondary cleanups or follow-up crews."
+        },
+        {
+          "title": "Mowing & Sweeping",
+          "text": "The GT3 handles both mowing and sweeping. Disabling the blades turns the machine into a walkway cleaner, keeping your asset productive all year round."
+        },
+        {
+          "title": "Auto-Dump & Task Resumption",
+          "text": "The GT3 autonomously transits to empty its hopper when full, then returns precisely to the breakpoint to continue its task. This built-in feature ensures seamless performance without requiring operator intervention."
+        },
+        {
+          "title": "Adaptive Obstacle Avoidance",
+          "text": "The GT3 instantly recognizes pedestrians, vehicles, and assets like hoses or light poles. Based on risk levels, it automatically slows down, bypasses, or stops to eliminate collision risks on public turf."
+        }
+      ],
+      "specs": [
+        {
+          "label": "Dimensions (L×W×H)",
+          "value": "1602 x 946.6 x 1203 mm / 63 x 37.3 x 47.4 in"
+        },
+        {
+          "label": "Weight (with batteries)",
+          "value": "450 kg / 992 lb"
+        },
+        {
+          "label": "Width of Cut",
+          "value": "36 in / 914.4 mm"
+        },
+        {
+          "label": "Height of Cut",
+          "value": "26~114 mm / 1~4.5 in"
+        },
+        {
+          "label": "Max Mowing Speed",
+          "value": "11 km/h / 6.7 mph / 3 m/s"
+        },
+        {
+          "label": "Battery Capacity",
+          "value": "13 kWh"
+        },
+        {
+          "label": "Runtime",
+          "value": "4~6 h"
+        },
+        {
+          "label": "Area per Full Charge",
+          "value": "20000 ㎡ / 5 acres / 2 ha"
+        },
+        {
+          "label": "Charging Time",
+          "value": "Standard: 4 h (3kW) / Fast: 2h (6kW) Optional"
+        }
+      ],
+      "image": "assets/images/models/pudu-gt3.webp",
+      "gallery": [],
+      "status": "published",
+      "createdAt": "2026-10-23T00:00:00.000Z",
+      "updatedAt": "2026-10-23T00:00:00.000Z"
+    },
+    {
+      "id": "pdc9e5b2f8d91474",
+      "slug": "pudu-gt5",
+      "name": "PUDU GT5",
+      "brand": "pudu",
+      "category": "lawn-mowers",
+      "categoryLabel": "Robotic Lawn Mowers",
+      "layout": "showcase",
+      "tagline": "Commercial Robotic Mower",
+      "summary": "The GT5 cuts, vacuums, and collects grass clippings, fallen leaves, and light turf debris simultaneously during large-scale rotary mowing. This continuous system leaves behind a spotless field, completely eliminating the need for secondary ",
+      "overview": "The GT5 cuts, vacuums, and collects grass clippings, fallen leaves, and light turf debris simultaneously during large-scale rotary mowing. This continuous system leaves behind a spotless field, completely eliminating the need for secondary cleanups or follow-up crews.\n\nThe GT5 autonomously transits to empty its hopper when full, then returns precisely to the breakpoint to continue its task. This built-in feature ensures seamless performance without requiring operator intervention.\n\nThe GT5 powers through up to 10 hours of continuous operation, covering up to 16 acres on a single charge. This extended run-time ensures the GT5 satisfies large-scale workflows without mid-day charging disruptions.\n\nEquipped with a rugged 60-inch rotary cutting deck, the GT5 clocks a target efficiency of 2 acres per hour. This wide cut drastically increases acreage coverage and speeds up daily workflows.",
+      "videoId": "",
+      "deployedIn": [
+        "Sports Fields",
+        "Campuses",
+        "Parks",
+        "Commercial Grounds"
+      ],
+      "features": [
+        {
+          "title": "One-Pass Cutting & Collection",
+          "text": "The GT5 cuts, vacuums, and collects grass clippings, fallen leaves, and light turf debris simultaneously during large-scale rotary mowing. This continuous system leaves behind a spotless field, completely eliminating the need for secondary cleanups or follow-up crews."
+        },
+        {
+          "title": "Auto-Dump & Task Resumption",
+          "text": "The GT5 autonomously transits to empty its hopper when full, then returns precisely to the breakpoint to continue its task. This built-in feature ensures seamless performance without requiring operator intervention."
+        },
+        {
+          "title": "Extended Run-time",
+          "text": "The GT5 powers through up to 10 hours of continuous operation, covering up to 16 acres on a single charge. This extended run-time ensures the GT5 satisfies large-scale workflows without mid-day charging disruptions."
+        },
+        {
+          "title": "60-Inch Wide-area Mowing",
+          "text": "Equipped with a rugged 60-inch rotary cutting deck, the GT5 clocks a target efficiency of 2 acres per hour. This wide cut drastically increases acreage coverage and speeds up daily workflows."
+        },
+        {
+          "title": "Autonomous Cross-Zone Transit",
+          "text": "The GT5 moves seamlessly between different pitches or turf zones along pre-mapped internal routes. Eliminating the need for manual handling, the GT5 automatically transits and resumes mowing upon arrival to effortlessly cover multiple fields."
+        },
+        {
+          "title": "Auto Mapping & Rapid Deployment",
+          "text": "The GT5 autonomously explores the field to generate precision operational maps. Combined with online or satellite imagery to geofence target areas, it eliminates manual perimeter mapping to start cutting on new sites instantly."
+        },
+        {
+          "title": "Precision Tracking & Edge Trim.",
+          "text": "High-precision positioning keeps the GT5 on a stable path to mow within 5 cm of edges. This minimizes uncut borders and guarantees a completely uniform finish across the field."
+        },
+        {
+          "title": "Active Anti-Fall Protection",
+          "text": "Instantly detects dangerous drop-offs including water shorelines, steps, and steep embankments. Combined with digital no-go zones, the system reroutes or brakes to eliminate runoff and rollover risks."
+        }
+      ],
+      "specs": [
+        {
+          "label": "Dimensions (L×W×H)",
+          "value": "1910 × 1586 × 1293 mm / 75.2 x 62.44 x 50.91 in"
+        },
+        {
+          "label": "Weight (with batteries)",
+          "value": "850 kg / 1873.93 lb"
+        },
+        {
+          "label": "Width of Cut",
+          "value": "60 in（1.52 m）"
+        },
+        {
+          "label": "Height of Cut",
+          "value": "26 mm~15 2 mm / 1 in ~ 6 in"
+        },
+        {
+          "label": "Mowing Rate",
+          "value": "2 acre/h / 8000 ㎡/h"
+        },
+        {
+          "label": "Max Mowing Speed",
+          "value": "11 km/h / 6.7 mph / 3 m/s"
+        },
+        {
+          "label": "Max Slope – Mowing",
+          "value": "20°"
+        },
+        {
+          "label": "Battery Capacity",
+          "value": "26 kWh"
+        },
+        {
+          "label": "Runtime",
+          "value": "8~10 h"
+        },
+        {
+          "label": "Area per Full Charge",
+          "value": "65000 ㎡/ 16 acres / 6.5 ha"
+        },
+        {
+          "label": "Charging Time",
+          "value": "Standard Charging: 8 h (3 kW) / Optional Fast Charging: 4 h (6 kW)"
+        }
+      ],
+      "image": "assets/images/models/pudu-gt5.webp",
+      "gallery": [],
+      "status": "published",
+      "createdAt": "2026-10-23T00:00:00.000Z",
+      "updatedAt": "2026-10-23T00:00:00.000Z"
+    },
+    {
+      "id": "pd7a414ba0939ce8",
+      "slug": "pudu-gt7",
+      "name": "PUDU GT7",
+      "brand": "pudu",
+      "category": "lawn-mowers",
+      "categoryLabel": "Robotic Lawn Mowers",
+      "layout": "showcase",
+      "tagline": "Precision-Cut Robotic Reel Mower",
+      "summary": "By merging RTK, LiDAR, and vision systems, the GT7 delivers pinpoint positioning and stable navigation. Its ±2.5 cm RTK accuracy ensures flawless consistency, unlocking fully automated, hands-free operation for every single task.",
+      "overview": "By merging RTK, LiDAR, and vision systems, the GT7 delivers pinpoint positioning and stable navigation. Its ±2.5 cm RTK accuracy ensures flawless consistency, unlocking fully automated, hands-free operation for every single task.\n\nThe GT7 supports advanced configurations for cutting angles, directional rotation, and lane offsets. This enables automated path planning, allowing the GT7 to deliver immaculate, professional-grade turf striping that meets the strict standards of professional athletic fields.\n\nThe GT7 moves seamlessly between different pitches or turf zones along pre-mapped internal routes. Eliminating any need for manual relocation, the GT7 automatically transits and resumes mowing upon arrival, letting a single unit cover multiple sports fields effortlessly.\n\nWith a wide 62-inch triplex cutting unit, the GT7 perfectly pairs massive cutting efficiency with tight-space agility. The GT7 glides through narrow, twisting paths effortlessly, ensuring seamless coverage across complex sports field layouts.",
+      "videoId": "",
+      "deployedIn": [
+        "Golf Courses",
+        "Sports Fields",
+        "Resorts",
+        "Estates"
+      ],
+      "features": [
+        {
+          "title": "Multi-sensor Fusion & Precision Positioning",
+          "text": "By merging RTK, LiDAR, and vision systems, the GT7 delivers pinpoint positioning and stable navigation. Its ±2.5 cm RTK accuracy ensures flawless consistency, unlocking fully automated, hands-free operation for every single task."
+        },
+        {
+          "title": "Precision Mowing & Advanced Pattern Control",
+          "text": "The GT7 supports advanced configurations for cutting angles, directional rotation, and lane offsets. This enables automated path planning, allowing the GT7 to deliver immaculate, professional-grade turf striping that meets the strict standards of professional athletic fields."
+        },
+        {
+          "title": "Autonomous Cross-Zone Transit",
+          "text": "The GT7 moves seamlessly between different pitches or turf zones along pre-mapped internal routes. Eliminating any need for manual relocation, the GT7 automatically transits and resumes mowing upon arrival, letting a single unit cover multiple sports fields effortlessly."
+        },
+        {
+          "title": "Broad Coverage, Tight-Space Agility",
+          "text": "With a wide 62-inch triplex cutting unit, the GT7 perfectly pairs massive cutting efficiency with tight-space agility. The GT7 glides through narrow, twisting paths effortlessly, ensuring seamless coverage across complex sports field layouts."
+        },
+        {
+          "title": "Low-Noise Electric Operation",
+          "text": "An all-electric chassis ensures quiet runtime, while disabling the suction motor in non-collection mode allows near-silent operation. This enables the GT7 to mow during early mornings, evenings, and active facility hours without disruption."
+        },
+        {
+          "title": "Extended Run-time",
+          "text": "The GT7 powers through up to 12 hours of continuous operation, covering up to 17 acres on a single charge (in non-collection mode). This extended run-time ensures the GT7 satisfies large-scale workflows without mid-day charging disruptions."
+        },
+        {
+          "title": "Dual-Mode Flexibility",
+          "text": "The GT7 offers dual-mode capability, supporting standard mowing or active grass collection depending on turf conditions. During collection, it features bin-full detection and automatic task resumption to minimize human intervention."
+        },
+        {
+          "title": "Boosted Vacuum Collection",
+          "text": "A dual-fan vacuum system instantly pulls grass clippings, fallen leaves, and light debris into a large hopper. This powerful suction leaves behind a spotless sports field in a single pass."
+        }
+      ],
+      "specs": [
+        {
+          "label": "Dimensions (L×W×H)",
+          "value": "1950x1600x1400 mm / 76.8 × 63.0 × 55.1 in / 1950x1500x1400 mm / 76.8 × 59.1 × 55.1 in (lifted)"
+        },
+        {
+          "label": "Weight (with batteries)",
+          "value": "900 kg / 1984 lb"
+        },
+        {
+          "label": "Mowing Rate",
+          "value": "2 acre/h / 8000 ㎡/h"
+        },
+        {
+          "label": "Width of Cut",
+          "value": "62 in / 1600 mm"
+        },
+        {
+          "label": "Blades per Reel",
+          "value": "8 or 11"
+        },
+        {
+          "label": "Height of Cut (HOC)",
+          "value": "5 ~ 50 mm / 0.197~1.97 in"
+        },
+        {
+          "label": "Max Mowing Speed",
+          "value": "11 km/h / 6.7 mph / 3 m/s"
+        },
+        {
+          "label": "Battery Capacity",
+          "value": "26 kWh"
+        },
+        {
+          "label": "Runtime",
+          "value": "10~12 h"
+        },
+        {
+          "label": "Area per Full Charge",
+          "value": "70000 ㎡ / 17 acres / 7 ha"
+        },
+        {
+          "label": "Charging Time",
+          "value": "Standard Charging: 8 h (3 kW) / Optional Fast Charging: 4 h (6 kW)"
+        },
+        {
+          "label": "Max Slope – Mowing",
+          "value": "30°"
+        }
+      ],
+      "image": "assets/images/models/pudu-gt7.webp",
+      "gallery": [],
+      "status": "published",
+      "createdAt": "2026-10-23T00:00:00.000Z",
+      "updatedAt": "2026-10-23T00:00:00.000Z"
     }
   ],
   "categories": [
@@ -2371,6 +2759,20 @@
       "label": "Specialty Cleaning Equipment",
       "description": "Canister and pressure cleaning equipment for specialised jobs.",
       "icon": "screwdriver-wrench",
+      "createdAt": "2026-10-23T00:00:00.000Z"
+    },
+    {
+      "id": "forklift",
+      "label": "Autonomous Forklifts",
+      "description": "AI-native pallet handling robots that load, lift and move pallets without a driver.",
+      "icon": "warehouse",
+      "createdAt": "2026-10-23T00:00:00.000Z"
+    },
+    {
+      "id": "lawn-mowers",
+      "label": "Robotic Lawn Mowers",
+      "description": "Commercial autonomous mowers for sports fields, campuses, parks and large grounds.",
+      "icon": "seedling",
       "createdAt": "2026-10-23T00:00:00.000Z"
     }
   ]

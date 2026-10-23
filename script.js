@@ -1030,22 +1030,29 @@ document.addEventListener('keydown', function(e) {
     function renderResults() {
         var container = wizard.querySelector('.wizard-results');
         if (!container) return;
-        var matches = products.filter(function(p) {
-            var score = 0;
-            if (answers.need && p.needs.indexOf(answers.need) !== -1) score++;
-            if (answers.size && p.sizes.indexOf(answers.size) !== -1) score++;
-            if (answers.industry && p.industries.indexOf(answers.industry) !== -1) score++;
-            return score >= 2;
-        }).slice(0, 4);
+        var all = products.map(function(p) { p.robot = p.robot !== false; return p; }).concat(window.BB_WIZARD_EXTRA || []);
+        var scored = [];
+        all.forEach(function(p) {
+            if (!answers.need || p.needs.indexOf(answers.need) === -1) return;
+            var s = 0;
+            if (answers.size && p.sizes.indexOf(answers.size) !== -1) s++;
+            if (answers.industry && p.industries.indexOf(answers.industry) !== -1) s++;
+            if (s >= 1) scored.push({ p: p, s: s });
+        });
+        scored.sort(function(a, b) { return b.s - a.s; });
+        var robots = scored.filter(function(x) { return x.p.robot; }).slice(0, 5).map(function(x) { return x.p; });
+        var machines = scored.filter(function(x) { return !x.p.robot; }).slice(0, 3).map(function(x) { return x.p; });
 
-        if (!matches.length) {
-            container.innerHTML = '<p>No exact matches — <a href="contact.html">talk to our team</a> for a custom recommendation.</p>';
+        function item(p) {
+            return '<a href="' + p.href + '" class="wizard-result-item"><img src="' + p.img + '" alt="' + p.name + '"><div class="result-info"><h5>' + p.name + '</h5><p>' + p.desc + '</p></div><i class="fas fa-arrow-right"></i></a>';
+        }
+        if (!robots.length && !machines.length) {
+            container.innerHTML = '<p>No exact matches \u2014 <a href="contact.html">talk to our team</a> for a custom recommendation.</p>';
             return;
         }
-        container.innerHTML = '<h4>We recommend ' + matches.length + ' robot' + (matches.length > 1 ? 's' : '') + ' for you:</h4>' +
-            matches.map(function(p) {
-                return '<a href="' + p.href + '" class="wizard-result-item"><img src="' + p.img + '" alt="' + p.name + '"><div class="result-info"><h5>' + p.name + '</h5><p>' + p.desc + '</p></div><i class="fas fa-arrow-right"></i></a>';
-            }).join('');
+        container.innerHTML =
+            (robots.length ? '<h4>We recommend ' + robots.length + ' robot' + (robots.length > 1 ? 's' : '') + ' for you:</h4>' + robots.map(item).join('') : '') +
+            (machines.length ? '<h4 style="margin-top:1.25rem">Also available from Tennant (operator-driven machines):</h4>' + machines.map(item).join('') : '');
     }
 })();
 
@@ -1126,17 +1133,25 @@ document.addEventListener('keydown', function(e) {
     var box = document.getElementById('heroSlides');
     if (!box) return;
     var slides = box.querySelectorAll('.hero-slide'), dots = box.querySelectorAll('.hero-dot');
-    var i = 0, timer = null;
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var i = 0, timer = null, held = false;
     function show(n) {
         i = (n + slides.length) % slides.length;
         slides.forEach(function(s, k) { s.classList.toggle('is-active', k === i); });
         dots.forEach(function(d, k) { d.classList.toggle('is-active', k === i); });
     }
-    function start() { if (!reduce && !timer) timer = setInterval(function() { show(i + 1); }, 4000); }
-    function stop() { clearInterval(timer); timer = null; }
+    function start() { if (!timer) timer = setInterval(function() { if (!held && !document.hidden) show(i + 1); }, 2500); }
     dots.forEach(function(d) { d.addEventListener('click', function() { show(Number(d.getAttribute('data-slide'))); }); });
-    box.addEventListener('mouseenter', stop); box.addEventListener('mouseleave', start);
-    box.addEventListener('focusin', stop); box.addEventListener('focusout', start);
+    // Pause only while a mouse is over the pictures. Touch screens (iPhone) never pause:
+    // a tap there fires mouseenter and no mouseleave, which would freeze the show.
+    box.addEventListener('pointerenter', function(e) { if (e.pointerType === 'mouse') held = true; });
+    box.addEventListener('pointerleave', function(e) { if (e.pointerType === 'mouse') held = false; });
+    // swipe left or right to change the picture
+    var x0 = null;
+    box.addEventListener('touchstart', function(e) { x0 = e.touches[0].clientX; }, { passive: true });
+    box.addEventListener('touchend', function(e) {
+        if (x0 === null) return;
+        var dx = e.changedTouches[0].clientX - x0; x0 = null;
+        if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1));
+    }, { passive: true });
     start();
 })();

@@ -811,8 +811,8 @@ input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="
 
 /* Home hero: rolling robots (PUDU and Tennant) */
 .hero-slides { position: absolute; inset: 0; }
-.hero-slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transform: translateX(24px); transition: opacity .7s ease, transform .7s ease, visibility 0s .7s; }
-.hero-slide.is-active { opacity: 1; visibility: visible; transform: none; transition: opacity .7s ease, transform .7s ease; }
+.hero-slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transform: translateX(24px); transition: opacity .35s ease, transform .35s ease, visibility 0s .35s; }
+.hero-slide.is-active { opacity: 1; visibility: visible; transform: none; transition: opacity .35s ease, transform .35s ease; }
 .hero-product-image.is-photo { width: 56%; right: 3%; bottom: 8%; border-radius: 18px; background: #fff; box-shadow: 0 22px 40px rgba(10, 31, 68, .25); filter: none; }
 .hero-dots { position: absolute; right: 16px; top: 16px; display: flex; gap: 8px; z-index: 3; }
 .hero-dot { width: 12px; height: 12px; padding: 0; border-radius: 50%; border: 2px solid var(--blue); background: #fff; cursor: pointer; }
@@ -821,3 +821,9 @@ input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="
 
 /* Tennant family list: show each family's icon in the first column */
 .industries-grid.brand-families:has(> .industry-card:nth-child(6)) .industry-icon { display: flex; grid-column: 1; grid-row: 1 / span 2; align-items: center; justify-content: flex-start; font-size: 1.9rem; margin: 0; }
+@media (max-width: 968px) {
+    .hero-product-image { right: 2%; bottom: 3%; width: 56%; }
+    .hero-product-image.is-photo { width: 52%; right: 4%; bottom: 14%; }
+    .hero-media-caption { font-size: .85rem; padding: .6rem .8rem; }
+    .hero-dot { width: 10px; height: 10px; }
+}
