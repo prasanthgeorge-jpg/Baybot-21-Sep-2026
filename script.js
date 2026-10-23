@@ -1026,7 +1026,12 @@ document.addEventListener('keydown', function(e) {
         btn.addEventListener('click', function() { showStep(current - 1); });
     });
     wizard.querySelectorAll('[data-wizard-results]').forEach(function(btn) {
-        btn.addEventListener('click', function() { showStep(current + 1); renderResults(); });
+        btn.addEventListener('click', function() {
+            showStep(current + 1); renderResults();
+            // bring the answer into view: the full catalogue starts right below this box
+            var top = wizard.getBoundingClientRect().top + window.scrollY - 100;
+            window.scrollTo({ top: top, behavior: 'smooth' });
+        });
     });
 
     function renderResults() {
@@ -1039,7 +1044,8 @@ document.addEventListener('keydown', function(e) {
             var s = 0;
             if (answers.size && p.sizes.indexOf(answers.size) !== -1) s++;
             if (answers.industry && p.industries.indexOf(answers.industry) !== -1) s++;
-            if (s >= 1) scored.push({ p: p, s: s });
+            // restroom, pallet and mowing robots are specialised: they fit whatever size or industry is chosen
+            if (s >= 1 || ['restroom', 'pallet', 'mowing'].indexOf(answers.need) !== -1) scored.push({ p: p, s: s });
         });
         scored.sort(function(a, b) { return b.s - a.s; });
         var robots = scored.filter(function(x) { return x.p.robot; }).slice(0, 5).map(function(x) { return x.p; });
@@ -1052,9 +1058,15 @@ document.addEventListener('keydown', function(e) {
             container.innerHTML = '<p>No exact matches \u2014 <a href="contact.html">talk to our team</a> for a custom recommendation.</p>';
             return;
         }
+        // When every recommendation is from one brand, offer that brand's full section too.
+        var brands = {};
+        robots.concat(machines).forEach(function(p) { brands[p.brand || 'PUDU'] = true; });
+        var names = Object.keys(brands), anchors = { 'PUDU': 'pudu-robots', 'Tennant': 'tennant-robots', 'Hivebotics': 'hivebotics-robots' };
+        var seeAll = names.length === 1 && anchors[names[0]]
+            ? '<p class="wizard-seeall"><a href="#' + anchors[names[0]] + '">See all ' + names[0] + ' products <i class="fas fa-arrow-down"></i></a></p>' : '';
         container.innerHTML =
             (robots.length ? '<h4>We recommend ' + robots.length + ' robot' + (robots.length > 1 ? 's' : '') + ' for you:</h4>' + robots.map(item).join('') : '') +
-            (machines.length ? '<h4 style="margin-top:1.25rem">Also available from Tennant (operator-driven machines):</h4>' + machines.map(item).join('') : '');
+            (machines.length ? '<h4 style="margin-top:1.25rem">Also available from Tennant (operator-driven machines):</h4>' + machines.map(item).join('') : '') + seeAll;
     }
 })();
 

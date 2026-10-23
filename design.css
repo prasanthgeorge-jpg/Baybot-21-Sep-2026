@@ -870,3 +870,6 @@ input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="
     .family-fold { padding-top: 36px; padding-bottom: 12px; }
     .family-fold.is-collapsed .section-header { margin-bottom: 14px; }
 }
+
+.wizard-seeall { margin: 1.1rem 0 0; font-weight: 700; }
+.wizard-seeall a { color: var(--blue); text-decoration: none; }
