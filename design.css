@@ -711,9 +711,13 @@ input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="
 .pl-tab.is-current { background: #fff; color: var(--blue-deep); border-color: #fff; }
 .pl-bar-note { font-weight: 500; opacity: .9; font-size: .95rem; }
 
-/* "Official Distributor" Certified Partner Logo Badge */
+/* "Authorized Distributor" Certified Logo Badge - always on its own line so it never covers text */
 .distributor-badge {
-    display: inline-flex;
+    display: flex;
+    width: fit-content;
+    max-width: 100%;
+    position: relative;
+    z-index: 0;
     align-items: center;
     gap: 0.65rem;
     background: linear-gradient(135deg, #0e2246 0%, #071530 100%);
@@ -831,3 +835,10 @@ input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="
 /* Product video from a direct file (official maker video) */
 .video-embed.video-file { max-width: 960px; margin: 0 auto; border-radius: var(--r-plate, 12px); overflow: hidden; background: #000; }
 .video-embed.video-file video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #000; }
+
+.brand-band-hivebotics { background: #f4f8ff; }
+
+.video-more-title { color: #fff; margin: 2.5rem 0 1rem; font-size: 1.2rem; text-align: center; }
+.video-more { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+.video-more figure { margin: 0; }
+.video-more figcaption { color: rgba(255, 255, 255, .85); font-size: .9rem; margin-top: .5rem; }

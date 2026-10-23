@@ -2785,6 +2785,192 @@
       "updatedAt": "2026-10-23T00:00:00.000Z",
       "videoSrc": "https://cdn.pudutech.com/PUDU_GT_7_EN_1080_P_24d21e241a.mp4",
       "videoPoster": "https://cdn.pudutech.com/s1_head_pc_799074e916.webp"
+    },
+    {
+      "id": "hv0000000000mk01",
+      "slug": "hivebotics-abluo-mark-1",
+      "name": "Hivebotics Abluo Mark 1",
+      "brand": "hivebotics",
+      "category": "restroom-cleaning",
+      "categoryLabel": "Restroom Cleaning Robots",
+      "layout": "showcase",
+      "tagline": "Autonomous Bathroom Cleaning Robot",
+      "summary": "Hospital-grade disinfection. Zero human intervention. 24/7 operation.",
+      "overview": "Abluo Mark 1 is the original autonomous restroom cleaning robot from Hivebotics. It cleans toilet bowls, urinals, sinks, floors, mirrors and partitions on its own, and its AI vision system verifies cleanliness as it works.\n\nHospital-grade steaming, chemical jetting, vacuuming and blow drying give consistent disinfection on every surface, while built-in navigation, obstacle detection and automatic recharging keep it running without manual oversight.",
+      "videoId": "CJAWnxS1ZGA",
+      "deployedIn": [
+        "Airports",
+        "Hospitals & Healthcare",
+        "Educational Campuses",
+        "Shopping Malls"
+      ],
+      "features": [
+        {
+          "title": "AI Vision System",
+          "text": "Advanced computer vision verifies cleanliness in real time, detects stains, and learns to tackle different surfaces with precision."
+        },
+        {
+          "title": "Industrial Cleaning",
+          "text": "Hospital-grade steaming, chemical jetting, vacuuming and blow drying ensure consistent disinfection across all surfaces."
+        },
+        {
+          "title": "Full Autonomy",
+          "text": "Intelligent navigation, obstacle detection, optimal route planning and automatic recharging, with no manual oversight required."
+        },
+        {
+          "title": "Safety Features",
+          "text": "Real-time obstacle detection, emergency stop system, human presence sensors and auto-shutdown protocols."
+        }
+      ],
+      "specs": [
+        {
+          "label": "Dimensions",
+          "value": "775 mm x 510 mm x 1100 mm"
+        },
+        {
+          "label": "Weight (loaded)",
+          "value": "225 kg"
+        },
+        {
+          "label": "Power source",
+          "value": "Lithium-ion battery"
+        },
+        {
+          "label": "Runtime",
+          "value": "4 to 6 hours continuous"
+        },
+        {
+          "label": "Coverage",
+          "value": "8 to 12 bathrooms per cycle"
+        },
+        {
+          "label": "Cleaning speed",
+          "value": "30 to 40 minutes per bathroom"
+        },
+        {
+          "label": "Cleaning zones",
+          "value": "Toilet bowls, urinals, sinks and faucets, floors, mirrors, partitions"
+        }
+      ],
+      "image": "assets/images/models/hivebotics-abluo-mark-1.webp",
+      "gallery": [
+        "assets/images/models/hivebotics-abluo-mark-1-g1.webp",
+        "assets/images/models/hivebotics-abluo-mark-1-g2.webp"
+      ],
+      "status": "published",
+      "createdAt": "2026-10-23T00:00:00.000Z",
+      "updatedAt": "2026-10-23T00:00:00.000Z",
+      "extraVideos": [
+        {
+          "id": "czN-DJeXj0Q",
+          "title": "Robot versus Human: Toilet Bowl Cleaning"
+        },
+        {
+          "id": "HwibAW55_xo",
+          "title": "Human versus Robot: Sink Cleaning"
+        },
+        {
+          "id": "M6z_hMr1YbE",
+          "title": "Abluo M1: AI Restroom Cleaning Robot"
+        }
+      ]
+    },
+    {
+      "id": "hv0000000000mk02",
+      "slug": "hivebotics-abluo-mark-2",
+      "name": "Hivebotics Abluo Mark 2",
+      "brand": "hivebotics",
+      "category": "restroom-cleaning",
+      "categoryLabel": "Restroom Cleaning Robots",
+      "layout": "showcase",
+      "tagline": "AI Restroom Cleaner",
+      "summary": "Next-generation AI restroom cleaner with 3D SLAM navigation, a 6-axis robot arm and swappable batteries for non-stop operation.",
+      "overview": "Abluo Mark 2 is an AI-powered autonomous cleaning robot designed for high-traffic facilities such as airports, hospitals, schools and commercial buildings. It works alongside facility staff to automate repetitive restroom cleaning workflows.\n\nPowered by Hivebotics OS and HiveIntelligence, its physical AI layer, it gives organizations reliable hygiene standards with greater operational visibility and control, and cuts labor intervention by about 60 to 70 percent.",
+      "videoId": "",
+      "deployedIn": [
+        "Airports",
+        "Hospitals & Healthcare",
+        "Educational Campuses",
+        "Shopping Malls",
+        "Commercial & Office Buildings",
+        "Industrial Facilities"
+      ],
+      "features": [
+        {
+          "title": "Fully Autonomous Cleaning",
+          "text": "Restroom cleaning workflows that need minimal staff supervision, cutting labor intervention by about 60 to 70 percent."
+        },
+        {
+          "title": "AI-Powered Vision and Navigation",
+          "text": "3D SLAM with LiDAR, depth cameras and ultrasonic sensors for real-time mapping and safe navigation in complex environments."
+        },
+        {
+          "title": "Multi-Function Cleaning",
+          "text": "A complete sanitation cycle: seat lifting, flushing, contactless steam cleaning, chemical jetting and blow drying."
+        },
+        {
+          "title": "Non-Stop Cleaning",
+          "text": "Swappable high-capacity battery modules minimize downtime. An optional docking station recharges, refills water and replenishes cleaning solutions automatically."
+        },
+        {
+          "title": "Safety by Design",
+          "text": "Cliff sensors, bumper sensors, ultrasound safety sensors and advanced monitoring for reliable operation in public spaces."
+        },
+        {
+          "title": "Operational Data and Predictive Maintenance",
+          "text": "Real-time performance tracking through the HiveCommand app, with 4G LTE connectivity, GPS geofencing and WPA2-Enterprise security."
+        }
+      ],
+      "specs": [
+        {
+          "label": "Labor reduction",
+          "value": "60 to 70 percent"
+        },
+        {
+          "label": "Cleaning cycle",
+          "value": "About 40 minutes"
+        },
+        {
+          "label": "Battery runtime",
+          "value": "3 hours (swappable batteries)"
+        },
+        {
+          "label": "Robot arm",
+          "value": "6 DOF, 0.02 mm repeatability"
+        },
+        {
+          "label": "Navigation",
+          "value": "3D SLAM with LiDAR"
+        },
+        {
+          "label": "Computing",
+          "value": "AMD Ryzen with NVIDIA Quadro RTX"
+        },
+        {
+          "label": "Cleaning modes",
+          "value": "6, including 173 degrees C steam sanitation"
+        },
+        {
+          "label": "Connectivity",
+          "value": "4G LTE, GPS geofencing, WPA2-Enterprise"
+        },
+        {
+          "label": "Operation modes",
+          "value": "Automatic, manual, HiveCommand app"
+        }
+      ],
+      "image": "assets/images/models/hivebotics-abluo-mark-2.webp",
+      "gallery": [
+        "assets/images/models/hivebotics-abluo-mark-2-g1.webp",
+        "assets/images/models/hivebotics-abluo-mark-2-g2.webp",
+        "assets/images/models/hivebotics-abluo-mark-2-g3.webp",
+        "assets/images/models/hivebotics-abluo-mark-2-g4.webp",
+        "assets/images/models/hivebotics-abluo-mark-2-g5.webp",
+        "assets/images/models/hivebotics-abluo-mark-2-g6.webp"
+      ],
+      "status": "published",
+      "createdAt": "2026-10-23T00:00:00.000Z",
+      "updatedAt": "2026-10-23T00:00:00.000Z"
     }
   ],
   "categories": [
@@ -2877,6 +3063,13 @@
       "label": "Robotic Lawn Mowers",
       "description": "Commercial autonomous mowers for sports fields, campuses, parks and large grounds.",
       "icon": "seedling",
+      "createdAt": "2026-10-23T00:00:00.000Z"
+    },
+    {
+      "id": "restroom-cleaning",
+      "label": "Restroom Cleaning Robots",
+      "description": "Autonomous robots that clean, sanitize and verify restrooms in high-traffic facilities.",
+      "icon": "broom",
       "createdAt": "2026-10-23T00:00:00.000Z"
     }
   ]

@@ -930,7 +930,7 @@ document.addEventListener('keydown', function(e) {
     window.addEventListener('scroll', function() {
         let active = null;
         sectionEls.forEach(function(s) {
-            if (s.getBoundingClientRect().top <= 150) active = s.id;
+            if (s.getBoundingClientRect().top <= 175) active = s.id;
         });
         tabs.forEach(function(t) {
             t.classList.toggle('active', t.getAttribute('href') === '#' + active);

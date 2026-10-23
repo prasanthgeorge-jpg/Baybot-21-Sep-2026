@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" aria-label="Official Distributor Seal">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" aria-label="Authorized Distributor Seal">
   <defs>
     <!-- Metallic Gold Gradient -->
     <linearGradient id="distGold" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -49,7 +49,7 @@
 
     <!-- Circular Typography -->
     <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Montserrat', sans-serif" font-size="9.5" font-weight="900" fill="url(#distGold)" letter-spacing="2.6">
-      <textPath href="#arcTop" startOffset="50%" text-anchor="middle">OFFICIAL DISTRIBUTOR</textPath>
+      <textPath href="#arcTop" startOffset="50%" text-anchor="middle">AUTHORIZED DISTRIBUTOR</textPath>
     </text>
 
     <text font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Montserrat', sans-serif" font-size="8" font-weight="800" fill="#93c5fd" letter-spacing="3.2">
