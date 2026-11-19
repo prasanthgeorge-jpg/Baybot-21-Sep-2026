@@ -95,6 +95,7 @@ function sendFile(req, res, relPath, data) {
             page = require('./lib/badges').addBadges(page, relPath);
             data = Buffer.from(page, 'utf8');
         } catch (e) { console.error('Could not add admin categories to the menu', e); }
+        require('./lib/visitors').record(req, relPath);   // one line in the visitor log per page view
     }
     const headers = Object.assign({
         'Content-Type': MIME[ext] || 'application/octet-stream',
@@ -121,6 +122,12 @@ const server = http.createServer(function(req, res) {
     }
 
     Object.keys(SECURITY_HEADERS).forEach(function(h) { res.setHeader(h, SECURITY_HEADERS[h]); });
+
+    // Who has visited the site (password protected, see lib/visitors.js). Kept outside /api
+    // because Apache sends /api on baybotdynamics.com to the older CMS app.
+    if (urlPath === '/visitors') {
+        return require('./lib/visitors').handle(req, res, new URL(req.url, 'http://localhost').searchParams);
+    }
 
     if (urlPath.startsWith('/api/')) {
         const name = urlPath.slice('/api/'.length);
@@ -203,8 +210,10 @@ const server = http.createServer(function(req, res) {
     });
 });
 
-server.listen(PORT, function() {
-    console.log('Server running on port ' + PORT);
+// BIND_ADDRESS=127.0.0.1 keeps the site reachable only through the web server in front of it (Apache), never directly.
+const BIND = process.env.BIND_ADDRESS || '';
+server.listen(PORT, BIND || undefined, function() {
+    console.log('Server running on ' + (BIND || 'all interfaces') + ', port ' + PORT);
     ['GEMINI_API_KEY', 'SHEETS_WEBHOOK_URL', 'SHEETS_WEBHOOK_SECRET', 'DEMO_SHEETS_WEBHOOK_URL', 'DEMO_SHEETS_WEBHOOK_SECRET'].forEach(function(key) {
         if (!process.env[key]) {
             console.log('Note: ' + key + ' is not set - see .env.local.example.');
