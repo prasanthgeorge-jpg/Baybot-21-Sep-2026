@@ -23,10 +23,11 @@ esac
 
 umask 077
 touch "$ENV_FILE"; chmod 600 "$ENV_FILE"
-TMP="$(mktemp "${ENV_FILE}.XXXXXX")"
+# The app folder is read-only for this user, so the settings file cannot be replaced, only rewritten in place.
+TMP="$(mktemp "${TMPDIR:-/tmp}/envset.XXXXXX")"; trap 'rm -f "$TMP"' EXIT
 grep -v "^${KEY}=" "$ENV_FILE" > "$TMP" || true     # keep every other setting exactly as it is
 printf '%s=%s\n' "$KEY" "$pw1" >> "$TMP"
-chmod 600 "$TMP"; mv "$TMP" "$ENV_FILE"
+cat "$TMP" > "$ENV_FILE"; rm -f "$TMP"
 unset pw1 pw2
 echo "Saved to $ENV_FILE"
 

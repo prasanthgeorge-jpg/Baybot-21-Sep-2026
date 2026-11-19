@@ -20,9 +20,10 @@ SITE_DIR="$(dirname "$ENV_FILE")"
 
 getv() { grep -E "^$1=" "$ENV_FILE" 2>/dev/null | head -1 | cut -d= -f2- | tr -d '"' || true; }
 setv() {   # setv KEY VALUE: replace or add one line, leave every other setting as it is
-  local tmp; tmp="$(mktemp "${ENV_FILE}.XXXXXX")"
+  # The app folder is read-only for this user, so the file is rewritten in place, never replaced.
+  local tmp; tmp="$(mktemp "${TMPDIR:-/tmp}/envset.XXXXXX")"
   grep -v "^$1=" "$ENV_FILE" > "$tmp" || true
-  printf '%s=%s\n' "$1" "$2" >> "$tmp"; chmod 600 "$tmp"; mv "$tmp" "$ENV_FILE"
+  printf '%s=%s\n' "$1" "$2" >> "$tmp"; cat "$tmp" > "$ENV_FILE"; rm -f "$tmp"
 }
 
 [ -f "$ENV_FILE" ] || { echo "Cannot find $ENV_FILE"; exit 1; }
