@@ -33,6 +33,13 @@ done
 
 echo "2/5 Certificates (Let's Encrypt)..."
 ACCOUNT_FLAG="--register-unsafely-without-email"; ls /etc/letsencrypt/accounts/*/directory/* >/dev/null 2>&1 && ACCOUNT_FLAG=""
+if [ "$MODE" = all ] && ! grep -q "baybotdynamics\.ai" "$CONF"; then
+  # The .ai names must reach the BayBot HTTP site (which serves the certificate check) before certbot asks for their certificate.
+  cp -a "$CONF" "$CONF.pre-ai-$STAMP"
+  sed -i '0,/ServerAlias www\.baybotdynamics\.com$/s//ServerAlias www.baybotdynamics.com baybotdynamics.ai www.baybotdynamics.ai/' "$CONF"
+  if ! apachectl configtest >/dev/null 2>&1 || ! systemctl reload apache2; then echo "Could not add the .ai names; restoring."; cp -a "$CONF.pre-ai-$STAMP" "$CONF"; systemctl reload apache2; exit 1; fi
+  echo "   added the .ai names to the BayBot HTTP site"
+fi
 certbot certonly --webroot -w "$ACME" -d baybotdynamics.com -d www.baybotdynamics.com --cert-name baybotdynamics.com --non-interactive --agree-tos $ACCOUNT_FLAG || { echo "Certificate for baybotdynamics.com failed. Nothing was changed."; exit 1; }
 if [ "$MODE" = all ]; then
   certbot certonly --webroot -w "$ACME" -d baybotdynamics.ai -d www.baybotdynamics.ai --cert-name baybotdynamics.ai --non-interactive --agree-tos $ACCOUNT_FLAG || { echo "Certificate for baybotdynamics.ai failed. Nothing was changed."; exit 1; }
@@ -65,10 +72,7 @@ cat <<CONF2
     SSLCertificateKeyFile /etc/letsencrypt/live/baybotdynamics.com/privkey.pem
     ProxyPreserveHost On
     RequestHeader set X-Forwarded-Proto "https"
-    # Browser-side protections. The app already sets nosniff, frame and referrer rules; these fill any gap and add the rest.
-    Header always setifempty X-Content-Type-Options "nosniff"
-    Header always setifempty X-Frame-Options "SAMEORIGIN"
-    Header always setifempty Referrer-Policy "strict-origin-when-cross-origin"
+    # Browser-side protections. The app itself already sets nosniff, frame and referrer rules (setting them here too sends them twice).
     Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
     Header always set Strict-Transport-Security "max-age=604800"
     Header always unset X-Powered-By
