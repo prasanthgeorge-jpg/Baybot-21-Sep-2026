@@ -65,6 +65,7 @@ CATEGORY_LABELS = {
     "delivery": "Delivery & Reception Robots",
     "industrial": "Industrial Transport Robots",
     "quadruped": "Quadruped Robots",
+    "care": "Healthcare Equipment",
 }
 
 

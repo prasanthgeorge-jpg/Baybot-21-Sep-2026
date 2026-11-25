@@ -78,6 +78,20 @@ cat <<CONF2
     Header always unset X-Powered-By
     RedirectMatch permanent ^/term/?\$ /terms
     ProxyPass /.well-known/acme-challenge/ !
+    # Throw away any X-Forwarded-For the visitor sent; Apache then adds the real address. The caller's wrong-password lock and the
+    # visitor log both rely on that header being honest.
+    RequestHeader unset X-Forwarded-For
+    # The BayBot AI caller (password-protected app), served under /caller/ until it gets its own address.
+    RewriteEngine On
+    RewriteRule ^/caller\$ /caller/ [R=301,L]
+    ProxyPass /caller/ http://127.0.0.1:8200/ timeout=300
+    ProxyPassReverse /caller/ http://127.0.0.1:8200/
+    <Location /caller/>
+        LimitRequestBody 20000000
+        Header always set X-Robots-Tag "noindex, nofollow"
+        Header always set X-Frame-Options "DENY"
+        Header always set Cache-Control "no-store" "expr=%{REQUEST_URI} =~ m#^/caller/api/#"
+    </Location>
     ProxyPass / http://127.0.0.1:5000/
     ProxyPassReverse / http://127.0.0.1:5000/
     ErrorLog \${APACHE_LOG_DIR}/baybotdynamics-error.log

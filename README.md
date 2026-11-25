@@ -229,7 +229,7 @@ It filters out and reports:
 `assets/images/models/`, add an entry to `data/models.json`, then run
 `python3 tools/build_models.py`. Only `id` (lowercase-with-hyphens, unique),
 `name`, `category` and `description` are required. `category` must be one of
-`cleaning`, `delivery`, `industrial` or `quadruped`. Optional fields:
+`cleaning`, `delivery` or `industrial`. Optional fields:
 
 | Field | Shown on | Format |
 |---|---|---|
@@ -447,8 +447,8 @@ domain's DNS is on Cloudflare.
   `robots` meta from `noindex` to `index`.
 - **Social icons in the footer link to `#`.** Replace them with the real
   profile URLs, or remove them.
-- **Most models have no real specifications in the CMS.** Only the T150, D5
-  Series and BG1 Pro do; the rest have placeholder text there, which is
+- **Most models have no real specifications in the CMS.** Only the T150
+  and BG1 Pro do; the rest have placeholder text there, which is
   filtered out. Add specs per model (the `specs` table field works well) as
   they're confirmed, or fix them in the CMS and re-import.
 - **Two CMS video choices worth reviewing:** the T600 and T600 Underride

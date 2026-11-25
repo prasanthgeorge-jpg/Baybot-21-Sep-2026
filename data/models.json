@@ -163,8 +163,36 @@
       ],
       "features": [
         {
-          "name": "Wet Scrubbing and Dry Cleaning",
-          "html": "<p>Combines wet scrubbing, vacuuming, and dry cleaning for comprehensive floor care.</p>"
+          "name": "AI Spot Scrubbing",
+          "html": "<p>AI vision detects common wet stains such as coffee spills, sauces and puddles in real time and plans cleaning routes to them, at a cleaning rate of 1,500&ndash;3,000 m&sup2;/h.</p>"
+        },
+        {
+          "name": "Real-Time Cleaning Performance Detection",
+          "html": "<p>A rear AI camera checks the floor behind the robot, detects stains left behind and triggers automatic spot re-cleaning. It also produces a heatmap after each task.</p>"
+        },
+        {
+          "name": "AI Cleaning Intensity Control",
+          "html": "<p>Boosts power for stubborn stains and switches to eco mode on clean areas. Floor type detection sweeps and vacuums on hard floors and vacuums only on carpet.</p>"
+        },
+        {
+          "name": "AI Components Self-Monitoring",
+          "html": "<p>The rear AI system monitors the cleaning components, spots maintenance issues that could cause secondary contamination, and triggers marking, touch-up or self-cleaning.</p>"
+        },
+        {
+          "name": "4-in-1 Versatile Cleaning",
+          "html": "<p>Sweeping, scrubbing, vacuuming and dust mopping in one robot, as an all-in-one cleaning solution.</p>"
+        },
+        {
+          "name": "PUDU VSLAM+ Positioning",
+          "html": "<p>Visual SLAM and LiDAR fusion navigate complex spaces with no QR codes needed. With AI spot cleaning the robot covers 5,000&ndash;8,000 m&sup2;.</p>"
+        },
+        {
+          "name": "Omni-Sense Safety",
+          "html": "<p>AI-driven perception constantly detects static and moving obstacles, using an obstacle-recognition model that keeps expanding.</p>"
+        },
+        {
+          "name": "IEC 63327 Certification",
+          "html": "<p>PUDU states that the upgraded cleaning system complies with IEC 63327, with enhanced durability, easier maintenance and improved cleaning power.</p>"
         }
       ],
       "functions": [
@@ -172,9 +200,87 @@
           "title": "Automatically performs sweeping",
           "html": "<p>Automatically performs sweeping, scrubbing, vacuuming, and mopping in a single cleaning cycle.</p>",
           "image": "assets/images/models/functions/pudu-cc1-pro-1.webp"
+        },
+        {
+          "title": "Turn Cleaning Data into Insight",
+          "html": "<p>A waste hotspot map shows where the most waste collects, so you can schedule cleaning. A cleaning performance heatmap marks stains left after several cycles, and an operation dashboard tracks task completion, maintenance frequency and equipment alerts.</p>"
+        },
+        {
+          "title": "Connects to Your Building Systems",
+          "html": "<p>No system opening is needed, and the robot connects modularly to existing processes. Manage it with the PUDU Link app, with optional e-gate and elevator control.</p>"
+        },
+        {
+          "title": "Work Station Series",
+          "html": "<p>With the optional docking station the robot returns to charge on its own, refills and drains water automatically, and self-cleans its roller brush and squeegee.</p>"
         }
       ],
-      "cms_slug": "autonomous-multi-function-floor-cleaning-robot-for-commercial-facilities"
+      "cms_slug": "autonomous-multi-function-floor-cleaning-robot-for-commercial-facilities",
+      "specs": [
+        [
+          "Battery capacity",
+          "50 Ah"
+        ],
+        [
+          "Charging time",
+          "About 3 h"
+        ],
+        [
+          "Run time",
+          "Scrubbing 5 h; sweeping and vacuuming 5 h; carpet vacuuming 4 h; silent mopping 9 h"
+        ],
+        [
+          "Cleaning capabilities",
+          "Sweeping, carpet vacuuming, dust mopping, scrubbing"
+        ],
+        [
+          "Weight",
+          "75 kg (165.35 lb)"
+        ],
+        [
+          "Dimensions",
+          "629 x 552 x 695 mm (24.76 x 21.73 x 27.36 in)"
+        ],
+        [
+          "Display",
+          "10.1-inch LCD screen"
+        ],
+        [
+          "Navigation",
+          "LiDAR and visual fusion positioning (PUDU VSLAM+)"
+        ],
+        [
+          "Cruising speed",
+          "0.2 to 1.2 m/s (0.66 to 3.94 ft/s), adjustable"
+        ],
+        [
+          "Minimum path clearance",
+          "70 cm (27.56 in)"
+        ],
+        [
+          "Cleaning width (with side brush)",
+          "500 mm (19.69 in)"
+        ],
+        [
+          "Cleaning efficiency",
+          "700 to 1,000 m²/h all-covered cleaning; 1,500 to 3,000 m²/h with AI spot cleaning"
+        ],
+        [
+          "Dustbin capacity",
+          "2.5 L (0.66 gal), plus 6 L (1.59 gal) dust bag"
+        ],
+        [
+          "Water tanks",
+          "Clean water 15 L (3.96 gal); dirty water 15 L (3.96 gal)"
+        ],
+        [
+          "Communication",
+          "4G, Wi-Fi, Bluetooth; e-gate and elevator control (optional)"
+        ],
+        [
+          "Auto charging and water refill/drain",
+          "Supported with optional docking station"
+        ]
+      ]
     },
     {
       "id": "pudu-bg1-pro",
@@ -524,56 +630,86 @@
       "cms_slug": "autonomous-underride-heavy-payload-industrial-delivery-robot"
     },
     {
-      "id": "pudu-d5-series",
-      "name": "PUDU D5 Series",
-      "category": "quadruped",
-      "description": "All-terrain autonomous quadruped robot series.",
-      "image": "assets/images/models/pudu-d5-series.webp",
-      "image_alt": "PUDU D5 Series all-terrain quadruped robot",
-      "title": "Autonomus All-Terrain Quadruped Robot Series",
-      "summary_html": "<p>The PUDU D5 Series is an autonomous quadruped robot platform designed for all-terrain mobility in complex environments.</p>",
-      "overview_html": "<p>All-Terrain Mobility for Complex Environments</p>",
-      "video": "gH7DLaQlsuc",
+      "id": "baybot-zw193",
+      "name": "BayBot ZW193",
+      "category": "care",
+      "description": "Portable bed bathing system for full-body care without moving the patient.",
+      "image": "assets/images/models/baybot-zw193.webp",
+      "image_alt": "BayBot ZW193 portable intelligent bathing system, front and side views",
+      "badge": "New",
+      "title": "Portable Intelligent Bathing System: A Full Bath in Bed, With One Caregiver",
+      "summary_html": "<p>The BayBot ZW193 brings a complete, comfortable bath to the bedside. It sprays warm water and recovers the wastewater at the same moment, so a bedridden or less mobile person can be washed from head to toe without leaving the bed and without wetting the bedding.</p>",
+      "overview_html": "<p>Bathing is one of the hardest daily tasks in care. Moving a person to a bathroom takes two or three people, carries a real risk of falls and strain, and leaves many residents and patients going without a proper wash for days. The ZW193 removes the transfer. One caregiver wheels it to the bed, fills the built-in tank, and gives a thorough bath that keeps the person in a safe, private and familiar place.</p><p>It is compact, quiet and portable, so it works equally well in an aged care room, a hospital ward, a rehabilitation centre or a family home.</p>",
       "industries": [
-        "Inspection",
-        "Security",
-        "Research",
-        "Energy",
-        "Public Services"
+        "Aged care and nursing homes",
+        "Hospitals",
+        "Rehabilitation centers",
+        "Home care",
+        "Mobile bathing services",
+        "Hospice and palliative care"
       ],
       "features": [
         {
-          "name": "Intuitive Interaction & Smart Follow",
-          "html": "Multimodal Interaction<p>D5 combines voice and gesture control with 10+ natural gestures, using deep-vision sensing and an 6-mic array. AI noise reduction and sound localization ensure accurate responses even in noisy environments.</p>"
+          "name": "Wash and suction at the same time",
+          "html": "<p>Water is sprayed and drawn back in real time by a high-speed brushless turbine. Bedding and mattress stay dry, with no dripping and no puddles, and the person gets a true full-body bath, not a quick sponge wipe.</p>"
         },
         {
-          "name": "Intelligent Follow",
-          "html": "<p>With dynamic obstacle avoidance and trajectory prediction, D5 follows users precisely in crowded spaces, adjusting its path in real time for smooth and safe movement.</p>"
+          "name": "One caregiver, no transfer",
+          "html": "<p>Traditional bathing often needs two or three people to move someone to a bathroom. The ZW193 is operated by a single caregiver at the bedside, which cuts physical strain and removes the risk of a fall during transfer.</p>"
+        },
+        {
+          "name": "Dignity and privacy",
+          "html": "<p>Only the part of the body being washed is uncovered. The person stays in their own bed and room, which is calmer and far less exposing than a bathroom transfer.</p>"
+        },
+        {
+          "name": "Constant, comfortable water temperature",
+          "html": "<p>Water heats on demand with no long wait, and temperature is adjustable from 35 to 45 °C and held steady, so the bath stays warm and safe.</p>"
+        },
+        {
+          "name": "Built-in clean and waste tanks",
+          "html": "<p>A 3.5 L clean-water tank and a 2.85 L wastewater tank are built in, so there are no buckets or external containers. Clean and waste water run on separate circuits to prevent backflow and cross-contamination, and the screen warns you about low water or a full tank.</p>"
+        },
+        {
+          "name": "Gentle, shaped cleaning heads",
+          "html": "<p>A U-shaped hydrophilic sponge head follows the contours of the body. A separate silicone head is used for washing hair, so one machine covers body and hair.</p>"
+        },
+        {
+          "name": "Spoken step-by-step guidance",
+          "html": "<p>Real-time voice prompts and status messages guide caregivers and family members through each step, so new users can bathe someone confidently.</p>"
+        },
+        {
+          "name": "Quiet, safe operation",
+          "html": "<p>A brushless motor keeps operating noise at or below 65 dB. A leakage-protection plug cuts power if a fault is detected, and automatic tip-over protection shuts the unit down if it is tilted past 35° or knocked over.</p>"
         }
       ],
       "functions": [
         {
-          "title": "Remote Vision & Control, Always in Command",
-          "html": "<p>RCOS Remote Control System: Monitor real-time operating status and issue commands instantly. Video Feed: Live panoramic views from cameras give you full visibility of the on-site environment.</p>",
-          "image": "assets/images/models/functions/pudu-d5-series-1.webp"
+          "title": "Bed Bathing Without Transfers",
+          "html": "<p>Wheel the unit to the bedside, fill the clean tank, set the temperature and start. The person is washed where they lie, which keeps them comfortable and lets care teams bathe people who could not safely be moved.</p>"
         },
         {
-          "title": "All-Weather Durability and Extreme Resilience",
-          "html": "<p>D5 series supports cold-start at -10°C, operates from -20°C to 55°C, and achieves IP67 ingress protection for dependable performance in rain, snow, dust, and fluctuating climate conditions.</p>",
-          "image": "assets/images/models/functions/pudu-d5-series-2.webp"
+          "title": "Intelligent Suction That Adapts",
+          "html": "<p>Variable-frequency suction reaches up to -10 kPa and adjusts automatically to the water flow. It handles sponge bathing, shower bathing and hair washing, and leaves linen dry.</p>"
+        },
+        {
+          "title": "Built-In Monitoring and Protection",
+          "html": "<p>The system keeps watch over tank levels, tilt and operating status. It raises on-screen alerts when you need to refill or empty a tank, and protects the user and caregiver with automatic shutdown if something is wrong.</p>"
+        },
+        {
+          "title": "Easy to Carry and Store",
+          "html": "<p>A telescopic carry handle, hose management and a dedicated shower-handle holder keep everything together, so one person can move the unit between rooms, vehicles and storage.</p>"
         }
       ],
       "spec_sections": [
         {
-          "title": "PUDU D5",
-          "html": "<p>Standing Dimensions 900 × 543 × 572 mm (35.4* 21.4*22.5 in) Weight (with Battery) 61 kg (134.5 lbs) Computing Platform NVIDIA Jetson Orin AGX 64GB + RK3588 Perception Sensors Dual 3D LiDAR + Four Fisheye Cameras Maximum Joint Torque 165 Nm (121.7 lb·ft) Battery Capacity 1000 Wh Operating Time 2 ~ 2.5 h Continuous Walking Payload 20–30 kg (44–66 lbs) Climbing Capability Up to 80 cm (Up to 31.5 in) Maximum Step Height 30 cm (11.8 in) Slope Capability 25° ascent, 45° descent Operating Temperature –20°C to 55°C (–4°F to 131°F) Cold-Start Capability Below –10°C (Below 14°F) Ingress Protection IP67 Autonomous Navigation Supported Autonomous Following Supported Voice Interaction Suppor</p>"
+          "title": "Water System",
+          "html": "<ul><li><strong>Clean water tank:</strong> 3.5 L</li><li><strong>Wastewater tank:</strong> 2.85 L</li><li><strong>Water temperature:</strong> adjustable, 35 to 45 °C</li><li><strong>Heating:</strong> instant heating, no preheat wait</li><li><strong>Runtime per tank:</strong> up to 13 minutes in sponge bath mode, up to 10 minutes in shower mode</li></ul>"
         },
         {
-          "title": "PUDU D5-W",
-          "html": "<p>Standing Dimensions 900 mm × 543 mm × 572 mm (35.4* 21.4*22.5 in) Weight (with Battery) 62 kg (136.7 lbs) Computing Platform NVIDIA Jetson Orin AGX 64GB + RK3588 Perception Sensors Dual 3D LiDAR + Four Fisheye Cameras Maximum Joint Torque 165 Nm (121.7 lb·ft) Battery Capacity 1000 Wh Operating Time 2 ~ 3 h Continuous Walking Payload 20–30 kg (44–66 lbs) Climbing Capability Up to 80 cm (Up to 31.5 in) Maximum Step Height 25 cm (9.84 in) Slope Capability 30° ascent, 45° descent Operating Temperature –20°C to 55°C (–4°F to 131°F) Cold-Start Capability Below –10°C (Below 14°F) Ingress Protection IP67 Autonomous Navigation Supported Autonomous Following Supported Voice Interaction Supported</p>"
+          "title": "Performance and Safety",
+          "html": "<ul><li><strong>Suction:</strong> adjustable up to -10 kPa, variable-frequency control</li><li><strong>Motor:</strong> brushless turbine and motor</li><li><strong>Operating noise:</strong> 65 dB or less</li><li><strong>Tip-over protection:</strong> automatic shutdown beyond 35°</li><li><strong>Electrical protection:</strong> leakage-protection plug</li><li><strong>Cleaning heads:</strong> sponge head (body) and silicone head (hair)</li></ul>"
         }
-      ],
-      "cms_slug": "autonomus-all-terrain-quadruped-robot-series"
+      ]
     }
   ]
 }

@@ -1001,7 +1001,6 @@ document.addEventListener('keydown', function(e) {
         { name:'PUDU T150', href:'product-pudu-t150.html', img:'assets/images/models/pudu-t150.webp', desc:'Light-payload transport.', needs:['transport'], sizes:['small','medium'], industries:['warehouse','manufacturing'] },
         { name:'PUDU T300', href:'product-pudu-t300.html', img:'assets/images/models/pudu-t300.webp', desc:'Medium-payload transport.', needs:['transport'], sizes:['medium'], industries:['warehouse','manufacturing'] },
         { name:'PUDU T600', href:'product-pudu-t600.html', img:'assets/images/models/pudu-t600.webp', desc:'Heavy-payload transport.', needs:['transport'], sizes:['medium','large'], industries:['warehouse','manufacturing'] },
-        { name:'PUDU D5', href:'product-pudu-d5-series.html', img:'assets/images/models/pudu-d5-series.webp', desc:'All-terrain quadruped.', needs:['inspection','security'], sizes:['medium','large'], industries:['security','manufacturing','warehouse'] }
     ];
 
 

@@ -32,7 +32,6 @@ PUDU
   T600 (heavy payload), T600 Underride (underride automation for heavy
   transport). The T150, T300 and T600 serve factories, warehouses and
   logistics; the T300 is also used in hospitals and hotels.
-- D5 Series: all-terrain autonomous quadruped robots.
 - MP2000 autonomous pallet handler (forklift): AI-native, no site changes
   needed, up to 2,000 kg load, about 12 hours of battery with no load and about
   6 hours at full load, works in narrow aisles. For warehouses, distribution

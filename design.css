@@ -818,6 +818,10 @@ input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="
 .hero-slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transform: translateX(24px); transition: opacity .35s ease, transform .35s ease, visibility 0s .35s; }
 .hero-slide.is-active { opacity: 1; visibility: visible; transform: none; transition: opacity .35s ease, transform .35s ease; }
 .hero-product-image.is-photo { width: 56%; right: 3%; bottom: 8%; border-radius: 18px; background: #fff; box-shadow: 0 22px 40px rgba(10, 31, 68, .25); filter: none; }
+.hero-product-image.is-new { width: auto; height: 78%; right: 6%; bottom: 12%; border-radius: 18px; background: #fff; box-shadow: 0 22px 40px rgba(10, 31, 68, .25); filter: none; }
+.hero-new-badge { position: absolute; left: 0; top: 0; z-index: 3; display: inline-flex; align-items: center; gap: .45rem; padding: .55rem 1.1rem; background: #ff6b35; color: #fff; border-radius: var(--r-plate) 0 var(--r-plate) 0; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; font-size: .95rem; box-shadow: 0 10px 24px rgba(255, 107, 53, .4); animation: new-pulse 2s infinite; }
+@keyframes new-pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 107, 53, .6); } 70% { box-shadow: 0 0 0 14px rgba(255, 107, 53, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0); } }
+@media (prefers-reduced-motion: reduce) { .hero-new-badge { animation: none; } }
 .hero-dots { position: absolute; right: 16px; top: 16px; display: flex; gap: 8px; z-index: 3; }
 .hero-dot { width: 12px; height: 12px; padding: 0; border-radius: 50%; border: 2px solid var(--blue); background: #fff; cursor: pointer; }
 .hero-dot.is-active { background: var(--blue); }
@@ -828,6 +832,8 @@ input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="
 @media (max-width: 968px) {
     .hero-product-image { right: 2%; bottom: 3%; width: 56%; }
     .hero-product-image.is-photo { width: 52%; right: 4%; bottom: 14%; }
+    .hero-product-image.is-new { width: auto; height: 78%; right: 8%; bottom: 14%; }
+    .hero-new-badge { font-size: .8rem; padding: .4rem .8rem; }
     .hero-media-caption { font-size: .85rem; padding: .6rem .8rem; }
     .hero-dot { width: 10px; height: 10px; }
 }
@@ -873,3 +879,4 @@ input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="
 
 .wizard-seeall { margin: 1.1rem 0 0; font-weight: 700; }
 .wizard-seeall a { color: var(--blue); text-decoration: none; }
+#care .section-product-image { max-height: 440px; width: auto; max-width: 100%; margin: 0 auto; }
