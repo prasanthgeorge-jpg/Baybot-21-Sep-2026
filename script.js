@@ -1193,3 +1193,47 @@ document.addEventListener('keydown', function(e) {
     }, { passive: true });
     start();
 })();
+
+// ---- Parts Store: search and robot filter for the price list ----
+(function() {
+    var search = document.getElementById('plSearch'), robot = document.getElementById('plRobot');
+    if (!search || !robot) return;
+    var blocks = document.querySelectorAll('.pl-block');
+    function fmt(n) { return Number(n).toLocaleString('en-US'); }
+    function apply() {
+        var words = search.value.toLowerCase().split(/\s+/).filter(Boolean), r = robot.value;
+        var filtering = words.length > 0 || r !== '';
+        blocks.forEach(function(b) {
+            var rows = b.querySelectorAll('tbody tr'), shown = 0;
+            rows.forEach(function(tr) {
+                var ok = true;
+                if (r && ('|' + tr.getAttribute('data-robots') + '|').indexOf('|' + r + '|') === -1) ok = false;
+                if (ok && words.length) { var hay = tr.getAttribute('data-search'); for (var i = 0; i < words.length; i++) { if (hay.indexOf(words[i]) === -1) { ok = false; break; } } }
+                tr.hidden = !ok; if (ok) shown++;
+            });
+            b.querySelector('.pl-empty').hidden = shown !== 0;
+            b.querySelector('.pl-table-wrap').hidden = shown === 0;
+            b.querySelector('.pl-shown').textContent = filtering ? '(' + fmt(shown) + ' of ' + fmt(rows.length) + ' shown)' : '';
+            var c = document.querySelector('[data-count-for="' + b.getAttribute('data-section') + '"]');
+            if (c) c.textContent = fmt(filtering ? shown : rows.length);
+        });
+    }
+    var t = null;
+    search.addEventListener('input', function() { clearTimeout(t); t = setTimeout(apply, 120); });
+    robot.addEventListener('change', apply);
+    // highlight the tab of the section being read
+    var tabs = document.querySelectorAll('.pl-tab');
+    if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function(es) {
+            es.forEach(function(e) { if (e.isIntersecting) tabs.forEach(function(a) { a.classList.toggle('is-active', a.getAttribute('data-target') === e.target.getAttribute('data-section')); }); });
+        }, { rootMargin: '-30% 0px -60% 0px' });
+        blocks.forEach(function(b) { io.observe(b); });
+    }
+    // "Request a quote" on a price: carry the part number into the request form
+    document.querySelectorAll('.pl-quote').forEach(function(a) {
+        a.addEventListener('click', function() {
+            var m = document.getElementById('p-message');
+            if (m && !m.value) m.value = 'Please quote part ' + a.getAttribute('data-sku') + '.';
+        });
+    });
+})();
